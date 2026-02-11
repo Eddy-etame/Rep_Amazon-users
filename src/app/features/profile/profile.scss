@@ -1,0 +1,139 @@
+.profile-page {
+  margin-top: 2rem;
+  background: #020617;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header p {
+  margin: 0.25rem 0 0;
+  color: #9ca3af;
+}
+
+.header button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: #f97316;
+  color: #111827;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-form {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.edit-form h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.edit-form > p {
+  margin: 0 0 1rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.edit-form form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.edit-form form input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #f9fafb;
+}
+
+.edit-form form input:focus {
+  outline: none;
+  border-color: #f97316;
+}
+
+.edit-form form button {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: #f97316;
+  color: #111827;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-form .save-message {
+  margin: 0.75rem 0 0;
+  color: #16a34a;
+  font-size: 0.9rem;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.tile {
+  padding: 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #020617;
+}
+
+.tile h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.tile p {
+  margin: 0 0 0.75rem;
+  color: #9ca3af;
+}
+
+.tile a {
+  color: #f97316;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.tile a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
