@@ -1,0 +1,100 @@
+<section class="products-page">
+  <header class="header">
+    <h1>Produits</h1>
+    <p>Découvrez une sélection de produits mock inspirés d’Amazon.</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="categories">
+      <button
+        type="button"
+        (click)="selectCategory(null)"
+        [class.active]="!selectedCategory"
+      >
+        Tous
+      </button>
+      @for (cat of categories; track cat) {
+        <button
+          type="button"
+          (click)="selectCategory(cat)"
+          [class.active]="selectedCategory === cat"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+    <div class="sort">
+      <label for="sort">Trier par :</label>
+      <select id="sort" [ngModel]="sortBy" (ngModelChange)="sortBy = $event">
+        <option value="pertinence">Pertinence</option>
+        <option value="prix_asc">Prix croissant</option>
+        <option value="prix_desc">Prix décroissant</option>
+        <option value="note">Note</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="products-layout">
+    <aside class="filters">
+      <h3>Filtres</h3>
+      <div class="filter-group">
+        <label>Prix min (FCFA)</label>
+        <input type="number" [(ngModel)]="priceMin" placeholder="Min" min="0" />
+      </div>
+      <div class="filter-group">
+        <label>Prix max (FCFA)</label>
+        <input type="number" [(ngModel)]="priceMax" placeholder="Max" min="0" />
+      </div>
+      <div class="filter-group">
+        <label>Catégorie</label>
+        @for (cat of categories; track cat) {
+          <button
+            type="button"
+            class="filter-cat"
+            [class.active]="selectedCategory === cat"
+            (click)="selectCategory(selectedCategory === cat ? null : cat)"
+          >
+            {{ cat }}
+          </button>
+        }
+      </div>
+    </aside>
+    <div class="grid">
+    @for (product of filteredProducts; track product.id) {
+      <article class="product-card" [routerLink]="['/produits', product.id]">
+        <button
+          type="button"
+          class="cart-icon"
+          (click)="cartActions.addProductById(product.id, '/produits'); $event.stopPropagation()"
+          title="Ajouter au panier"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="image-wrap">
+          <img [src]="product.imagePrincipale" [alt]="product.titre" />
+          @if (product.livraisonGratuite) {
+            <span class="badge-free">Livraison gratuite</span>
+          }
+        </div>
+        <div class="body">
+          <h2 class="title-clamp">{{ product.titre }}</h2>
+          @if (product.note != null) {
+            <p class="stars">{{ formatStars(product.note) }} {{ product.nbAvis ?? 0 }} avis</p>
+          }
+          <p class="meta">{{ product.categorie }} • {{ product.ville }}</p>
+          <p class="price">
+            @if (product.prixBarre) {
+              <span class="barre">{{ product.prixBarre | number:'1.0-0' }} FCFA</span>
+            }
+            {{ product.prix | number:'1.0-0' }} FCFA
+          </p>
+          <p class="description">{{ product.descriptionCourte }}</p>
+        </div>
+      </article>
+    }
+    </div>
+  </div>
+</section>
+

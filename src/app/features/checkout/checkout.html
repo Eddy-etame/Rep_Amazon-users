@@ -1,0 +1,38 @@
+<section class="card">
+  <h1>Paiement</h1>
+  <p>Récapitulatif de commande et informations de livraison.</p>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Adresse de livraison</h2>
+      <p>Cette section reste mock pour l’instant.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Moyen de paiement</h2>
+      <p>Aucun paiement réel n’est effectué dans cette démo.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Résumé de la commande</h2>
+
+      @if (!items().length) {
+        <p>Aucun article dans le panier.</p>
+      } @else {
+        <ul class="summary-list">
+          @for (item of items(); track item.productId) {
+            <li>
+              <span>{{ item.titre }} (x{{ item.quantite }})</span>
+              <span
+                >{{ item.prixUnitaire * item.quantite | number:'1.0-0' }} FCFA</span
+              >
+            </li>
+          }
+        </ul>
+        <p class="total">
+          Total : <strong>{{ totalPrice() | number:'1.0-0' }} FCFA</strong>
+        </p>
+      }
+    </div>
+  </div>
+</section>

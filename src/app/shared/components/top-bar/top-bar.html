@@ -1,0 +1,147 @@
+<header class="top-bar-wrapper">
+  <div class="top-bar">
+    <a routerLink="/" class="brand">
+      <span class="logo">Amaz</span>
+      <span class="tagline">Marketplace</span>
+    </a>
+
+    <div class="delivery-block" *ngIf="deliveryCity">
+      <span class="delivery-label">Livrer à</span>
+      <span class="delivery-city">{{ deliveryCity }}</span>
+    </div>
+
+    <div class="search-wrap">
+      <form class="search-form" (ngSubmit)="onSearch()">
+        <input
+          type="search"
+          [(ngModel)]="searchQuery"
+          name="searchQuery"
+          placeholder="Rechercher des produits..."
+          (input)="onSearchInput()"
+          (focus)="showSuggestions = true"
+          (blur)="hideSuggestionsSoon()"
+        />
+        <button type="submit">Rechercher</button>
+      </form>
+      @if (showSuggestions && searchSuggestions.length > 0) {
+        <ul class="search-suggestions">
+          @for (s of searchSuggestions; track s.id) {
+            <li>
+              <a routerLink="/produits/{{ s.id }}" (mousedown)="selectSuggestion(s.id)">{{ s.titre }}</a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+  <nav class="nav">
+    @if (!isLoggedIn) {
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 3 3 10h2v9h5v-6h4v6h5v-9h2z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Accueil</span>
+      </a>
+      <a routerLink="/produits" routerLinkActive="active">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M4 6h16v2H4zm2 4h12v2H6zm-2 4h16v2H4z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Produits</span>
+      </a>
+    } @else {
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 3 3 10h2v9h5v-6h4v6h5v-9h2z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Accueil</span>
+      </a>
+      <a routerLink="/produits" routerLinkActive="active">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M4 6h16v2H4zm2 4h12v2H6zm-2 4h16v2H4z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Produits</span>
+      </a>
+      <a routerLink="/panier" routerLinkActive="active" class="cart-link" [class.bump]="isCartBumping">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Panier</span>
+        @if (totalQuantity() > 0) {
+          <span class="cart-badge">{{ totalQuantity() }}</span>
+        }
+      </a>
+      <a routerLink="/commandes" routerLinkActive="active">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M6 4h9l3 3v13H6V4zm2 4v2h8V8H8zm0 4v2h8v-2H8zm0 4v2h5v-2H8z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Commandes</span>
+      </a>
+      <a routerLink="/profil" routerLinkActive="active">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-3.3 0-6 1.8-6 4v2h12v-2c0-2.2-2.7-4-6-4z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Profil</span>
+      </a>
+    }
+  </nav>
+
+    <div class="actions">
+      @if (!isLoggedIn) {
+        <a routerLink="/connexion" class="btn">Se connecter</a>
+      } @else {
+        <div class="account-dropdown" (mouseenter)="accountOpen = true" (mouseleave)="accountOpen = false">
+          <button type="button" class="account-trigger">
+            Bonjour, {{ userName }} ▾
+          </button>
+          @if (accountOpen) {
+            <div class="account-menu">
+              <a routerLink="/profil">Compte</a>
+              <a routerLink="/commandes">Commandes</a>
+              <button type="button" (click)="logout()">Se déconnecter</button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="categories-row">
+    <a routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }">Électronique</a>
+    <a routerLink="/produits" [queryParams]="{ categorie: 'Mode' }">Mode</a>
+    <a routerLink="/produits" [queryParams]="{ categorie: 'Cuisine' }">Cuisine</a>
+    <a routerLink="/produits" [queryParams]="{ categorie: 'Informatique' }">Informatique</a>
+    <a routerLink="/produits" [queryParams]="{ categorie: 'Maison' }">Maison</a>
+    @if (categoriesMenuOpen) {
+      <div class="categories-menu-overlay" (click)="categoriesMenuOpen = false"></div>
+      <div class="categories-menu">
+        <a routerLink="/produits" (click)="categoriesMenuOpen = false">Tous les produits</a>
+        <a routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }" (click)="categoriesMenuOpen = false">Électronique</a>
+        <a routerLink="/produits" [queryParams]="{ categorie: 'Mode' }" (click)="categoriesMenuOpen = false">Mode</a>
+        <a routerLink="/produits" [queryParams]="{ categorie: 'Cuisine' }" (click)="categoriesMenuOpen = false">Cuisine</a>
+        <a routerLink="/produits" [queryParams]="{ categorie: 'Informatique' }" (click)="categoriesMenuOpen = false">Informatique</a>
+        <a routerLink="/produits" [queryParams]="{ categorie: 'Maison' }" (click)="categoriesMenuOpen = false">Maison</a>
+      </div>
+    }
+  </div>
+</header>

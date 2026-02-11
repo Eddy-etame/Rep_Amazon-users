@@ -1,0 +1,39 @@
+<section class="card">
+  <h1>Créer un compte</h1>
+  <p>Inscrivez-vous pour accéder à votre espace client et suivre vos commandes.</p>
+
+  <form class="form">
+    <label>
+      Nom complet
+      <input #nameInput type="text" placeholder="Votre nom complet" />
+    </label>
+
+    <label>
+      Adresse e-mail
+      <input #emailInput type="email" placeholder="exemple@domaine.com" />
+    </label>
+
+    <label>
+      Mot de passe
+      <input
+        #passwordInput
+        type="password"
+        placeholder="Minimum 8 caractères"
+      />
+    </label>
+
+    <button
+      type="button"
+      (click)="handleRegister(nameInput.value, emailInput.value, passwordInput.value)"
+    >
+      Créer mon compte
+    </button>
+
+    <p class="form-error" [hidden]="!registerError">{{ registerError }}</p>
+  </form>
+
+  <div class="helper">
+    <span>Déjà inscrit ?</span>
+    <a routerLink="/connexion">Se connecter</a>
+  </div>
+</section>

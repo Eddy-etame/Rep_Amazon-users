@@ -1,0 +1,87 @@
+<section class="carousel">
+  <div class="carousel-inner">
+    @for (slide of carouselSlides; track slide.id) {
+      <a [routerLink]="slide.link" class="carousel-slide" [style.backgroundImage]="'url(' + slide.image + ')'">
+        <span class="carousel-title">{{ slide.title }}</span>
+      </a>
+    }
+  </div>
+</section>
+
+<section class="hero">
+  <div>
+    @if (isLoggedIn) {
+      <h1>Bonjour {{ session()?.nom }}, voici votre espace</h1>
+      <p>
+        Dernière connexion : il y a
+        {{
+          session()?.lastLoginAt
+            ? ((snapshot().now - session()!.lastLoginAt) / 60000 | number:'1.0-0')
+            : 0
+        }}
+        min
+      </p>
+      <div class="summary">
+        <div class="summary-item">
+          <span class="label">Commandes en cours</span>
+          <span class="value">{{ snapshot().commandes.length }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Recommandations</span>
+          <span class="value">{{ snapshot().recommandations.length }}</span>
+        </div>
+      </div>
+    } @else {
+      <h1>Bienvenue sur Amaz</h1>
+      <p>Découvrez des produits sélectionnés par nos vendeurs et gérez vos achats en toute simplicité.</p>
+      <div class="actions">
+        <a class="primary" routerLink="/connexion">Se connecter</a>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="placeholder">
+  <h2>Recommandations personnalisées</h2>
+  <p>Source de vérité temporelle : t = minutes écoulées depuis la création.</p>
+
+  <div class="cards">
+    @for (item of snapshot().recommandations; track item.id) {
+      <article class="card" [class.expired]="item.validite === 'a_actualiser'" [routerLink]="['/produits', item.id]">
+        <button
+          type="button"
+          class="cart-icon"
+          (click)="cartActions.addProductById(item.id, '/'); $event.stopPropagation()"
+          title="Ajouter au panier"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="card-image" *ngIf="getProductImage(item.id) as imageUrl">
+          <img [src]="imageUrl" [alt]="item.titre" />
+          @if (getProduct(item.id)?.livraisonGratuite) {
+            <span class="badge-free">Livraison gratuite</span>
+          }
+        </div>
+        <div class="card-header">
+          <h3 class="title-clamp">{{ item.titre }}</h3>
+          <span class="badge" [class.active]="item.validite === 'actif'">
+            t={{ item.t }} min
+          </span>
+        </div>
+        @if (getProduct(item.id)?.note != null) {
+          <p class="stars">{{ formatStars(getProduct(item.id)!.note!) }} {{ getProduct(item.id)!.nbAvis ?? 0 }} avis</p>
+        }
+        <p class="meta">{{ item.categorie }} • {{ item.ville }}</p>
+        <p class="price">
+          @if (getProduct(item.id)?.prixBarre) {
+            <span class="barre">{{ getProduct(item.id)!.prixBarre! | number:'1.0-0' }} FCFA</span>
+          }
+          {{ item.prix | number:'1.0-0' }} FCFA
+        </p>
+      </article>
+    }
+  </div>
+</section>
+

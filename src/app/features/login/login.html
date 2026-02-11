@@ -1,0 +1,34 @@
+<section class="card">
+  <h1>Connexion</h1>
+  <p>Accédez à votre espace client pour suivre vos commandes.</p>
+
+  <form class="form">
+    <label>
+      Adresse e-mail
+      <input #emailInput type="email" placeholder="exemple@domaine.com" />
+    </label>
+
+    <label>
+      Mot de passe
+      <input
+        #passwordInput
+        type="password"
+        placeholder="Votre mot de passe (min. 8 caractères)"
+      />
+    </label>
+
+    <button
+      type="button"
+      (click)="handleLogin(emailInput.value, passwordInput.value)"
+    >
+      Se connecter
+    </button>
+
+    <p class="form-error" [hidden]="!loginError">{{ loginError }}</p>
+  </form>
+
+  <div class="helper">
+    <span>Nouveau sur Amaz ?</span>
+    <a routerLink="/inscription">Créer un compte</a>
+  </div>
+</section>

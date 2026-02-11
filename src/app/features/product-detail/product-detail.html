@@ -1,0 +1,91 @@
+@if (product) {
+  <section class="product-detail">
+    <div class="images">
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="product!.titre" />
+      </div>
+      <div class="thumbnails">
+        <button
+          type="button"
+          (click)="selectImage(product!.imagePrincipale)"
+          [class.active]="selectedImage === product!.imagePrincipale"
+        >
+          <img [src]="product!.imagePrincipale" [alt]="product!.titre" />
+        </button>
+        @for (img of product!.galerie; track img) {
+          <button
+            type="button"
+            (click)="selectImage(img)"
+            [class.active]="selectedImage === img"
+          >
+            <img [src]="img" [alt]="product!.titre" />
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="content">
+      <p class="breadcrumb">
+        <a routerLink="/produits">Produits</a> / {{ product!.categorie }}
+      </p>
+      <div class="title-row">
+        <h1>{{ product!.titre }}</h1>
+        <button
+          type="button"
+          class="cart-icon"
+          (click)="addToCart()"
+          title="Ajouter au panier"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+      @if (product!.note != null) {
+        <p class="stars">{{ formatStars(product!.note) }} {{ product!.nbAvis ?? 0 }} avis</p>
+      }
+      <p class="meta">{{ product!.categorie }} • {{ product!.ville }}</p>
+      <p class="price">
+        @if (product!.prixBarre) {
+          <span class="barre">{{ product!.prixBarre | number:'1.0-0' }} FCFA</span>
+        }
+        <span class="current">{{ product!.prix | number:'1.0-0' }} FCFA</span>
+      </p>
+      <p class="delivery">
+        @if (product!.livraisonGratuite) {
+          Livraison gratuite
+        } @else {
+          Livraison estimée : 2–3 jours
+        }
+      </p>
+      <p class="stock">En stock</p>
+
+      <div class="quantity-row">
+        <label for="qty">Quantité :</label>
+        <select id="qty" [(ngModel)]="quantity">
+          @for (q of quantityOptions; track q) {
+            <option [value]="q">{{ q }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-cart" (click)="addToCart()">Ajouter au panier</button>
+        <button type="button" class="btn-buy" (click)="buyNow()">Acheter maintenant</button>
+      </div>
+
+      <details class="description-accordion">
+        <summary>Description</summary>
+        <p class="description">
+          {{ product!.descriptionDetaillee }}
+        </p>
+      </details>
+    </div>
+  </section>
+} @else {
+  <section class="product-detail">
+    <p>Produit introuvable.</p>
+    <a routerLink="/produits">Revenir aux produits</a>
+  </section>
+}
+

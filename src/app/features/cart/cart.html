@@ -1,0 +1,72 @@
+<section class="cart-page">
+  <header class="cart-header">
+    <div>
+      <h1>Votre panier</h1>
+      <p>Validez votre commande ou continuez vos achats.</p>
+    </div>
+    <form class="cart-search" (submit)="$event.preventDefault()">
+      <input
+        #searchInput
+        type="search"
+        placeholder="Rechercher dans votre panier"
+        (input)="updateSearch(searchInput.value)"
+      />
+      <button type="submit">Rechercher</button>
+    </form>
+  </header>
+
+  @if (!totalQuantity()) {
+    <p class="empty">
+      Votre panier est vide. Parcourez les produits et ajoutez des articles pour
+      poursuivre la commande.
+    </p>
+  } @else {
+    <div class="cart-layout">
+      <div class="items">
+        @for (item of filteredItems; track item.productId) {
+          <article class="item">
+            <img [src]="item.imagePrincipale" [alt]="item.titre" />
+            <div class="info">
+              <h2>{{ item.titre }}</h2>
+              <p class="price">{{ item.prixUnitaire | number:'1.0-0' }} FCFA</p>
+              <div class="quantity">
+                <button type="button" (click)="decrement(item.productId, item.quantite)">
+                  -
+                </button>
+                <span>{{ item.quantite }}</span>
+                <button type="button" (click)="increment(item.productId, item.quantite)">
+                  +
+                </button>
+                <button type="button" class="remove" (click)="remove(item.productId)">
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <aside class="summary">
+        <h2>Résumé</h2>
+        <p class="subtotal">Sous-total ({{ totalQuantity() }} article{{ totalQuantity() > 1 ? 's' : '' }}) : {{ totalPrice() | number:'1.0-0' }} FCFA</p>
+        <div class="promo">
+          <input
+            type="text"
+            [(ngModel)]="promoCode"
+            name="promoCode"
+            placeholder="Code promo"
+          />
+          <button type="button" (click)="applyPromo()">Appliquer</button>
+          @if (promoMessage) {
+            <span class="promo-msg">{{ promoMessage }}</span>
+          }
+        </div>
+        <p class="total">Total : {{ totalPrice() | number:'1.0-0' }} FCFA</p>
+        <button type="button" (click)="passerCommande()">Passer la commande</button>
+        <button type="button" class="link-orders" (click)="goToOrders()">
+          Voir mes commandes
+        </button>
+      </aside>
+    </div>
+  }
+</section>
