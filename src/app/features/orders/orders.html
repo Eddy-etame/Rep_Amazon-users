@@ -1,0 +1,33 @@
+<section class="card">
+  <h1>Mes commandes</h1>
+  <p>
+    Historique de vos commandes et suivi des statuts.
+    <span class="hint">t = minutes écoulées depuis la création de la commande.</span>
+  </p>
+
+  @if (!snapshot().commandes.length) {
+    <div class="empty">Aucune commande disponible pour le moment.</div>
+  } @else {
+    <div class="orders-list">
+      @for (cmd of snapshot().commandes; track cmd.id) {
+        <article class="order" [class.expired]="cmd.validite === 'a_actualiser'">
+          <header>
+            <h2>Commande {{ cmd.id }}</h2>
+            <span class="badge" [class.active]="cmd.validite === 'actif'">
+              t={{ cmd.t }} min
+            </span>
+          </header>
+          <p class="meta">
+            Statut :
+            <strong>{{ cmd.statut }}</strong>
+          </p>
+          @if (cmd.total !== undefined) {
+            <p class="total">
+              Total : <strong>{{ cmd.total | number:'1.0-0' }} FCFA</strong>
+            </p>
+          }
+        </article>
+      }
+    </div>
+  }
+</section>
