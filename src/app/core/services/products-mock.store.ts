@@ -31,8 +31,8 @@ export class ProductsMockStore {
         'Profitez d’un son immersif et d’une autonomie de 30h avec ce casque Bluetooth Pro, idéal pour le travail et les voyages.',
       imagePrincipale: "https://tse1.mm.bing.net/th/id/OIP.fcgjqsPp4JTUxLVre_GqjwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
       galerie: [
-        "https://burst.shopifycdn.com/photos/wireless-headphones.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/easy-listening.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://tse1.mm.bing.net/th/id/OIP.xG9ogpa4TNR4rKkONOBFJAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://spacenet.tn/166084-large_default/casque-sans-fil-p9-bluetooth-avec-emplacement-carte-memoire-gris.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 45,
       note: 4.5,
@@ -51,8 +51,8 @@ export class ProductsMockStore {
         'Sac à dos imperméable avec compartiment pour ordinateur portable 15", parfait pour le bureau, la fac ou les week-ends.',
       imagePrincipale: "https://cdn.shopify.com/s/files/1/0804/5461/5380/files/sac-a-dos-urbain-impermeable_4.jpg?v=1705442444",
       galerie: [
-        "https://burst.shopifycdn.com/photos/black-fashion-backpack.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/gold-zipper-on-black-fashion-backpack.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://cdn11.bigcommerce.com/s-ktikayh2p6/images/stencil/1280x1280/products/253/21677/sac-a-dos-etanche-anti-vol__67928.1665616619.jpg?c=1",
+        "https://th.bing.com/th/id/R.9256ae244931de1af2cdd87f422e2e4d?rik=HITJQOmTLusFMw&riu=http%3a%2f%2fwww.walkent.com%2fcdn%2fshop%2ffiles%2fArtboard1_cb22cf3a-f6d6-48ac-ba18-256227a5021d_1200x1200.jpg%3fv%3d1713090679&ehk=g4Hq%2bb79ydpUYxdmIUz6kHyTfUXbnBnl0gfiy%2b%2fbZxc%3d&risl=&pid=ImgRaw&r=0"
       ],
       createdAt: Date.now() - 1000 * 60 * 90,
       note: 4.2,
@@ -70,8 +70,8 @@ export class ProductsMockStore {
         'Bol en verre, 3 vitesses, fonction glace pilée. Idéal pour les jus, smoothies et sauces maison.',
       imagePrincipale: "https://www.cdiscount.com/pdt2/7/6/4/1/700x700/aaais25764/rw/blendermini-mixeur-compact.jpg",
       galerie: [
-        "https://burst.shopifycdn.com/photos/ripe-red-strawberries-in-a-white-bowl.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/kitchen-ready-for-cooking.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://boulanger.scene7.com/is/image/Boulanger/5413184913045_h_f_l_0?wid=1354&hei=1354&resMode=sharp2&op_usm=1.75,0.3,2,0&fmt=png-alpha",
+        "https://boulanger.scene7.com/is/image/Boulanger/5413184906979_h_f_l_0?wid=1354&hei=1354&resMode=sharp2&op_usm=1.75,0.3,2,0&fmt=png-alpha"
       ],
       createdAt: Date.now() - 1000 * 60 * 240,
       note: 4.6,
@@ -91,8 +91,8 @@ export class ProductsMockStore {
         'Ordinateur portable polyvalent avec processeur moderne, écran 15" Full HD et stockage SSD 512 Go. Idéal pour la bureautique, les cours en ligne et le divertissement à la maison.',
       imagePrincipale: "https://www.electrodepot.fr/media/catalog/product/cache/21829524fa1ab23f727c95c7cf2d8bf0/P10008531.jpg?frz-v=4277",
       galerie: [
-        "https://burst.shopifycdn.com/photos/portrait-of-illuminated-laptop.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/laptop-keyboard-illuminated-in-red.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://digitallyours.fr/wp-content/uploads/2020/09/61HWVZfhm4L._AC_SL1500_.jpg",
+        "https://www.bfmtv.com/comparateur/wp-content/uploads/2024/04/Definition-dun-PC-portable-15-pouces.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 60,
       note: 4.7,
@@ -111,8 +111,8 @@ export class ProductsMockStore {
         'Écran 6,5" lumineux, 4 Go RAM, 128 Go de stockage, double SIM et batterie longue durée. Idéal pour les réseaux sociaux, la navigation et le travail en mobilité.',
       imagePrincipale: "https://th.bing.com/th/id/OIP.40xiJW3ZQVxSRh7PPPcs9wHaHa?w=193&h=193&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
       galerie: [
-        "https://burst.shopifycdn.com/photos/illuminated-laptop-and-mobile-phone.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/open-laptop-and-cell-phone-on-table.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://m.media-amazon.com/images/I/61Lp1UcxeLL.jpg",
+        "https://api-rayashop.freetls.fastly.net/media/catalog/product/cache/4e49ac3a70c0b98a165f3fa6633ffee1/4/9/499ioyc_nwkrcxmxzruftmxx.jpeg"
       ],
       createdAt: Date.now() - 1000 * 60 * 10,
       note: 4.3,
@@ -130,10 +130,10 @@ export class ProductsMockStore {
         'Baskets confortables pour le quotidien, la marche et la salle de sport.',
       descriptionDetaillee:
         'Chaussures de sport respirantes avec semelle amortissante et design moderne. Parfaites pour la marche en ville, le footing léger et les journées actives.',
-      imagePrincipale: "https://www.bing.com/th/id/OIP.MXLcaRL8cOxKeBbJZXEbwwHaHa?w=186&h=211&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
+      imagePrincipale: "https://m.media-amazon.com/images/I/71N3frmGa4L.__AC_SX395_SY395_QL70_ML2_.jpg",
       galerie: [
-        "https://burst.shopifycdn.com/photos/ready-set-snow.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/gardening-flatlay.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://tse2.mm.bing.net/th/id/OIP.PulVbhUOT_9vS9Ytc0Wc-wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://ortorex.fr/wp-content/uploads/2024/01/Lightweight-Running-Sneakers-Sports-Shoes-ORTOREX-4.webp"
       ],
       createdAt: Date.now() - 1000 * 60 * 180,
       note: 4.4,
@@ -150,10 +150,10 @@ export class ProductsMockStore {
         'Robot de cuisine 5 en 1 pour râper, mixer, pétrir et plus encore.',
       descriptionDetaillee:
         'Bol grande capacité, plusieurs accessoires pour râper, couper, mixer et pétrir vos préparations. Gagnez du temps sur la préparation de vos plats au quotidien.',
-      imagePrincipale: "https://burst.shopifycdn.com/photos/kitchen-ready-for-cooking.jpg?width=3840&format=pjpg&exif=0&iptc=0",
+      imagePrincipale: "https://www.bing.com/th?id=OPEC.T9ongoiyxJ3fFA474C474&o=5&pid=21.1&w=128&h=148&qlt=100&dpr=1,3&o=2&bw=6&bc=FFFFFF",
       galerie: [
-        "https://burst.shopifycdn.com/photos/sarah_kitchen_supplies_red_adjusted.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/ripe-red-strawberries-in-a-white-bowl.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://boulanger.scene7.com/is/image/Boulanger/5011423007755_h_f_l_0?wid=1354&hei=1354&resMode=sharp2&op_usm=1.75,0.3,2,0&fmt=png-alpha",
+        "https://tse3.mm.bing.net/th/id/OIP.TJ4bnR2__D8uQfnfJs1GzAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
       ],
       createdAt: Date.now() - 1000 * 60 * 75,
       note: 4.8,
@@ -172,8 +172,8 @@ export class ProductsMockStore {
         'Écran 43\" Full HD, couleurs vives et son clair. Idéal pour le salon, avec plusieurs ports HDMI/USB pour connecter décodeur, console et clé USB.',
       imagePrincipale: "https://www.bing.com/th?id=OPEC.NqKLb%2bPwM%2fbSUA474C474&o=5&pid=21.1&w=140&h=140&qlt=100&dpr=1,3&o=2&pcl=f5f5f5",
       galerie: [
-        "https://burst.shopifycdn.com/photos/illuminated-laptop-and-mobile-phone.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/open-laptop-and-cell-phone-on-table.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://boulanger.scene7.com/is/image/Boulanger/6942351415628_h_f_l_0?wid=1354&hei=1354&resMode=sharp2&op_usm=1.75,0.3,2,0&fmt=png-alpha",
+        "https://boulanger.scene7.com/is/image/Boulanger/8806097211372_h_f_l_0?wid=1354&hei=1354&resMode=sharp2&op_usm=1.75,0.3,2,0&fmt=png-alpha"
       ],
       createdAt: Date.now() - 1000 * 60 * 300,
       note: 4.5,
@@ -190,10 +190,10 @@ export class ProductsMockStore {
         'Chaise de bureau réglable avec support lombaire pour travailler confortablement.',
       descriptionDetaillee:
         'Dossier ergonomique, accoudoirs réglables et assise rembourrée pour vos longues journées de travail. Idéal pour le télétravail ou le bureau.',
-      imagePrincipale: "https://burst.shopifycdn.com/photos/a-minimal-yet-cosy-workspace.jpg?width=3840&format=pjpg&exif=0&iptc=0",
+      imagePrincipale: "https://www.bing.com/th/id/OIP.ONItPhcq2MbugP0ZVEdPAgHaFj?w=226&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/office-flat-lay-on-wooden-desk-with-catch-tray.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/woman-sitting-on-phone-in-modern-office-chair.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://www.canape-pas-cher.fr/wp-content/uploads/2025/10/featured-test-du-fauteuil-de-bureau-emiah-ergonomique-avec-repose-pieds-1003x1024.jpg",
+        "https://maisonsante.fr/wp-content/uploads/2024/05/1715123270_choisir-le-meilleur-fauteuil-de-bureau-ergonomique-quels-criteres-privilegier.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 25,
       note: 4.6,
@@ -212,8 +212,8 @@ export class ProductsMockStore {
         'Suivi des pas, du sommeil, du rythme cardiaque et des entraînements. Reçoit les notifications de votre smartphone et résiste aux éclaboussures.',
       imagePrincipale: "https://www.bing.com/th/id/OIP.CPFfqoRLd-UlEumdcR-digHaEL?w=255&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/wrist-watches.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/modern-bamboo-wristwatch.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://tse1.mm.bing.net/th/id/OIP.KD-zpyshWuUAJcEi8s29NgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://www.montres-cardio.fr/wp-content/uploads/2025/12/featured-test-de-la-montre-connectee-oukitel-bt13-performance-et-autonomie-exceptionnelles.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 5,
       note: 4.3,
@@ -230,10 +230,10 @@ export class ProductsMockStore {
       descriptionCourte: 'Set complet pour le télétravail et le gaming.',
       descriptionDetaillee:
         'Clavier sans fil, souris ergonomique et casque audio. Design épuré et confortable pour vos longues sessions de travail ou de jeu.',
-      imagePrincipale: "https://burst.shopifycdn.com/photos/gaming-glasses-mouse.jpg?width=3840&format=pjpg&exif=0&iptc=0",
+      imagePrincipale: "https://th.bing.com/th/id/OIP.cws_M-gKDNqROMIiy7_WVwHaHa?w=220&h=220&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
       galerie: [
-        "https://burst.shopifycdn.com/photos/designers-desk-flatlay.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/brightly-lit-laptop-keyboard.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://www.lextronic.fr/89518-thickbox_default/clavier-souris-casque-gck51110bkus.jpg",
+        "https://www.cdiscount.com/pdt2/5/3/2/1/700x700/ino3770016925532/rw/pack-special-gaming-casque-clavier-souris-ta.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 120,
       note: 4.4,
@@ -251,8 +251,8 @@ export class ProductsMockStore {
         'Clavier sans fil compact avec pavé numérique, autonomie 18 mois. Touches silencieuses et design épuré pour une frappe confortable.',
       imagePrincipale: "https://www.bing.com/th/id/OIP.LW7ZYPWTaex4TjOZ1m-OvgHaEo?w=262&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/portrait-of-illuminated-laptop.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/laptop-keyboard-illuminated-in-red.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://www.allblogger.tips/wp-content/uploads/raw.jpg",
+        "https://a-static.mlcdn.com.br/800x560/teclado-gamer-kingston-hyperx-alloy-core-anti-ghosting-led-com-efeitos-rgb-abnt-hx-kb5me2-br/oficinadosbits2/24094/3850a7273952cbfb361c8f8e932a32b7.jpeg"
       ],
       createdAt: Date.now() - 1000 * 60 * 80,
       note: 4.6,
@@ -268,10 +268,10 @@ export class ProductsMockStore {
       descriptionCourte: 'Cafetière filtre 12 tasses avec minuterie et verseuse isotherme.',
       descriptionDetaillee:
         'Préparez votre café au réveil grâce à la minuterie programmable. Réservoir amovible, filtre permanent et arrêt automatique.',
-      imagePrincipale: "https://burst.shopifycdn.com/photos/black-kettle-and-pour-over-coffee.jpg?width=3840&format=pjpg&exif=0&iptc=0",
+      imagePrincipale: "https://www.bing.com/th/id/OIP.sOpDvke-MBwhKGjUiIIpMgHaE8?w=286&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/espresso-machine-with-dark-wood-handles.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/creamy-cold-drink-sits-on-a-wooden-table.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://tse4.mm.bing.net/th/id/OIP.F4CKX_0qXAJJIJqP2tLBCgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://m.media-amazon.com/images/I/71cgG37Bk+L._AC_SY879_.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 150,
       note: 4.5,
@@ -290,8 +290,8 @@ export class ProductsMockStore {
         'Capacité 64 Go, USB 3.0 pour des transferts jusqu\'à 100 Mo/s. Compacte et fiable pour vos documents, photos et vidéos.',
       imagePrincipale: "https://www.bing.com/th/id/OIP.Tez6kCPRZBDuCwUgwIuFmgHaHa?w=199&h=199&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/close-up-of-motherboard.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/electronic-components-for-science-project.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://m.media-amazon.com/images/I/61FUES-5yHL._AC_SX679_.jpg",
+        "https://m.media-amazon.com/images/I/51yFlqI8o0L._AC_SX679_.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 30,
       note: 4.3,
@@ -309,8 +309,8 @@ export class ProductsMockStore {
         '20000 mAh, double port USB, charge rapide. Rechargez votre smartphone jusqu\'à 4 fois. Indicateur LED et protection contre les surcharges.',
       imagePrincipale: "https://www.bing.com/th/id/OIP.YMygNxqpWXw0YFglMCX7OAHaIO?w=163&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/trendy-bluetooth-speaker.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/waterproof-bluetooth-speaker.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://ae-pic-a1.aliexpress-media.com/kf/S6f5b2cecead741bebef7eb86085389894.jpg_720x720q75.jpg_.avif",
+        "https://m.media-amazon.com/images/I/71M9CcKqPeL._AC_SL1500_.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 95,
       note: 4.2,
@@ -328,8 +328,8 @@ export class ProductsMockStore {
         'T-shirt unisexe en coton respirant. Coupe régulière, col rond, couleurs unies. Idéal pour le quotidien ou le sport.',
       imagePrincipale: "https://www.bing.com/th/id/OIP.PxrlcMu6Ytk6kcjlYzOsxgHaKB?w=160&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/red-t-shirt.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/grey-t-shirt.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://imagescdn.simons.ca/images/6736-219063-31-A1_2/le-t-shirt-col-rond-touche-de-laine.jpg?__=8",
+        "https://i.otto.de/i/otto/b23d720a-4777-5f3e-b3a2-0960c7bbb042/hechter-paris-rundhalsshirt-mit-satinpiping.jpg?$formatz$"
       ],
       createdAt: Date.now() - 1000 * 60 * 200,
       note: 4.1,
@@ -345,10 +345,10 @@ export class ProductsMockStore {
       descriptionCourte: 'Lampe de bureau à LED réglable, 3 niveaux de luminosité.',
       descriptionDetaillee:
         'Lampe design avec bras flexible, base lestée. Éclairage LED blanc froid et chaud, économie d\'énergie. Parfaite pour le télétravail.',
-      imagePrincipale: "https://burst.shopifycdn.com/photos/copper-light-in-bedroom.jpg?width=3840&format=pjpg&exif=0&iptc=0",
+      imagePrincipale: "https://media.adeo.com/mkp/2c7ad474add9580f23bcd4dd759f810c/media.jpg?width=3000&height=3000&format=jpg&quality=80&fit=bounds",
       galerie: [
-        "https://burst.shopifycdn.com/photos/teak-headboard-table.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/yellow-pillow-bedside-table.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://m.media-amazon.com/images/I/61U3Hg3U17L._AC_SL1500_.jpg",
+        "https://s3-eu-west-1.amazonaws.com/nedgis/public/images/products/lampe-de-bureau-original-1227-brass-gris-clair-h60cm-anglepoise/gallery/original-1227-brass_george-carwardine_anglepoise_31308_luminaire_lighting_design_signed-222448-product.jpg?1723650137"
       ],
       createdAt: Date.now() - 1000 * 60 * 70,
       note: 4.5,
@@ -366,8 +366,8 @@ export class ProductsMockStore {
         'Souris optique sans fil avec portée 10 m. Design ergonomique pour droitiers, autonomie 12 mois. Compatible Windows et Mac.',
       imagePrincipale: "https://www.bing.com/th/id/OIP.8s-gDapiBqHvDV9-y2i_WgHaHa?w=174&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
       galerie: [
-        "https://burst.shopifycdn.com/photos/video-game-controller.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/designers-desk-flatlay.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://www.hp.com/fr-fr/shop/Html/Merch/Images/c06932175_1750x1285.jpg",
+        "https://m.media-amazon.com/images/I/41oknH75jGL._AC_.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 45,
       note: 4.4,
@@ -383,10 +383,10 @@ export class ProductsMockStore {
       descriptionCourte: 'Stockage portable USB 3.0 pour sauvegardes et multimédia.',
       descriptionDetaillee:
         '1 To de stockage, interface USB 3.0. Design compact et robuste, sauvegarde automatique possible. Idéal pour sauvegarder vos photos et vidéos.',
-      imagePrincipale: "https://burst.shopifycdn.com/photos/close-up-of-motherboard.jpg?width=3840&format=pjpg&exif=0&iptc=0",
+      imagePrincipale: "https://mk-media.mytek.tn/media/catalog/product/cache/8be3f98b14227a82112b46963246dfe1/d/i/disque-dur-externe-lacie-lune-1to-usb-c-argent-p.jpg",
       galerie: [
-        "https://burst.shopifycdn.com/photos/digital-photography-flatlay.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/portrait-of-illuminated-laptop.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://boulanger.scene7.com/is/image/Boulanger/3660619040148_h_f_l_0?wid=1354&hei=1354&resMode=sharp2&op_usm=1.75,0.3,2,0&fmt=png-alpha",
+        "https://m.media-amazon.com/images/I/61EunJBqIkL._AC_SX569_.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 100,
       note: 4.6,
@@ -404,29 +404,29 @@ export class ProductsMockStore {
         'Batterie complète : 2 casseroles, 1 poêle, 1 sauteuse. Inox 18/10, poignées bakélite résistantes à la chaleur. Compatible induction.',
       imagePrincipale: "https://th.bing.com/th/id/OIP.pqAX3C67r_xqz40mOV1iMgHaEM?w=332&h=188&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
       galerie: [
-        "https://burst.shopifycdn.com/photos/sarah_kitchen_supplies_red_adjusted.jpg?width=3840&format=pjpg&exif=0&iptc=0",
-        "https://burst.shopifycdn.com/photos/bare-stony-room-with-two-wooden-benches-and-coffee-tables.jpg?width=3840&format=pjpg&exif=0&iptc=0"
+        "https://cdn.myshoptet.com/usr/www.kulina.fr/user/shop/big/311590_batterie-de-cuisine-modern--5-pi--ces--zwilling.jpg?637ec0bb",
+        "https://media.cdn.kaufland.de/product-images/original/2859751fca1714f158828c2eb622c044.jpg"
       ],
       createdAt: Date.now() - 1000 * 60 * 180,
       note: 4.7,
       nbAvis: 234,
       livraisonGratuite: false
     },
-    { id: 'prod-21', titre: 'Écouteurs Bluetooth', categorie: 'Électronique', ville: 'Douala', prix: 18500, descriptionCourte: 'Écouteurs ultraportables avec réduction de bruit.', descriptionDetaillee: 'Écouteurs sans fil, 24h d\'autonomie. Confort optimisé pour les longues sessions.', imagePrincipale: "https://burst.shopifycdn.com/photos/flat-lay-of-phone-and-wireless-earbuds.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/wireless-headphones.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/black-coffee-and-phone-flatlay.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 50, note: 4.4, nbAvis: 567, prixBarre: 22000, livraisonGratuite: true },
-    { id: 'prod-22', titre: 'Jean slim', categorie: 'Mode', ville: 'Yaoundé', prix: 15000, descriptionCourte: 'Jean slim stretch, coupe moderne.', descriptionDetaillee: 'Jean confortable en coton stretch. Taille ajustée.', imagePrincipale: "https://burst.shopifycdn.com/photos/man-sits-and-laughs.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/person-in-a-white-shirt-sits-in-front-of-a-brick-wall.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/hotdog-pin-man-jean-jacket.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 120, note: 4.3, nbAvis: 234, livraisonGratuite: false },
-    { id: 'prod-23', titre: 'Grille-pain 2 fentes', categorie: 'Cuisine', ville: 'Bafoussam', prix: 12500, descriptionCourte: 'Grille-pain compact avec 6 niveaux de cuisson.', descriptionDetaillee: 'Grille-pain économique, plaques antiadhésives amovibles.', imagePrincipale: "https://burst.shopifycdn.com/photos/breakfast-from-above.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/croissant-coffee.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/restaurant-breakfast.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 90, note: 4.5, nbAvis: 189, livraisonGratuite: true },
-    { id: 'prod-24', titre: 'Webcam HD 1080p', categorie: 'Informatique', ville: 'Douala', prix: 35000, descriptionCourte: 'Webcam Full HD pour visioconférence.', descriptionDetaillee: 'Webcam avec micro intégré, pivot réglable.', imagePrincipale: "https://burst.shopifycdn.com/photos/a-person-talking-to-their-laptop-screen.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/graphic-designer-at-work.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/designer-at-work.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 70, note: 4.6, nbAvis: 312, prixBarre: 42000, livraisonGratuite: true },
-    { id: 'prod-25', titre: 'Table de chevet', categorie: 'Maison', ville: 'Yaoundé', prix: 28000, descriptionCourte: 'Table de chevet en bois avec tiroir.', descriptionDetaillee: 'Table de chevet design épuré, tiroir de rangement.', imagePrincipale: "https://burst.shopifycdn.com/photos/teak-headboard-table.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/yellow-pillow-bedside-table.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/gift-with-flowers-on-bedside-table.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 100, note: 4.2, nbAvis: 89, livraisonGratuite: false },
-    { id: 'prod-26', titre: 'Enceinte portable', categorie: 'Électronique', ville: 'Douala', prix: 42000, descriptionCourte: 'Enceinte Bluetooth waterproof, 20W.', descriptionDetaillee: 'Enceinte portable waterproof IPX7, batterie 12h.', imagePrincipale: "https://burst.shopifycdn.com/photos/trendy-bluetooth-speaker.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/portable-bluetooth-music-speaker.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/waterproof-bluetooth-speaker.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 85, note: 4.7, nbAvis: 456, livraisonGratuite: true },
-    { id: 'prod-27', titre: 'Robe d\'été', categorie: 'Mode', ville: 'Bafoussam', prix: 18500, descriptionCourte: 'Robe légère en coton, coupe fluide.', descriptionDetaillee: 'Robe confortable pour l\'été, coupe universelle.', imagePrincipale: "https://burst.shopifycdn.com/photos/woman-dressed-in-white-leans-against-a-wall.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/model-with-leather-jacket-over-shoulders.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/cozy-reading-in-bed.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 60, note: 4.4, nbAvis: 123, livraisonGratuite: true },
-    { id: 'prod-28', titre: 'Bouilloire électrique', categorie: 'Cuisine', ville: 'Yaoundé', prix: 15000, descriptionCourte: 'Bouilloire 1,7 L, arrêt automatique.', descriptionDetaillee: 'Bouilloire rapide, base 360°, sécurité anti-débordement.', imagePrincipale: "https://burst.shopifycdn.com/photos/black-kettle-and-pour-over-coffee.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/barista-pour-over-coffee-from-copper-kettle.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/black-coffee-and-phone-flatlay.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 110, note: 4.5, nbAvis: 278, livraisonGratuite: true },
-    { id: 'prod-29', titre: 'Support PC portable', categorie: 'Informatique', ville: 'Douala', prix: 12000, descriptionCourte: 'Support ventilé pour ordinateur portable.', descriptionDetaillee: 'Support ergonomique avec ventilation, réglable en hauteur.', imagePrincipale: "https://burst.shopifycdn.com/photos/laptop-from-above.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/laptop-on-desk-from-above.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/designer-at-work.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 95, note: 4.3, nbAvis: 167, livraisonGratuite: true },
-    { id: 'prod-30', titre: 'Plaque chauffante', categorie: 'Cuisine', ville: 'Bafoussam', prix: 22000, descriptionCourte: 'Plaque électrique 2 zones, induction.', descriptionDetaillee: 'Plaque induction 2 zones, commandes tactiles.', imagePrincipale: "https://burst.shopifycdn.com/photos/kitchen-ready-for-cooking.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/sarah_kitchen_supplies_red_adjusted.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/woman-in-collared-shirt-in-the-kitchen-holding-a-mug.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 80, note: 4.6, nbAvis: 189, livraisonGratuite: false },
-    { id: 'prod-31', titre: 'Raspberry Pi 4', categorie: 'Informatique', ville: 'Yaoundé', prix: 55000, descriptionCourte: 'Mini PC 4 Go RAM pour projets DIY.', descriptionDetaillee: 'Raspberry Pi 4, processeur Quad-core, WiFi et Bluetooth.', imagePrincipale: "https://burst.shopifycdn.com/photos/close-up-of-motherboard.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/electronic-components-for-science-project.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/pieces-needed-for-building-a-robot.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 45, note: 4.8, nbAvis: 234, livraisonGratuite: true },
-    { id: 'prod-32', titre: 'Couverture polaire', categorie: 'Maison', ville: 'Douala', prix: 9500, descriptionCourte: 'Couverture douce 150x200 cm.', descriptionDetaillee: 'Couverture polaire ultra-douce, lavable en machine.', imagePrincipale: "https://burst.shopifycdn.com/photos/woman-resting-her-feet-by-the-window.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/blush-coloured-couch-with-blankets.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/comfortable-living-room-cat.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 130, note: 4.2, nbAvis: 445, livraisonGratuite: true },
-    { id: 'prod-33', titre: 'Tap Isométrique', categorie: 'Mode', ville: 'Bafoussam', prix: 8500, descriptionCourte: 'Tapis de yoga antidérapant 6 mm.', descriptionDetaillee: 'Tapis yoga écologique, surface antidérapante.', imagePrincipale: "https://burst.shopifycdn.com/photos/yoga-mat-unrolled.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/yoga-accessories.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/crescent-moon-pose-side-stretch.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 140, note: 4.4, nbAvis: 312, livraisonGratuite: false },
-    { id: 'prod-34', titre: 'Presse-agrumes', categorie: 'Cuisine', ville: 'Yaoundé', prix: 18000, descriptionCourte: 'Presse-agrumes électrique, grand bol.', descriptionDetaillee: 'Presse-agrumes pour oranges et citrons, collecteur 1,2 L.', imagePrincipale: "https://burst.shopifycdn.com/photos/ripe-red-strawberries-in-a-white-bowl.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/hibiscus-tea.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/creamy-cold-drink-sits-on-a-wooden-table.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 75, note: 4.5, nbAvis: 198, livraisonGratuite: true },
-    { id: 'prod-35', titre: 'Étagère 5 niveaux', categorie: 'Maison', ville: 'Douala', prix: 25000, descriptionCourte: 'Étagère métallique pour rangement.', descriptionDetaillee: 'Étagère robuste 5 niveaux, montage facile.', imagePrincipale: "https://burst.shopifycdn.com/photos/ladder-plant-shelf.jpg?width=3840&format=pjpg&exif=0&iptc=0", galerie: ["https://burst.shopifycdn.com/photos/babys-toys-on-shelf.jpg?width=3840&format=pjpg&exif=0&iptc=0", "https://burst.shopifycdn.com/photos/office-desk-in-window-light.jpg?width=3840&format=pjpg&exif=0&iptc=0"], createdAt: Date.now() - 1000 * 60 * 160, note: 4.3, nbAvis: 76, livraisonGratuite: false }
+    { id: 'prod-21', titre: 'Écouteurs Bluetooth', categorie: 'Électronique', ville: 'Douala', prix: 18500, descriptionCourte: 'Écouteurs ultraportables avec réduction de bruit.', descriptionDetaillee: 'Écouteurs sans fil, 24h d\'autonomie. Confort optimisé pour les longues sessions.', imagePrincipale: "https://boostit.cdiscount.com/wp-content/uploads/2022/06/1800-1800-1-1.jpg", galerie: ["https://m.media-amazon.com/images/I/817YA1ejTtL.jpg", "https://m.media-amazon.com/images/I/51B1zvur0EL._AC_.jpg"], createdAt: Date.now() - 1000 * 60 * 50, note: 4.4, nbAvis: 567, prixBarre: 22000, livraisonGratuite: true },
+    { id: 'prod-22', titre: 'Jean slim', categorie: 'Mode', ville: 'Yaoundé', prix: 15000, descriptionCourte: 'Jean slim stretch, coupe moderne.', descriptionDetaillee: 'Jean confortable en coton stretch. Taille ajustée.', imagePrincipale: "https://tse3.mm.bing.net/th/id/OIP.QDB2IZVXaK27EdgEERuLCwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3", galerie: ["https://static.kiabi.com/images/jean-slim-taille-haute---l28-brut-acm03_2_fr2.jpg", "https://www.jasmina.fr/wp-content/uploads/2016/03/Jean-slim-1.jpg"], createdAt: Date.now() - 1000 * 60 * 120, note: 4.3, nbAvis: 234, livraisonGratuite: false },
+    { id: 'prod-23', titre: 'Grille-pain 2 fentes', categorie: 'Cuisine', ville: 'Bafoussam', prix: 12500, descriptionCourte: 'Grille-pain compact avec 6 niveaux de cuisson.', descriptionDetaillee: 'Grille-pain économique, plaques antiadhésives amovibles.', imagePrincipale: "https://www.tunisianet.com.tn/351633-large/grille-pain-techwood-2-fentes-larges-inox-750w-noir.jpg", galerie: ["https://www.le-pem.fr/1316-large_default/grille-pain-2-fentes-selecteur-vario-inox-dualit.jpg", "https://tse4.mm.bing.net/th/id/OIP.nQ0_i2l9v-WtfqR5QM0I5AHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"], createdAt: Date.now() - 1000 * 60 * 90, note: 4.5, nbAvis: 189, livraisonGratuite: true },
+    { id: 'prod-24', titre: 'Webcam HD 1080p', categorie: 'Informatique', ville: 'Douala', prix: 35000, descriptionCourte: 'Webcam Full HD pour visioconférence.', descriptionDetaillee: 'Webcam avec micro intégré, pivot réglable.', imagePrincipale: "https://i5.walmartimages.com/asr/09af324e-cd47-45eb-a247-e15681a020df.331fda407791b9b8ff147216c56b5330.png", galerie: ["https://m.media-amazon.com/images/I/51vQzOif+mL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/61ZT0gALI7L._AC_SY300_SX300_QL70_ML2_.jpg"], createdAt: Date.now() - 1000 * 60 * 70, note: 4.6, nbAvis: 312, prixBarre: 42000, livraisonGratuite: true },
+    { id: 'prod-25', titre: 'Table de chevet', categorie: 'Maison', ville: 'Yaoundé', prix: 28000, descriptionCourte: 'Table de chevet en bois avec tiroir.', descriptionDetaillee: 'Table de chevet design épuré, tiroir de rangement.', imagePrincipale: "https://media.adeo.com/mkp/804f5990ec68c82aed94a9de0fb70917/media.png?width=3000&height=3000&format=jpg&quality=80&fit=bounds", galerie: ["https://maison.20minutes.fr/wp-content/uploads/2023/12/19-oceano-loberon.jpg", "https://www.therange.co.uk/media/4/6/1716559310_11_9079.jpg"], createdAt: Date.now() - 1000 * 60 * 100, note: 4.2, nbAvis: 89, livraisonGratuite: false },
+    { id: 'prod-26', titre: 'Enceinte portable', categorie: 'Électronique', ville: 'Douala', prix: 42000, descriptionCourte: 'Enceinte Bluetooth waterproof, 20W.', descriptionDetaillee: 'Enceinte portable waterproof IPX7, batterie 12h.', imagePrincipale: "https://tse3.mm.bing.net/th/id/OIP.FTnhdF1PZHZ1BtvtFV0lowHaHa?rs=1&pid=ImgDetMain&o=7&rm=3", galerie: ["https://m.media-amazon.com/images/I/71Ae5OlcXCL._AC_SL1500_.jpg", "https://otc.lk/wp-content/uploads/2024/08/Soundtec-Party-Speaker-200W-with-5.25-Woofer-2-Tweeter-and-FM-Black-by-otc.lk-in-srilanka.png"], createdAt: Date.now() - 1000 * 60 * 85, note: 4.7, nbAvis: 456, livraisonGratuite: true },
+    { id: 'prod-27', titre: 'Robe d\'été', categorie: 'Mode', ville: 'Bafoussam', prix: 18500, descriptionCourte: 'Robe légère en coton, coupe fluide.', descriptionDetaillee: 'Robe confortable pour l\'été, coupe universelle.', imagePrincipale: "https://img.freepik.com/free-photo/romantic-portrait-woman-long-blue-dress-beach-by-sea-windy-day_343596-938.jpg?t=st=1718722690~exp=1718726290~hmac=e45f0a422ceb70ba055d8bf27c768f39ee6f10c0ae19d6857c2a6581cf9e9027&w=1800", galerie: ["https://fr-be.tendances-de-mode.com/images/upload/1696533923.jpg", "https://www-s.mlo.me/upen/v/202303/20230309/c61bab9d-ea9c-43a6-9e41-8630a9c81110.jpg"], createdAt: Date.now() - 1000 * 60 * 60, note: 4.4, nbAvis: 123, livraisonGratuite: true },
+    { id: 'prod-28', titre: 'Bouilloire électrique', categorie: 'Cuisine', ville: 'Yaoundé', prix: 15000, descriptionCourte: 'Bouilloire 1,7 L, arrêt automatique.', descriptionDetaillee: 'Bouilloire rapide, base 360°, sécurité anti-débordement.', imagePrincipale: "https://m1.zeste.ca/serdy-m-dia-inc/image/upload/f_auto/fl_lossy/q_auto:eco/x_247,y_0,w_976,h_976,c_crop/w_556,h_556,c_scale/v1704902873/foodlavie/prod/articles/les-meilleures-bouilloires-electriques-a-se-procurer-829e377d", galerie: ["https://content.pearl.fr/media/cache/default/article_ultralarge_high_nocrop/shared/images/articles/N/NC3/bouilloire-avec-theiere-affichage-temperature-et-plaque-chauffante-ref_NC3651_1.jpg", "https://m.media-amazon.com/images/I/61-b5wMoTOL._AC_SX679_.jpg"], createdAt: Date.now() - 1000 * 60 * 110, note: 4.5, nbAvis: 278, livraisonGratuite: true },
+    { id: 'prod-29', titre: 'Support PC portable', categorie: 'Informatique', ville: 'Douala', prix: 12000, descriptionCourte: 'Support ventilé pour ordinateur portable.', descriptionDetaillee: 'Support ergonomique avec ventilation, réglable en hauteur.', imagePrincipale: "https://m.media-amazon.com/images/I/415+2Ej9xaL.jpg", galerie: ["https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2023/07/41ep-s4kfxl-_sl500_.jpg", "https://tse4.mm.bing.net/th/id/OIP.BMZC12hUiMVfx4p9uVDK1AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"], createdAt: Date.now() - 1000 * 60 * 95, note: 4.3, nbAvis: 167, livraisonGratuite: true },
+    { id: 'prod-30', titre: 'Plaque chauffante', categorie: 'Cuisine', ville: 'Bafoussam', prix: 22000, descriptionCourte: 'Plaque électrique 2 zones, induction.', descriptionDetaillee: 'Plaque induction 2 zones, commandes tactiles.', imagePrincipale: "https://www.cdiscount.com/pdt2/8/4/9/1/700x700/san1719556576849/rw/ehskzjh-plaques-chauffantes-plaque-chauffante-ele.jpg", galerie: ["https://arabinene.com/13227-large_default/rechaud-plaque-chauffante-electrique-boma-hpso-hs01st-1-foyer-1500w-avec-poignee-en-acier-inoxydable.jpg", "https://www.cdiscount.com/pdt2/4/4/6/1/550x550/sss1688708146446/rw/plaque-chauffante-electrique-dewin-1000w-plaques.jpg"], createdAt: Date.now() - 1000 * 60 * 80, note: 4.6, nbAvis: 189, livraisonGratuite: false },
+    { id: 'prod-31', titre: 'Raspberry Pi 4', categorie: 'Informatique', ville: 'Yaoundé', prix: 55000, descriptionCourte: 'Mini PC 4 Go RAM pour projets DIY.', descriptionDetaillee: 'Raspberry Pi 4, processeur Quad-core, WiFi et Bluetooth.', imagePrincipale: "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/02/raspberry-pi-4-model-b.jpg", galerie: ["https://preview.free3d.com/img/2019/07/2158650583907567492/bo2kb7ee.jpg", "https://wallpaperbat.com/img/8637110-raspberry-pi-4-model-b.jpg"], createdAt: Date.now() - 1000 * 60 * 45, note: 4.8, nbAvis: 234, livraisonGratuite: true },
+    { id: 'prod-32', titre: 'Couverture polaire', categorie: 'Maison', ville: 'Douala', prix: 9500, descriptionCourte: 'Couverture douce 150x200 cm.', descriptionDetaillee: 'Couverture polaire ultra-douce, lavable en machine.', imagePrincipale: "https://www.salysenegal.net/wp-content/uploads/2021/10/image-choisir-une-couverture-polaire-pour-les-vacances.jpg", galerie: ["https://www.mille-et-une-couverture.com/wp-content/uploads/2023/01/couverture-chaude-en-polaire-5.jpg", "https://www.mille-et-une-couverture.com/wp-content/uploads/2022/12/couverture-double-face-en-polaire-marron-l.webp"], createdAt: Date.now() - 1000 * 60 * 130, note: 4.2, nbAvis: 445, livraisonGratuite: true },
+    { id: 'prod-33', titre: 'Tapis Isométrique', categorie: 'Mode', ville: 'Bafoussam', prix: 8500, descriptionCourte: 'Tapis de yoga antidérapant 6 mm.', descriptionDetaillee: 'Tapis yoga écologique, surface antidérapante.', imagePrincipale: "https://img.freepik.com/premium-vector/isometric-carpet_592324-1484.jpg", galerie: ["https://tse4.mm.bing.net/th/id/OIP.inGoG9E1BWJBXU3pjHr2yQHaGe?rs=1&pid=ImgDetMain&o=7&rm=3", "https://img.freepik.com/vecteurs-premium/tapis-isometrique_592324-13433.jpg"], createdAt: Date.now() - 1000 * 60 * 140, note: 4.4, nbAvis: 312, livraisonGratuite: false },
+    { id: 'prod-34', titre: 'Presse-agrumes', categorie: 'Cuisine', ville: 'Yaoundé', prix: 18000, descriptionCourte: 'Presse-agrumes électrique, grand bol.', descriptionDetaillee: 'Presse-agrumes pour oranges et citrons, collecteur 1,2 L.', imagePrincipale: "https://www.offrir-retailers.com/image-produit/58530/T2/24292585306e556c7e9094be14bb642139cc8669c35d4bbecb5e931.jpg", galerie: ["https://www.nature-vitalite.com/481-superlarge_default/presse-agrumes-electrique-en-inox.jpg", "https://m.media-amazon.com/images/I/818y+VHLiGL._AC_SX679_.jpg"], createdAt: Date.now() - 1000 * 60 * 75, note: 4.5, nbAvis: 198, livraisonGratuite: true },
+    { id: 'prod-35', titre: 'Étagère 5 niveaux', categorie: 'Maison', ville: 'Douala', prix: 25000, descriptionCourte: 'Étagère métallique pour rangement.', descriptionDetaillee: 'Étagère robuste 5 niveaux, montage facile.', imagePrincipale: "https://media.adeo.com/mkp/195cd48cfefda778dec8b18de2ab00cb/media.jpg?width=650&height=650&format=jpg&quality=80&fit=bounds", galerie: ["https://www.concept-bureau.fr/15937-large_default/etagere-de-rangement-avec-5-niveaux-lotus.jpg", "https://www.idmarket.com/34544-product_main_2x/etagere-5-niveaux-detroit-170cm-design-industriel-bois-et-metal-blanc.jpg"], createdAt: Date.now() - 1000 * 60 * 160, note: 4.3, nbAvis: 76, livraisonGratuite: false }
   ]);
 
   readonly products = this.productsSignal.asReadonly();
