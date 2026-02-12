@@ -1,0 +1,66 @@
+<section class="order-detail">
+  @if (!order) {
+    <div class="empty">
+      <p>Commande introuvable.</p>
+      <a routerLink="/commandes">Retour aux commandes</a>
+    </div>
+  } @else {
+    <header>
+      <h1>Commande {{ order.id }}</h1>
+      <span class="badge status">{{ order.statut }}</span>
+    </header>
+
+    <div class="meta">
+      <p>Date de commande : {{ formatDate(order.createdAt) }}</p>
+      <p>Date de livraison prévue : {{ formatDate(order.deliveryDate) }}</p>
+      @if (order.deliveredAt) {
+        <p>Livrée le : {{ formatDate(order.deliveredAt) }}</p>
+      }
+    </div>
+
+    @if (order.adresseLivraison) {
+      <div class="address-block">
+        <h2>Adresse de livraison</h2>
+        <p>{{ order.adresseLivraison.street }}</p>
+        <p>{{ order.adresseLivraison.postalCode }} {{ order.adresseLivraison.city }}, {{ order.adresseLivraison.country }}</p>
+      </div>
+    }
+
+    <div class="items-block">
+      <h2>Articles</h2>
+      <ul class="items-list">
+        @for (item of order.items ?? []; track item.productId) {
+          <li class="item">
+            <span class="item-title">{{ item.titre }}</span>
+            <span class="item-qty">× {{ item.quantite }}</span>
+            <span class="item-price">{{ item.prixUnitaire * item.quantite | amazCurrency }}</span>
+          </li>
+        }
+      </ul>
+      <p class="total">Total : <strong>{{ (order.total ?? 0) | amazCurrency }}</strong></p>
+    </div>
+
+    @if (order.receiptDataUrl) {
+      <div class="receipt-block">
+        <button type="button" class="btn-download" (click)="downloadReceipt()">
+          Télécharger le reçu (PDF)
+        </button>
+      </div>
+    }
+
+    @if (canReturn) {
+      <div class="return-block">
+        <p>Retour possible jusqu'au {{ returnDeadline }}.</p>
+        @if (hasReturnRequest) {
+          <p class="return-requested">Retour demandé</p>
+        } @else {
+          <button type="button" class="btn-return" (click)="requestReturn()">
+            Demander un retour
+          </button>
+        }
+      </div>
+    }
+
+    <a routerLink="/commandes" class="link-back">← Retour aux commandes</a>
+  }
+</section>

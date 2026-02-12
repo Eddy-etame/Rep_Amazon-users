@@ -2,35 +2,65 @@
   <h1>Créer un compte</h1>
   <p>Inscrivez-vous pour accéder à votre espace client et suivre vos commandes.</p>
 
-  <form class="form">
-    <label>
-      Nom complet
-      <input #nameInput type="text" placeholder="Votre nom complet" />
-    </label>
-
-    <label>
-      Adresse e-mail
-      <input #emailInput type="email" placeholder="exemple@domaine.com" />
-    </label>
-
-    <label>
-      Mot de passe
-      <input
-        #passwordInput
-        type="password"
-        placeholder="Minimum 8 caractères"
-      />
-    </label>
-
-    <button
-      type="button"
-      (click)="handleRegister(nameInput.value, emailInput.value, passwordInput.value)"
-    >
-      Créer mon compte
-    </button>
-
-    <p class="form-error" [hidden]="!registerError">{{ registerError }}</p>
-  </form>
+  @if (step === 'form') {
+    <form class="form">
+      <label>
+        Nom complet
+        <input [(ngModel)]="name" name="name" type="text" placeholder="Votre nom complet" />
+      </label>
+      <label>
+        Adresse e-mail
+        <input [(ngModel)]="email" name="email" type="email" placeholder="exemple@domaine.com" />
+      </label>
+      <label>
+        Mot de passe
+        <input [(ngModel)]="password" name="password" type="password" placeholder="Minimum 8 caractères" />
+      </label>
+      <label>
+        Téléphone (optionnel)
+        <input [(ngModel)]="phone" name="phone" type="tel" placeholder="+33 6 12 34 56 78" />
+      </label>
+      <button type="button" (click)="goToChannel()" [disabled]="!canProceedFromForm()">
+        Continuer
+      </button>
+      <p class="form-error" [hidden]="!registerError">{{ registerError }}</p>
+    </form>
+  } @else if (step === 'channel') {
+    <div class="form">
+      <p>Choisissez comment recevoir votre code de vérification :</p>
+      <label class="radio-label">
+        <input type="radio" name="channel" [(ngModel)]="verificationChannel" value="email" />
+        Par e-mail ({{ email }})
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="channel" [(ngModel)]="verificationChannel" value="phone" />
+        Par SMS
+      </label>
+      @if (verificationChannel === 'phone') {
+        <label>
+          Numéro de téléphone
+          <input [(ngModel)]="phone" name="phoneChannel" type="tel" placeholder="+33 6 12 34 56 78" />
+        </label>
+      }
+      <button type="button" (click)="sendCode()" [disabled]="!canProceedFromChannel()">
+        Envoyer le code
+      </button>
+      <button type="button" class="btn-back" (click)="back()">Retour</button>
+    </div>
+  } @else if (step === 'code') {
+    <div class="form">
+      <p>Un code à 6 chiffres a été envoyé à {{ verificationTarget }}.</p>
+      <label>
+        Code de vérification
+        <input [(ngModel)]="verificationCode" name="code" type="text" placeholder="123456" maxlength="6" inputmode="numeric" />
+      </label>
+      <button type="button" (click)="verifyAndRegister()" [disabled]="verificationCode.length < 6">
+        Valider et créer mon compte
+      </button>
+      <button type="button" class="btn-back" (click)="back()">Retour</button>
+      <p class="form-error" [hidden]="!verificationError">{{ verificationError }}</p>
+    </div>
+  }
 
   <div class="helper">
     <span>Déjà inscrit ?</span>

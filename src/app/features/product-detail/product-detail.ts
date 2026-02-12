@@ -9,10 +9,11 @@ import {
   ProductsMockStore
 } from '../../core/services/products-mock.store';
 import { UserSessionStore } from '../../core/services/user-session.store';
+import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, AmazCurrencyPipe],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss'
 })

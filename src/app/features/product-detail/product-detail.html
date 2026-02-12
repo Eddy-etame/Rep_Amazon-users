@@ -47,9 +47,9 @@
       <p class="meta">{{ product!.categorie }} • {{ product!.ville }}</p>
       <p class="price">
         @if (product!.prixBarre) {
-          <span class="barre">{{ product!.prixBarre | number:'1.0-0' }} FCFA</span>
+          <span class="barre">{{ product!.prixBarre | amazCurrency }}</span>
         }
-        <span class="current">{{ product!.prix | number:'1.0-0' }} FCFA</span>
+        <span class="current">{{ product!.prix | amazCurrency }}</span>
       </p>
       <p class="delivery">
         @if (product!.livraisonGratuite) {

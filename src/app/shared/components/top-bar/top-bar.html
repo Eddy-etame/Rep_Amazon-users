@@ -5,11 +5,6 @@
       <span class="tagline">Marketplace</span>
     </a>
 
-    <div class="delivery-block" *ngIf="deliveryCity">
-      <span class="delivery-label">Livrer à</span>
-      <span class="delivery-city">{{ deliveryCity }}</span>
-    </div>
-
     <div class="search-wrap">
       <form class="search-form" (ngSubmit)="onSearch()">
         <input
@@ -23,14 +18,38 @@
         />
         <button type="submit">Rechercher</button>
       </form>
-      @if (showSuggestions && searchSuggestions.length > 0) {
-        <ul class="search-suggestions">
-          @for (s of searchSuggestions; track s.id) {
-            <li>
-              <a routerLink="/produits/{{ s.id }}" (mousedown)="selectSuggestion(s.id)">{{ s.titre }}</a>
-            </li>
+      @if (showSuggestions) {
+        <div class="search-dropdown">
+          @if (searchSuggestions.length > 0) {
+            <ul class="search-suggestions">
+              @for (s of searchSuggestions; track s.id) {
+                <li>
+                  <a routerLink="/produits/{{ s.id }}" (mousedown)="selectSuggestion(s.id)">{{ s.titre }}</a>
+                </li>
+              }
+            </ul>
           }
-        </ul>
+          @if (searchSuggestions.length === 0 && searchQuery.trim().length < 2) {
+            <div class="search-extra">
+              @if (searchHistory.length > 0) {
+                <p class="extra-label">Recherches récentes</p>
+                <ul class="search-extra-list">
+                  @for (h of searchHistory; track h) {
+                    <li>
+                      <button type="button" (mousedown)="applyHistorySearch(h)">{{ h }}</button>
+                    </li>
+                  }
+                </ul>
+              }
+              <p class="extra-label">Recherches populaires</p>
+              <div class="popular-tags">
+                @for (p of popularSearches; track p) {
+                  <button type="button" class="tag" (mousedown)="applyPopularSearch(p)">{{ p }}</button>
+                }
+              </div>
+            </div>
+          }
+        </div>
       }
     </div>
 
@@ -116,8 +135,8 @@
           </button>
           @if (accountOpen) {
             <div class="account-menu">
-              <a routerLink="/profil">Compte</a>
-              <a routerLink="/commandes">Commandes</a>
+              <a routerLink="/profil" (click)="closeAccountMenu()">Compte</a>
+              <a routerLink="/commandes" (click)="closeAccountMenu()">Commandes</a>
               <button type="button" (click)="logout()">Se déconnecter</button>
             </div>
           }

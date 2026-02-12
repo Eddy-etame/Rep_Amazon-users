@@ -5,10 +5,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { CartActionsService } from '../../core/services/cart-actions.service';
 import { ProductsMockStore } from '../../core/services/products-mock.store';
+import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
   selector: 'app-products',
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, AmazCurrencyPipe],
   templateUrl: './products.html',
   styleUrl: './products.scss'
 })
@@ -53,7 +54,9 @@ export class Products {
         (p) =>
           p.titre.toLowerCase().includes(term) ||
           p.categorie.toLowerCase().includes(term) ||
-          p.ville.toLowerCase().includes(term)
+          p.ville.toLowerCase().includes(term) ||
+          (p.descriptionCourte && p.descriptionCourte.toLowerCase().includes(term)) ||
+          (p.descriptionDetaillee && p.descriptionDetaillee.toLowerCase().includes(term))
       );
     }
     if (this.priceMin != null) {

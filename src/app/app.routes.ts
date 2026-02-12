@@ -4,6 +4,7 @@ import { Cart } from './features/cart/cart';
 import { Checkout } from './features/checkout/checkout';
 import { Home } from './features/home/home';
 import { Login } from './features/login/login';
+import { OrderDetail } from './features/order-detail/order-detail';
 import { Orders } from './features/orders/orders';
 import { ProductDetail } from './features/product-detail/product-detail';
 import { Products } from './features/products/products';
@@ -25,6 +26,7 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   { path: 'commandes', component: Orders, title: 'Commandes', canActivate: [authGuard] },
+  { path: 'commandes/:id', component: OrderDetail, title: 'Détail commande', canActivate: [authGuard] },
   { path: 'profil', component: Profile, title: 'Profil', canActivate: [authGuard] },
   { path: '**', redirectTo: '' }
 ];

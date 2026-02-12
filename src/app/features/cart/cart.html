@@ -28,7 +28,7 @@
             <img [src]="item.imagePrincipale" [alt]="item.titre" />
             <div class="info">
               <h2>{{ item.titre }}</h2>
-              <p class="price">{{ item.prixUnitaire | number:'1.0-0' }} FCFA</p>
+              <p class="price">{{ item.prixUnitaire | amazCurrency }}</p>
               <div class="quantity">
                 <button type="button" (click)="decrement(item.productId, item.quantite)">
                   -
@@ -61,7 +61,7 @@
             <span class="promo-msg">{{ promoMessage }}</span>
           }
         </div>
-        <p class="total">Total : {{ totalPrice() | number:'1.0-0' }} FCFA</p>
+        <p class="total">Total : {{ totalPrice() | amazCurrency }}</p>
         <button type="button" (click)="passerCommande()">Passer la commande</button>
         <button type="button" class="link-orders" (click)="goToOrders()">
           Voir mes commandes

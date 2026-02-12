@@ -1,8 +1,20 @@
 import { Injectable, signal } from '@angular/core';
 
+import type { DeliveryAddress } from './address.store';
 import type { CartItem } from './cart.store';
 
 export type Validite = 'actif' | 'a_actualiser';
+
+const SEED_ADDRESS: DeliveryAddress = {
+  id: 'addr-seed-1',
+  label: 'Domicile',
+  street: '12 avenue des Fleurs',
+  city: 'Paris',
+  postalCode: '75001',
+  country: 'France',
+  phone: '+33 6 12 34 56 78',
+  isDefault: true
+};
 
 export interface Recommendation {
   id: string;
@@ -16,14 +28,21 @@ export interface Recommendation {
   validite: Validite;
 }
 
+export type OrderStatut = 'en_attente' | 'confirmee' | 'en_cours' | 'livree' | 'annulee' | 'expiree';
+
 export interface CommandeMock {
   id: string;
-  statut: 'en_attente' | 'confirmee' | 'annulee' | 'expiree';
+  statut: OrderStatut;
   createdAt: number;
   t: number;
   validite: Validite;
   items?: CartItem[];
   total?: number;
+  adresseLivraison?: DeliveryAddress;
+  methodePaiement?: string;
+  deliveryDate?: number;
+  deliveredAt?: number;
+  receiptDataUrl?: string;
 }
 
 export interface TemporalSnapshot {
@@ -112,19 +131,11 @@ export class TemporalDataStore {
 
   private readonly commandesBase: Omit<CommandeMock, 't' | 'validite'>[] = [
     {
-      id: 'cmd-1024',
-      statut: 'confirmee',
-      createdAt: this.baseNow - 1000 * 60 * 35
-    },
-    {
-      id: 'cmd-1009',
-      statut: 'en_attente',
-      createdAt: this.baseNow - 1000 * 60 * 5
-    },
-    {
       id: 'cmd-1001',
-      statut: 'confirmee',
-      createdAt: this.baseNow - 1000 * 60 * 180,
+      statut: 'livree',
+      createdAt: this.baseNow - 1000 * 60 * 60 * 24 * 10,
+      deliveryDate: this.baseNow - 1000 * 60 * 60 * 24 * 7,
+      deliveredAt: this.baseNow - 1000 * 60 * 60 * 24 * 7,
       items: [
         {
           productId: 'prod-1',
@@ -143,47 +154,9 @@ export class TemporalDataStore {
             'https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600'
         }
       ],
-      total: 87000
-    },
-    {
-      id: 'cmd-1002',
-      statut: 'annulee',
-      createdAt: this.baseNow - 1000 * 60 * 300,
-      items: [
-        {
-          productId: 'prod-3',
-          titre: 'Mixeur compact',
-          prixUnitaire: 27500,
-          quantite: 1,
-          imagePrincipale:
-            'https://images.pexels.com/photos/3738093/pexels-photo-3738093.jpeg?auto=compress&cs=tinysrgb&w=600'
-        }
-      ],
-      total: 27500
-    },
-    {
-      id: 'cmd-1003',
-      statut: 'en_attente',
-      createdAt: this.baseNow - 1000 * 60 * 20,
-      items: [
-        {
-          productId: 'prod-5',
-          titre: 'Smartphone 4G Dual SIM',
-          prixUnitaire: 145000,
-          quantite: 1,
-          imagePrincipale:
-            'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=600'
-        },
-        {
-          productId: 'prod-10',
-          titre: 'Montre connectée fitness',
-          prixUnitaire: 45000,
-          quantite: 1,
-          imagePrincipale:
-            'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=600'
-        }
-      ],
-      total: 190000
+      total: 87000,
+      adresseLivraison: SEED_ADDRESS,
+      methodePaiement: 'card'
     }
   ];
 
@@ -221,9 +194,19 @@ export class TemporalDataStore {
     setInterval(() => this.tick(), 30000);
   }
 
-  addCommandeFromCart(cartItems: CartItem[]): void {
+  private readonly DELIVERY_DAYS_MIN = 3;
+  private readonly DELIVERY_DAYS_MAX = 7;
+
+  addCommandeFromCart(
+    cartItems: CartItem[],
+    opts?: {
+      adresseLivraison?: DeliveryAddress;
+      methodePaiement?: string;
+      receiptDataUrl?: string;
+    }
+  ): CommandeMock | null {
     if (!cartItems.length) {
-      return;
+      return null;
     }
     const createdAt = this.now();
     const total = cartItems.reduce(
@@ -232,15 +215,43 @@ export class TemporalDataStore {
     );
     const nextId = `cmd-${1000 + this.snapshot().commandes.length + 1}`;
 
+    const days = this.DELIVERY_DAYS_MIN + Math.floor(Math.random() * (this.DELIVERY_DAYS_MAX - this.DELIVERY_DAYS_MIN + 1));
+    const deliveryDate = createdAt + days * 24 * 60 * 60 * 1000;
+
     const nouvelleCommande: Omit<CommandeMock, 't' | 'validite'> = {
       id: nextId,
-      statut: 'en_attente',
+      statut: 'en_cours',
       createdAt,
       items: cartItems,
-      total
+      total,
+      adresseLivraison: opts?.adresseLivraison,
+      methodePaiement: opts?.methodePaiement,
+      deliveryDate,
+      receiptDataUrl: opts?.receiptDataUrl
     };
 
     this.userCommandes = [nouvelleCommande, ...this.userCommandes];
     this.tick();
+
+    const snapshot = this.snapshot();
+    return snapshot.commandes.find((c) => c.id === nextId) ?? null;
+  }
+
+  markDelivered(orderId: string): void {
+    const idx = this.userCommandes.findIndex((c) => c.id === orderId);
+    if (idx >= 0) {
+      const updated = [...this.userCommandes];
+      updated[idx] = {
+        ...updated[idx],
+        statut: 'livree' as OrderStatut,
+        deliveredAt: this.now()
+      };
+      this.userCommandes = updated;
+      this.tick();
+    }
+  }
+
+  getOrderById(orderId: string): CommandeMock | undefined {
+    return this.snapshot().commandes.find((c) => c.id === orderId);
   }
 }

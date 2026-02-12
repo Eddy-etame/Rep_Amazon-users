@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { NotificationSchedulerService } from './core/services/notification-scheduler.service';
 import { FooterBar } from './shared/components/footer-bar/footer-bar';
 import { TopBar } from './shared/components/top-bar/top-bar';
 
@@ -10,5 +11,10 @@ import { TopBar } from './shared/components/top-bar/top-bar';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
+  constructor(private readonly notificationScheduler: NotificationSchedulerService) {}
+
+  ngOnInit(): void {
+    this.notificationScheduler.init();
+  }
 }

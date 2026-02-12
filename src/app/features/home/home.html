@@ -76,9 +76,9 @@
         <p class="meta">{{ item.categorie }} • {{ item.ville }}</p>
         <p class="price">
           @if (getProduct(item.id)?.prixBarre) {
-            <span class="barre">{{ getProduct(item.id)!.prixBarre! | number:'1.0-0' }} FCFA</span>
+            <span class="barre">{{ getProduct(item.id)!.prixBarre! | amazCurrency }}</span>
           }
-          {{ item.prix | number:'1.0-0' }} FCFA
+          {{ item.prix | amazCurrency }}
         </p>
       </article>
     }

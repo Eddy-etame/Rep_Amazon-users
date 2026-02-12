@@ -1,6 +1,7 @@
 .top-bar-wrapper {
   background: #020617;
   border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  overflow: visible;
 }
 
 .top-bar {
@@ -10,6 +11,12 @@
   padding: 1rem 1.5rem;
   gap: 1rem;
   flex-wrap: wrap;
+  overflow: visible;
+}
+
+.actions {
+  position: relative;
+  overflow: visible;
 }
 
 .search-form {
@@ -48,8 +55,78 @@
   color: #f97316;
 }
 
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.search-extra {
+  padding: 1rem;
+}
+
+.extra-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+.search-extra-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.search-extra-list li button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.search-extra-list li button:hover {
+  background: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+}
+
+.popular-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.popular-tags .tag {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #4b5563;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.popular-tags .tag:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
 .account-dropdown {
   position: relative;
+  display: inline-block;
 }
 
 .account-trigger {
@@ -66,21 +143,22 @@
   position: absolute;
   top: 100%;
   right: 0;
-  margin-top: 0.5rem;
-  min-width: 180px;
+  margin-top: 0.25rem;
+  min-width: 200px;
   background: #0f172a;
   border: 1px solid rgba(148, 163, 184, 0.5);
   border-radius: 0.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  z-index: 1000;
   padding: 0.5rem 0;
+  white-space: nowrap;
 }
 
 .account-menu a,
 .account-menu button {
   display: block;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.25rem;
   text-align: left;
   background: none;
   border: none;
@@ -322,9 +400,29 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    overflow: visible;
+  }
+
+  .account-menu {
+    right: 0;
+    left: auto;
   }
 
   .categories-row {
     padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav {
+    gap: 0.5rem;
+  }
+
+  .nav a span {
+    display: none;
   }
 }

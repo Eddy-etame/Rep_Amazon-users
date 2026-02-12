@@ -1,38 +1,149 @@
-<section class="card">
+<section class="checkout-page">
   <h1>Paiement</h1>
-  <p>Récapitulatif de commande et informations de livraison.</p>
+  <p class="subtitle">Récapitulatif de commande et informations de livraison.</p>
 
-  <div class="grid">
-    <div class="panel">
-      <h2>Adresse de livraison</h2>
-      <p>Cette section reste mock pour l’instant.</p>
+  <div class="checkout-layout">
+    <div class="checkout-main">
+      <div class="panel address-panel">
+        <h2>Adresse de livraison</h2>
+        <div class="address-list">
+          @for (addr of addresses; track addr.id) {
+            <label class="address-card" [class.selected]="selectedAddressId === addr.id">
+              <input
+                type="radio"
+                name="address"
+                [value]="addr.id"
+                [(ngModel)]="selectedAddressId"
+              />
+              <div class="addr-content">
+                <span class="addr-label">{{ addr.label || 'Adresse' }}</span>
+                @if (addr.isDefault) {
+                  <span class="badge">Par défaut</span>
+                }
+                <p class="addr-line">{{ addr.street }}</p>
+                <p class="addr-line">{{ addr.postalCode }} {{ addr.city }}, {{ addr.country }}</p>
+              </div>
+            </label>
+          }
+        </div>
+        <a routerLink="/profil" class="link-add">Ajouter une adresse</a>
+      </div>
+
+      <div class="panel payment-panel">
+        <h2>Moyen de paiement</h2>
+        <p class="mock-note">Aucun paiement réel n'est effectué dans cette démo.</p>
+        <div class="payment-options">
+          <label>
+            <input type="radio" name="payment" value="card" [(ngModel)]="paymentMethod" />
+            <span>Carte bancaire (simulation)</span>
+          </label>
+          <label>
+            <input type="radio" name="payment" value="livraison" [(ngModel)]="paymentMethod" />
+            <span>Paiement à la livraison (simulation)</span>
+          </label>
+        </div>
+        @if (paymentMethod === 'card') {
+          <div class="card-form">
+            <label>
+              Numéro de carte
+              <input
+                type="text"
+                [ngModel]="cardNumber"
+                (ngModelChange)="formatCardNumber($event)"
+                name="cardNumber"
+                placeholder="XXXX XXXX XXXX XXXX"
+                maxlength="19"
+              />
+              @if (cardErrors.cardNumber) {
+                <span class="field-error">{{ cardErrors.cardNumber }}</span>
+              }
+            </label>
+            <div class="card-row">
+              <label>
+                Expiration (MM/YY)
+                <input
+                  type="text"
+                  [ngModel]="cardExpiry"
+                  (ngModelChange)="formatExpiry($event)"
+                  name="cardExpiry"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                />
+                @if (cardErrors.expiry) {
+                  <span class="field-error">{{ cardErrors.expiry }}</span>
+                }
+              </label>
+              <label>
+                CVC
+                <input
+                  type="text"
+                  [ngModel]="cardCvc"
+                  (ngModelChange)="cardCvc = $event.replace(/\D/g, '').slice(0, 4)"
+                  name="cardCvc"
+                  placeholder="XXX"
+                  maxlength="4"
+                  inputmode="numeric"
+                />
+                @if (cardErrors.cvc) {
+                  <span class="field-error">{{ cardErrors.cvc }}</span>
+                }
+              </label>
+            </div>
+            <label>
+              Nom du titulaire
+              <input
+                type="text"
+                [(ngModel)]="cardholderName"
+                name="cardholderName"
+                placeholder="Nom tel qu'affiché sur la carte"
+              />
+              @if (cardErrors.cardholderName) {
+                <span class="field-error">{{ cardErrors.cardholderName }}</span>
+              }
+            </label>
+          </div>
+        }
+      </div>
     </div>
 
-    <div class="panel">
-      <h2>Moyen de paiement</h2>
-      <p>Aucun paiement réel n’est effectué dans cette démo.</p>
-    </div>
-
-    <div class="panel">
+    <aside class="checkout-summary">
       <h2>Résumé de la commande</h2>
-
       @if (!items().length) {
         <p>Aucun article dans le panier.</p>
+        <a routerLink="/panier">Retour au panier</a>
       } @else {
         <ul class="summary-list">
           @for (item of items(); track item.productId) {
-            <li>
-              <span>{{ item.titre }} (x{{ item.quantite }})</span>
-              <span
-                >{{ item.prixUnitaire * item.quantite | number:'1.0-0' }} FCFA</span
-              >
+            <li class="summary-item">
+              <div class="item-info">
+                <span class="item-title">{{ item.titre }}</span>
+                <div class="quantity-controls">
+                  <button type="button" (click)="decrement(item.productId, item.quantite)">−</button>
+                  <span>{{ item.quantite }}</span>
+                  <button type="button" (click)="increment(item.productId, item.quantite)">+</button>
+                </div>
+              </div>
+              <div class="item-right">
+                <span class="item-price">{{ item.prixUnitaire * item.quantite | amazCurrency }}</span>
+                <button type="button" class="remove" (click)="remove(item.productId)">Supprimer</button>
+              </div>
             </li>
           }
         </ul>
+        <div class="promo">
+          <input type="text" [(ngModel)]="promoCode" name="promoCode" placeholder="Code promo" />
+          <button type="button" (click)="applyPromo()">Appliquer</button>
+          @if (promoMessage) {
+            <span class="promo-msg">{{ promoMessage }}</span>
+          }
+        </div>
         <p class="total">
-          Total : <strong>{{ totalPrice() | number:'1.0-0' }} FCFA</strong>
+          Total : <strong>{{ totalPrice() | amazCurrency }}</strong>
         </p>
+        <button type="button" class="btn-confirm" [disabled]="!canConfirm" (click)="confirmOrder()">
+          Confirmer la commande
+        </button>
       }
-    </div>
+    </aside>
   </div>
 </section>

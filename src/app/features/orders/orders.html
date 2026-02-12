@@ -12,7 +12,7 @@
       @for (cmd of snapshot().commandes; track cmd.id) {
         <article class="order" [class.expired]="cmd.validite === 'a_actualiser'">
           <header>
-            <h2>Commande {{ cmd.id }}</h2>
+            <h2><a [routerLink]="['/commandes', cmd.id]">Commande {{ cmd.id }}</a></h2>
             <span class="badge" [class.active]="cmd.validite === 'actif'">
               t={{ cmd.t }} min
             </span>
@@ -21,9 +21,19 @@
             Statut :
             <strong>{{ cmd.statut }}</strong>
           </p>
+          @if (cmd.deliveryDate) {
+            <p class="meta">
+              Livraison prévue : {{ formatDeliveryDate(cmd.deliveryDate) }}
+            </p>
+          }
+          @if (cmd.deliveredAt) {
+            <p class="meta">
+              Livrée le : {{ formatDeliveryDate(cmd.deliveredAt) }}
+            </p>
+          }
           @if (cmd.total !== undefined) {
             <p class="total">
-              Total : <strong>{{ cmd.total | number:'1.0-0' }} FCFA</strong>
+              Total : <strong>{{ cmd.total | amazCurrency }}</strong>
             </p>
           }
         </article>

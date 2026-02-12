@@ -38,11 +38,11 @@
     <aside class="filters">
       <h3>Filtres</h3>
       <div class="filter-group">
-        <label>Prix min (FCFA)</label>
+        <label>Prix min</label>
         <input type="number" [(ngModel)]="priceMin" placeholder="Min" min="0" />
       </div>
       <div class="filter-group">
-        <label>Prix max (FCFA)</label>
+        <label>Prix max</label>
         <input type="number" [(ngModel)]="priceMax" placeholder="Max" min="0" />
       </div>
       <div class="filter-group">
@@ -60,6 +60,12 @@
       </div>
     </aside>
     <div class="grid">
+    @if (filteredProducts.length === 0) {
+      <p class="empty-state">
+        Aucun produit trouvé{{ searchTerm ? ' pour « ' + searchTerm + ' »' : '' }}.
+        Essayez de modifier vos filtres ou votre recherche.
+      </p>
+    }
     @for (product of filteredProducts; track product.id) {
       <article class="product-card" [routerLink]="['/produits', product.id]">
         <button
@@ -86,9 +92,9 @@
           <p class="meta">{{ product.categorie }} • {{ product.ville }}</p>
           <p class="price">
             @if (product.prixBarre) {
-              <span class="barre">{{ product.prixBarre | number:'1.0-0' }} FCFA</span>
+              <span class="barre">{{ product.prixBarre | amazCurrency }}</span>
             }
-            {{ product.prix | number:'1.0-0' }} FCFA
+            {{ product.prix | amazCurrency }}
           </p>
           <p class="description">{{ product.descriptionCourte }}</p>
         </div>

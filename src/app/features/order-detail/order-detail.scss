@@ -1,0 +1,141 @@
+.order-detail {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #020617;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  max-width: 560px;
+}
+
+.order-detail header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.order-detail h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.badge.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+}
+
+.meta {
+  margin-bottom: 1.5rem;
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+.meta p {
+  margin: 0.25rem 0;
+}
+
+.address-block,
+.items-block {
+  margin-bottom: 1.5rem;
+}
+
+.order-detail h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #e5e7eb;
+}
+
+.items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  color: #e5e7eb;
+}
+
+.item-title {
+  flex: 1;
+}
+
+.item-qty {
+  color: #9ca3af;
+}
+
+.total {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #e5e7eb;
+}
+
+.receipt-block {
+  margin: 1.5rem 0;
+}
+
+.btn-download {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #f97316;
+  background: transparent;
+  color: #f97316;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-download:hover {
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.return-block {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.return-requested {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.btn-return {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #4b5563;
+  background: transparent;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.btn-return:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+.link-back {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #f97316;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-back:hover {
+  text-decoration: underline;
+}
+
+.empty {
+  text-align: center;
+  padding: 2rem;
+  color: #9ca3af;
+}

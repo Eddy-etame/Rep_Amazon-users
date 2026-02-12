@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CartActionsService } from '../../core/services/cart-actions.service';
-import { TemporalDataStore } from '../../core/services/temporal-data.store';
 import { ProductsMockStore } from '../../core/services/products-mock.store';
+import { TemporalDataStore } from '../../core/services/temporal-data.store';
 import { UserSessionStore } from '../../core/services/user-session.store';
+import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterLink, DecimalPipe],
+  imports: [CommonModule, RouterLink, DecimalPipe, AmazCurrencyPipe],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

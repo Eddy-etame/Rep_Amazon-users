@@ -1,15 +1,16 @@
 import { DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AddressStore } from '../../core/services/address.store';
 import { CartStore } from '../../core/services/cart.store';
 import { TemporalDataStore } from '../../core/services/temporal-data.store';
-import { UserSessionStore } from '../../core/services/user-session.store';
 
 @Component({
   selector: 'app-cart',
-  imports: [DecimalPipe, FormsModule],
+  imports: [DecimalPipe, FormsModule, AmazCurrencyPipe],
   templateUrl: './cart.html',
   styleUrl: './cart.scss'
 })
@@ -22,7 +23,7 @@ export class Cart {
     private readonly cart: CartStore,
     private readonly temporal: TemporalDataStore,
     private readonly router: Router,
-    private readonly userSession: UserSessionStore
+    private readonly addressStore: AddressStore
   ) {}
 
   get items() {
@@ -77,9 +78,11 @@ export class Cart {
     if (!currentItems.length) {
       return;
     }
-    this.temporal.addCommandeFromCart(currentItems);
-    this.cart.clear();
-    this.router.navigateByUrl('/commandes');
+    if (!this.addressStore.hasAddresses()) {
+      this.router.navigate(['/profil'], { queryParams: { msg: 'address' } });
+      return;
+    }
+    this.router.navigateByUrl('/paiement');
   }
 
   goToOrders(): void {
