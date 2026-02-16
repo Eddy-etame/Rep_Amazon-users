@@ -5,6 +5,11 @@
       <a routerLink="/commandes">Retour aux commandes</a>
     </div>
   } @else {
+    @if (justPlaced) {
+      <div class="order-confirmed-banner">
+        <p>Commande confirmée ! Votre reçu est disponible ci-dessous.</p>
+      </div>
+    }
     <header>
       <h1>Commande {{ order.id }}</h1>
       <span class="badge status">{{ order.statut }}</span>

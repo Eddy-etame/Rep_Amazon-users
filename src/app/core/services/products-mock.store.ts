@@ -24,7 +24,7 @@ export class ProductsMockStore {
       id: 'prod-1',
       titre: 'Casque Bluetooth Pro',
       categorie: 'Électronique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 59000,
       descriptionCourte: 'Casque sans fil avec réduction de bruit active.',
       descriptionDetaillee:
@@ -44,7 +44,7 @@ export class ProductsMockStore {
       id: 'prod-2',
       titre: 'Sac à dos urbain',
       categorie: 'Mode',
-      ville: 'Yaoundé',
+      ville: 'Lyon',
       prix: 32000,
       descriptionCourte: 'Sac à dos robuste pour le quotidien et les déplacements.',
       descriptionDetaillee:
@@ -63,7 +63,7 @@ export class ProductsMockStore {
       id: 'prod-3',
       titre: 'Mixeur compact',
       categorie: 'Cuisine',
-      ville: 'Bafoussam',
+      ville: 'Toulouse',
       prix: 27500,
       descriptionCourte: 'Mixeur pratique pour smoothies et préparations rapides.',
       descriptionDetaillee:
@@ -83,7 +83,7 @@ export class ProductsMockStore {
       id: 'prod-4',
       titre: 'Ordinateur portable 15"',
       categorie: 'Informatique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 325000,
       descriptionCourte:
         'PC portable 15" Full HD, 8 Go RAM, SSD 512 Go pour le travail et les études.',
@@ -103,7 +103,7 @@ export class ProductsMockStore {
       id: 'prod-5',
       titre: 'Smartphone 4G Dual SIM',
       categorie: 'Électronique',
-      ville: 'Yaoundé',
+      ville: 'Nantes',
       prix: 145000,
       descriptionCourte:
         'Smartphone 4G avec grand écran lumineux et double SIM, parfait pour rester connecté.',
@@ -124,7 +124,7 @@ export class ProductsMockStore {
       id: 'prod-6',
       titre: 'Chaussures de sport légères',
       categorie: 'Mode',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 28000,
       descriptionCourte:
         'Baskets confortables pour le quotidien, la marche et la salle de sport.',
@@ -144,7 +144,7 @@ export class ProductsMockStore {
       id: 'prod-7',
       titre: 'Robot de cuisine multifonction',
       categorie: 'Cuisine',
-      ville: 'Yaoundé',
+      ville: 'Lille',
       prix: 95000,
       descriptionCourte:
         'Robot de cuisine 5 en 1 pour râper, mixer, pétrir et plus encore.',
@@ -164,7 +164,7 @@ export class ProductsMockStore {
       id: 'prod-8',
       titre: 'TV 43\" LED Full HD',
       categorie: 'Électronique',
-      ville: 'Bafoussam',
+      ville: 'Strasbourg',
       prix: 210000,
       descriptionCourte:
         'Téléviseur 43\" Full HD avec ports HDMI et USB pour vos contenus.',
@@ -184,7 +184,7 @@ export class ProductsMockStore {
       id: 'prod-9',
       titre: 'Fauteuil de bureau ergonomique',
       categorie: 'Maison',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 68000,
       descriptionCourte:
         'Chaise de bureau réglable avec support lombaire pour travailler confortablement.',
@@ -204,7 +204,7 @@ export class ProductsMockStore {
       id: 'prod-10',
       titre: 'Montre connectée fitness',
       categorie: 'Électronique',
-      ville: 'Yaoundé',
+      ville: 'Montpellier',
       prix: 45000,
       descriptionCourte:
         'Montre connectée avec suivi d’activité, notifications et cardiofréquencemètre.',
@@ -225,7 +225,7 @@ export class ProductsMockStore {
       id: 'prod-11',
       titre: 'Kit bureau (clavier, souris, casque)',
       categorie: 'Électronique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 45000,
       descriptionCourte: 'Set complet pour le télétravail et le gaming.',
       descriptionDetaillee:
@@ -244,7 +244,7 @@ export class ProductsMockStore {
       id: 'prod-12',
       titre: 'Clavier sans fil',
       categorie: 'Informatique',
-      ville: 'Yaoundé',
+      ville: 'Rennes',
       prix: 25000,
       descriptionCourte: 'Clavier ergonomique sans fil pour bureau et télétravail.',
       descriptionDetaillee:
@@ -263,7 +263,7 @@ export class ProductsMockStore {
       id: 'prod-13',
       titre: 'Cafetière programmable',
       categorie: 'Cuisine',
-      ville: 'Bafoussam',
+      ville: 'Nice',
       prix: 35000,
       descriptionCourte: 'Cafetière filtre 12 tasses avec minuterie et verseuse isotherme.',
       descriptionDetaillee:
@@ -283,7 +283,7 @@ export class ProductsMockStore {
       id: 'prod-14',
       titre: 'Clé USB 64 Go',
       categorie: 'Informatique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 12000,
       descriptionCourte: 'Clé USB 3.0 haute vitesse pour transferts rapides.',
       descriptionDetaillee:
@@ -302,7 +302,7 @@ export class ProductsMockStore {
       id: 'prod-15',
       titre: 'Powerbank 20000 mAh',
       categorie: 'Électronique',
-      ville: 'Yaoundé',
+      ville: 'Lyon',
       prix: 22000,
       descriptionCourte: 'Batterie externe pour recharger smartphone et tablette.',
       descriptionDetaillee:
@@ -321,7 +321,7 @@ export class ProductsMockStore {
       id: 'prod-16',
       titre: 'T-shirt col rond',
       categorie: 'Mode',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 8500,
       descriptionCourte: 'T-shirt 100% coton, coupe classique et confortable.',
       descriptionDetaillee:
@@ -340,7 +340,7 @@ export class ProductsMockStore {
       id: 'prod-17',
       titre: 'Lampe de bureau LED',
       categorie: 'Maison',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 15000,
       descriptionCourte: 'Lampe de bureau à LED réglable, 3 niveaux de luminosité.',
       descriptionDetaillee:
@@ -359,7 +359,7 @@ export class ProductsMockStore {
       id: 'prod-18',
       titre: 'Souris sans fil',
       categorie: 'Informatique',
-      ville: 'Yaoundé',
+      ville: 'Lyon',
       prix: 12000,
       descriptionCourte: 'Souris ergonomique sans fil, 6 boutons programmables.',
       descriptionDetaillee:
@@ -378,7 +378,7 @@ export class ProductsMockStore {
       id: 'prod-19',
       titre: 'Disque dur externe 1 To',
       categorie: 'Informatique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 65000,
       descriptionCourte: 'Stockage portable USB 3.0 pour sauvegardes et multimédia.',
       descriptionDetaillee:
@@ -397,7 +397,7 @@ export class ProductsMockStore {
       id: 'prod-20',
       titre: 'Batterie de cuisine 5 pièces',
       categorie: 'Cuisine',
-      ville: 'Bafoussam',
+      ville: 'Marseille',
       prix: 45000,
       descriptionCourte: 'Set casseroles et poêles en inox pour tous les feux.',
       descriptionDetaillee:
@@ -412,21 +412,21 @@ export class ProductsMockStore {
       nbAvis: 234,
       livraisonGratuite: false
     },
-    { id: 'prod-21', titre: 'Écouteurs Bluetooth', categorie: 'Électronique', ville: 'Douala', prix: 18500, descriptionCourte: 'Écouteurs ultraportables avec réduction de bruit.', descriptionDetaillee: 'Écouteurs sans fil, 24h d\'autonomie. Confort optimisé pour les longues sessions.', imagePrincipale: "https://boostit.cdiscount.com/wp-content/uploads/2022/06/1800-1800-1-1.jpg", galerie: ["https://m.media-amazon.com/images/I/817YA1ejTtL.jpg", "https://m.media-amazon.com/images/I/51B1zvur0EL._AC_.jpg"], createdAt: Date.now() - 1000 * 60 * 50, note: 4.4, nbAvis: 567, prixBarre: 22000, livraisonGratuite: true },
-    { id: 'prod-22', titre: 'Jean slim', categorie: 'Mode', ville: 'Yaoundé', prix: 15000, descriptionCourte: 'Jean slim stretch, coupe moderne.', descriptionDetaillee: 'Jean confortable en coton stretch. Taille ajustée.', imagePrincipale: "https://tse3.mm.bing.net/th/id/OIP.QDB2IZVXaK27EdgEERuLCwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3", galerie: ["https://static.kiabi.com/images/jean-slim-taille-haute---l28-brut-acm03_2_fr2.jpg", "https://www.jasmina.fr/wp-content/uploads/2016/03/Jean-slim-1.jpg"], createdAt: Date.now() - 1000 * 60 * 120, note: 4.3, nbAvis: 234, livraisonGratuite: false },
-    { id: 'prod-23', titre: 'Grille-pain 2 fentes', categorie: 'Cuisine', ville: 'Bafoussam', prix: 12500, descriptionCourte: 'Grille-pain compact avec 6 niveaux de cuisson.', descriptionDetaillee: 'Grille-pain économique, plaques antiadhésives amovibles.', imagePrincipale: "https://www.tunisianet.com.tn/351633-large/grille-pain-techwood-2-fentes-larges-inox-750w-noir.jpg", galerie: ["https://www.le-pem.fr/1316-large_default/grille-pain-2-fentes-selecteur-vario-inox-dualit.jpg", "https://tse4.mm.bing.net/th/id/OIP.nQ0_i2l9v-WtfqR5QM0I5AHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"], createdAt: Date.now() - 1000 * 60 * 90, note: 4.5, nbAvis: 189, livraisonGratuite: true },
-    { id: 'prod-24', titre: 'Webcam HD 1080p', categorie: 'Informatique', ville: 'Douala', prix: 35000, descriptionCourte: 'Webcam Full HD pour visioconférence.', descriptionDetaillee: 'Webcam avec micro intégré, pivot réglable.', imagePrincipale: "https://i5.walmartimages.com/asr/09af324e-cd47-45eb-a247-e15681a020df.331fda407791b9b8ff147216c56b5330.png", galerie: ["https://m.media-amazon.com/images/I/51vQzOif+mL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/61ZT0gALI7L._AC_SY300_SX300_QL70_ML2_.jpg"], createdAt: Date.now() - 1000 * 60 * 70, note: 4.6, nbAvis: 312, prixBarre: 42000, livraisonGratuite: true },
-    { id: 'prod-25', titre: 'Table de chevet', categorie: 'Maison', ville: 'Yaoundé', prix: 28000, descriptionCourte: 'Table de chevet en bois avec tiroir.', descriptionDetaillee: 'Table de chevet design épuré, tiroir de rangement.', imagePrincipale: "https://media.adeo.com/mkp/804f5990ec68c82aed94a9de0fb70917/media.png?width=3000&height=3000&format=jpg&quality=80&fit=bounds", galerie: ["https://maison.20minutes.fr/wp-content/uploads/2023/12/19-oceano-loberon.jpg", "https://www.therange.co.uk/media/4/6/1716559310_11_9079.jpg"], createdAt: Date.now() - 1000 * 60 * 100, note: 4.2, nbAvis: 89, livraisonGratuite: false },
-    { id: 'prod-26', titre: 'Enceinte portable', categorie: 'Électronique', ville: 'Douala', prix: 42000, descriptionCourte: 'Enceinte Bluetooth waterproof, 20W.', descriptionDetaillee: 'Enceinte portable waterproof IPX7, batterie 12h.', imagePrincipale: "https://tse3.mm.bing.net/th/id/OIP.FTnhdF1PZHZ1BtvtFV0lowHaHa?rs=1&pid=ImgDetMain&o=7&rm=3", galerie: ["https://m.media-amazon.com/images/I/71Ae5OlcXCL._AC_SL1500_.jpg", "https://otc.lk/wp-content/uploads/2024/08/Soundtec-Party-Speaker-200W-with-5.25-Woofer-2-Tweeter-and-FM-Black-by-otc.lk-in-srilanka.png"], createdAt: Date.now() - 1000 * 60 * 85, note: 4.7, nbAvis: 456, livraisonGratuite: true },
-    { id: 'prod-27', titre: 'Robe d\'été', categorie: 'Mode', ville: 'Bafoussam', prix: 18500, descriptionCourte: 'Robe légère en coton, coupe fluide.', descriptionDetaillee: 'Robe confortable pour l\'été, coupe universelle.', imagePrincipale: "https://img.freepik.com/free-photo/romantic-portrait-woman-long-blue-dress-beach-by-sea-windy-day_343596-938.jpg?t=st=1718722690~exp=1718726290~hmac=e45f0a422ceb70ba055d8bf27c768f39ee6f10c0ae19d6857c2a6581cf9e9027&w=1800", galerie: ["https://fr-be.tendances-de-mode.com/images/upload/1696533923.jpg", "https://www-s.mlo.me/upen/v/202303/20230309/c61bab9d-ea9c-43a6-9e41-8630a9c81110.jpg"], createdAt: Date.now() - 1000 * 60 * 60, note: 4.4, nbAvis: 123, livraisonGratuite: true },
-    { id: 'prod-28', titre: 'Bouilloire électrique', categorie: 'Cuisine', ville: 'Yaoundé', prix: 15000, descriptionCourte: 'Bouilloire 1,7 L, arrêt automatique.', descriptionDetaillee: 'Bouilloire rapide, base 360°, sécurité anti-débordement.', imagePrincipale: "https://m1.zeste.ca/serdy-m-dia-inc/image/upload/f_auto/fl_lossy/q_auto:eco/x_247,y_0,w_976,h_976,c_crop/w_556,h_556,c_scale/v1704902873/foodlavie/prod/articles/les-meilleures-bouilloires-electriques-a-se-procurer-829e377d", galerie: ["https://content.pearl.fr/media/cache/default/article_ultralarge_high_nocrop/shared/images/articles/N/NC3/bouilloire-avec-theiere-affichage-temperature-et-plaque-chauffante-ref_NC3651_1.jpg", "https://m.media-amazon.com/images/I/61-b5wMoTOL._AC_SX679_.jpg"], createdAt: Date.now() - 1000 * 60 * 110, note: 4.5, nbAvis: 278, livraisonGratuite: true },
-    { id: 'prod-29', titre: 'Support PC portable', categorie: 'Informatique', ville: 'Douala', prix: 12000, descriptionCourte: 'Support ventilé pour ordinateur portable.', descriptionDetaillee: 'Support ergonomique avec ventilation, réglable en hauteur.', imagePrincipale: "https://m.media-amazon.com/images/I/415+2Ej9xaL.jpg", galerie: ["https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2023/07/41ep-s4kfxl-_sl500_.jpg", "https://tse4.mm.bing.net/th/id/OIP.BMZC12hUiMVfx4p9uVDK1AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"], createdAt: Date.now() - 1000 * 60 * 95, note: 4.3, nbAvis: 167, livraisonGratuite: true },
-    { id: 'prod-30', titre: 'Plaque chauffante', categorie: 'Cuisine', ville: 'Bafoussam', prix: 22000, descriptionCourte: 'Plaque électrique 2 zones, induction.', descriptionDetaillee: 'Plaque induction 2 zones, commandes tactiles.', imagePrincipale: "https://www.cdiscount.com/pdt2/8/4/9/1/700x700/san1719556576849/rw/ehskzjh-plaques-chauffantes-plaque-chauffante-ele.jpg", galerie: ["https://arabinene.com/13227-large_default/rechaud-plaque-chauffante-electrique-boma-hpso-hs01st-1-foyer-1500w-avec-poignee-en-acier-inoxydable.jpg", "https://www.cdiscount.com/pdt2/4/4/6/1/550x550/sss1688708146446/rw/plaque-chauffante-electrique-dewin-1000w-plaques.jpg"], createdAt: Date.now() - 1000 * 60 * 80, note: 4.6, nbAvis: 189, livraisonGratuite: false },
-    { id: 'prod-31', titre: 'Raspberry Pi 4', categorie: 'Informatique', ville: 'Yaoundé', prix: 55000, descriptionCourte: 'Mini PC 4 Go RAM pour projets DIY.', descriptionDetaillee: 'Raspberry Pi 4, processeur Quad-core, WiFi et Bluetooth.', imagePrincipale: "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/02/raspberry-pi-4-model-b.jpg", galerie: ["https://preview.free3d.com/img/2019/07/2158650583907567492/bo2kb7ee.jpg", "https://wallpaperbat.com/img/8637110-raspberry-pi-4-model-b.jpg"], createdAt: Date.now() - 1000 * 60 * 45, note: 4.8, nbAvis: 234, livraisonGratuite: true },
-    { id: 'prod-32', titre: 'Couverture polaire', categorie: 'Maison', ville: 'Douala', prix: 9500, descriptionCourte: 'Couverture douce 150x200 cm.', descriptionDetaillee: 'Couverture polaire ultra-douce, lavable en machine.', imagePrincipale: "https://www.salysenegal.net/wp-content/uploads/2021/10/image-choisir-une-couverture-polaire-pour-les-vacances.jpg", galerie: ["https://www.mille-et-une-couverture.com/wp-content/uploads/2023/01/couverture-chaude-en-polaire-5.jpg", "https://www.mille-et-une-couverture.com/wp-content/uploads/2022/12/couverture-double-face-en-polaire-marron-l.webp"], createdAt: Date.now() - 1000 * 60 * 130, note: 4.2, nbAvis: 445, livraisonGratuite: true },
-    { id: 'prod-33', titre: 'Tapis Isométrique', categorie: 'Mode', ville: 'Bafoussam', prix: 8500, descriptionCourte: 'Tapis de yoga antidérapant 6 mm.', descriptionDetaillee: 'Tapis yoga écologique, surface antidérapante.', imagePrincipale: "https://img.freepik.com/premium-vector/isometric-carpet_592324-1484.jpg", galerie: ["https://tse4.mm.bing.net/th/id/OIP.inGoG9E1BWJBXU3pjHr2yQHaGe?rs=1&pid=ImgDetMain&o=7&rm=3", "https://img.freepik.com/vecteurs-premium/tapis-isometrique_592324-13433.jpg"], createdAt: Date.now() - 1000 * 60 * 140, note: 4.4, nbAvis: 312, livraisonGratuite: false },
-    { id: 'prod-34', titre: 'Presse-agrumes', categorie: 'Cuisine', ville: 'Yaoundé', prix: 18000, descriptionCourte: 'Presse-agrumes électrique, grand bol.', descriptionDetaillee: 'Presse-agrumes pour oranges et citrons, collecteur 1,2 L.', imagePrincipale: "https://www.offrir-retailers.com/image-produit/58530/T2/24292585306e556c7e9094be14bb642139cc8669c35d4bbecb5e931.jpg", galerie: ["https://www.nature-vitalite.com/481-superlarge_default/presse-agrumes-electrique-en-inox.jpg", "https://m.media-amazon.com/images/I/818y+VHLiGL._AC_SX679_.jpg"], createdAt: Date.now() - 1000 * 60 * 75, note: 4.5, nbAvis: 198, livraisonGratuite: true },
-    { id: 'prod-35', titre: 'Étagère 5 niveaux', categorie: 'Maison', ville: 'Douala', prix: 25000, descriptionCourte: 'Étagère métallique pour rangement.', descriptionDetaillee: 'Étagère robuste 5 niveaux, montage facile.', imagePrincipale: "https://media.adeo.com/mkp/195cd48cfefda778dec8b18de2ab00cb/media.jpg?width=650&height=650&format=jpg&quality=80&fit=bounds", galerie: ["https://www.concept-bureau.fr/15937-large_default/etagere-de-rangement-avec-5-niveaux-lotus.jpg", "https://www.idmarket.com/34544-product_main_2x/etagere-5-niveaux-detroit-170cm-design-industriel-bois-et-metal-blanc.jpg"], createdAt: Date.now() - 1000 * 60 * 160, note: 4.3, nbAvis: 76, livraisonGratuite: false }
+    { id: 'prod-21', titre: 'Écouteurs Bluetooth', categorie: 'Électronique', ville: 'Paris', prix: 18500, descriptionCourte: 'Écouteurs ultraportables avec réduction de bruit.', descriptionDetaillee: 'Écouteurs sans fil, 24h d\'autonomie. Confort optimisé pour les longues sessions.', imagePrincipale: "https://boostit.cdiscount.com/wp-content/uploads/2022/06/1800-1800-1-1.jpg", galerie: ["https://m.media-amazon.com/images/I/817YA1ejTtL.jpg", "https://m.media-amazon.com/images/I/51B1zvur0EL._AC_.jpg"], createdAt: Date.now() - 1000 * 60 * 50, note: 4.4, nbAvis: 567, prixBarre: 22000, livraisonGratuite: true },
+    { id: 'prod-22', titre: 'Jean slim', categorie: 'Mode', ville: 'Lyon', prix: 15000, descriptionCourte: 'Jean slim stretch, coupe moderne.', descriptionDetaillee: 'Jean confortable en coton stretch. Taille ajustée.', imagePrincipale: "https://tse3.mm.bing.net/th/id/OIP.QDB2IZVXaK27EdgEERuLCwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3", galerie: ["https://static.kiabi.com/images/jean-slim-taille-haute---l28-brut-acm03_2_fr2.jpg", "https://www.jasmina.fr/wp-content/uploads/2016/03/Jean-slim-1.jpg"], createdAt: Date.now() - 1000 * 60 * 120, note: 4.3, nbAvis: 234, livraisonGratuite: false },
+    { id: 'prod-23', titre: 'Grille-pain 2 fentes', categorie: 'Cuisine', ville: 'Marseille', prix: 12500, descriptionCourte: 'Grille-pain compact avec 6 niveaux de cuisson.', descriptionDetaillee: 'Grille-pain économique, plaques antiadhésives amovibles.', imagePrincipale: "https://www.tunisianet.com.tn/351633-large/grille-pain-techwood-2-fentes-larges-inox-750w-noir.jpg", galerie: ["https://www.le-pem.fr/1316-large_default/grille-pain-2-fentes-selecteur-vario-inox-dualit.jpg", "https://tse4.mm.bing.net/th/id/OIP.nQ0_i2l9v-WtfqR5QM0I5AHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"], createdAt: Date.now() - 1000 * 60 * 90, note: 4.5, nbAvis: 189, livraisonGratuite: true },
+    { id: 'prod-24', titre: 'Webcam HD 1080p', categorie: 'Informatique', ville: 'Paris', prix: 35000, descriptionCourte: 'Webcam Full HD pour visioconférence.', descriptionDetaillee: 'Webcam avec micro intégré, pivot réglable.', imagePrincipale: "https://i5.walmartimages.com/asr/09af324e-cd47-45eb-a247-e15681a020df.331fda407791b9b8ff147216c56b5330.png", galerie: ["https://m.media-amazon.com/images/I/51vQzOif+mL._AC_SX569_.jpg", "https://m.media-amazon.com/images/I/61ZT0gALI7L._AC_SY300_SX300_QL70_ML2_.jpg"], createdAt: Date.now() - 1000 * 60 * 70, note: 4.6, nbAvis: 312, prixBarre: 42000, livraisonGratuite: true },
+    { id: 'prod-25', titre: 'Table de chevet', categorie: 'Maison', ville: 'Lyon', prix: 28000, descriptionCourte: 'Table de chevet en bois avec tiroir.', descriptionDetaillee: 'Table de chevet design épuré, tiroir de rangement.', imagePrincipale: "https://media.adeo.com/mkp/804f5990ec68c82aed94a9de0fb70917/media.png?width=3000&height=3000&format=jpg&quality=80&fit=bounds", galerie: ["https://maison.20minutes.fr/wp-content/uploads/2023/12/19-oceano-loberon.jpg", "https://www.therange.co.uk/media/4/6/1716559310_11_9079.jpg"], createdAt: Date.now() - 1000 * 60 * 100, note: 4.2, nbAvis: 89, livraisonGratuite: false },
+    { id: 'prod-26', titre: 'Enceinte portable', categorie: 'Électronique', ville: 'Paris', prix: 42000, descriptionCourte: 'Enceinte Bluetooth waterproof, 20W.', descriptionDetaillee: 'Enceinte portable waterproof IPX7, batterie 12h.', imagePrincipale: "https://tse3.mm.bing.net/th/id/OIP.FTnhdF1PZHZ1BtvtFV0lowHaHa?rs=1&pid=ImgDetMain&o=7&rm=3", galerie: ["https://m.media-amazon.com/images/I/71Ae5OlcXCL._AC_SL1500_.jpg", "https://otc.lk/wp-content/uploads/2024/08/Soundtec-Party-Speaker-200W-with-5.25-Woofer-2-Tweeter-and-FM-Black-by-otc.lk-in-srilanka.png"], createdAt: Date.now() - 1000 * 60 * 85, note: 4.7, nbAvis: 456, livraisonGratuite: true },
+    { id: 'prod-27', titre: 'Robe d\'été', categorie: 'Mode', ville: 'Marseille', prix: 18500, descriptionCourte: 'Robe légère en coton, coupe fluide.', descriptionDetaillee: 'Robe confortable pour l\'été, coupe universelle.', imagePrincipale: "https://img.freepik.com/free-photo/romantic-portrait-woman-long-blue-dress-beach-by-sea-windy-day_343596-938.jpg?t=st=1718722690~exp=1718726290~hmac=e45f0a422ceb70ba055d8bf27c768f39ee6f10c0ae19d6857c2a6581cf9e9027&w=1800", galerie: ["https://fr-be.tendances-de-mode.com/images/upload/1696533923.jpg", "https://www-s.mlo.me/upen/v/202303/20230309/c61bab9d-ea9c-43a6-9e41-8630a9c81110.jpg"], createdAt: Date.now() - 1000 * 60 * 60, note: 4.4, nbAvis: 123, livraisonGratuite: true },
+    { id: 'prod-28', titre: 'Bouilloire électrique', categorie: 'Cuisine', ville: 'Lyon', prix: 15000, descriptionCourte: 'Bouilloire 1,7 L, arrêt automatique.', descriptionDetaillee: 'Bouilloire rapide, base 360°, sécurité anti-débordement.', imagePrincipale: "https://m1.zeste.ca/serdy-m-dia-inc/image/upload/f_auto/fl_lossy/q_auto:eco/x_247,y_0,w_976,h_976,c_crop/w_556,h_556,c_scale/v1704902873/foodlavie/prod/articles/les-meilleures-bouilloires-electriques-a-se-procurer-829e377d", galerie: ["https://content.pearl.fr/media/cache/default/article_ultralarge_high_nocrop/shared/images/articles/N/NC3/bouilloire-avec-theiere-affichage-temperature-et-plaque-chauffante-ref_NC3651_1.jpg", "https://m.media-amazon.com/images/I/61-b5wMoTOL._AC_SX679_.jpg"], createdAt: Date.now() - 1000 * 60 * 110, note: 4.5, nbAvis: 278, livraisonGratuite: true },
+    { id: 'prod-29', titre: 'Support PC portable', categorie: 'Informatique', ville: 'Paris', prix: 12000, descriptionCourte: 'Support ventilé pour ordinateur portable.', descriptionDetaillee: 'Support ergonomique avec ventilation, réglable en hauteur.', imagePrincipale: "https://m.media-amazon.com/images/I/415+2Ej9xaL.jpg", galerie: ["https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2023/07/41ep-s4kfxl-_sl500_.jpg", "https://tse4.mm.bing.net/th/id/OIP.BMZC12hUiMVfx4p9uVDK1AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"], createdAt: Date.now() - 1000 * 60 * 95, note: 4.3, nbAvis: 167, livraisonGratuite: true },
+    { id: 'prod-30', titre: 'Plaque chauffante', categorie: 'Cuisine', ville: 'Marseille', prix: 22000, descriptionCourte: 'Plaque électrique 2 zones, induction.', descriptionDetaillee: 'Plaque induction 2 zones, commandes tactiles.', imagePrincipale: "https://www.cdiscount.com/pdt2/8/4/9/1/700x700/san1719556576849/rw/ehskzjh-plaques-chauffantes-plaque-chauffante-ele.jpg", galerie: ["https://arabinene.com/13227-large_default/rechaud-plaque-chauffante-electrique-boma-hpso-hs01st-1-foyer-1500w-avec-poignee-en-acier-inoxydable.jpg", "https://www.cdiscount.com/pdt2/4/4/6/1/550x550/sss1688708146446/rw/plaque-chauffante-electrique-dewin-1000w-plaques.jpg"], createdAt: Date.now() - 1000 * 60 * 80, note: 4.6, nbAvis: 189, livraisonGratuite: false },
+    { id: 'prod-31', titre: 'Raspberry Pi 4', categorie: 'Informatique', ville: 'Lyon', prix: 55000, descriptionCourte: 'Mini PC 4 Go RAM pour projets DIY.', descriptionDetaillee: 'Raspberry Pi 4, processeur Quad-core, WiFi et Bluetooth.', imagePrincipale: "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/02/raspberry-pi-4-model-b.jpg", galerie: ["https://preview.free3d.com/img/2019/07/2158650583907567492/bo2kb7ee.jpg", "https://wallpaperbat.com/img/8637110-raspberry-pi-4-model-b.jpg"], createdAt: Date.now() - 1000 * 60 * 45, note: 4.8, nbAvis: 234, livraisonGratuite: true },
+    { id: 'prod-32', titre: 'Couverture polaire', categorie: 'Maison', ville: 'Paris', prix: 9500, descriptionCourte: 'Couverture douce 150x200 cm.', descriptionDetaillee: 'Couverture polaire ultra-douce, lavable en machine.', imagePrincipale: "https://www.salysenegal.net/wp-content/uploads/2021/10/image-choisir-une-couverture-polaire-pour-les-vacances.jpg", galerie: ["https://www.mille-et-une-couverture.com/wp-content/uploads/2023/01/couverture-chaude-en-polaire-5.jpg", "https://www.mille-et-une-couverture.com/wp-content/uploads/2022/12/couverture-double-face-en-polaire-marron-l.webp"], createdAt: Date.now() - 1000 * 60 * 130, note: 4.2, nbAvis: 445, livraisonGratuite: true },
+    { id: 'prod-33', titre: 'Tapis Isométrique', categorie: 'Mode', ville: 'Marseille', prix: 8500, descriptionCourte: 'Tapis de yoga antidérapant 6 mm.', descriptionDetaillee: 'Tapis yoga écologique, surface antidérapante.', imagePrincipale: "https://img.freepik.com/premium-vector/isometric-carpet_592324-1484.jpg", galerie: ["https://tse4.mm.bing.net/th/id/OIP.inGoG9E1BWJBXU3pjHr2yQHaGe?rs=1&pid=ImgDetMain&o=7&rm=3", "https://img.freepik.com/vecteurs-premium/tapis-isometrique_592324-13433.jpg"], createdAt: Date.now() - 1000 * 60 * 140, note: 4.4, nbAvis: 312, livraisonGratuite: false },
+    { id: 'prod-34', titre: 'Presse-agrumes', categorie: 'Cuisine', ville: 'Lyon', prix: 18000, descriptionCourte: 'Presse-agrumes électrique, grand bol.', descriptionDetaillee: 'Presse-agrumes pour oranges et citrons, collecteur 1,2 L.', imagePrincipale: "https://www.offrir-retailers.com/image-produit/58530/T2/24292585306e556c7e9094be14bb642139cc8669c35d4bbecb5e931.jpg", galerie: ["https://www.nature-vitalite.com/481-superlarge_default/presse-agrumes-electrique-en-inox.jpg", "https://m.media-amazon.com/images/I/818y+VHLiGL._AC_SX679_.jpg"], createdAt: Date.now() - 1000 * 60 * 75, note: 4.5, nbAvis: 198, livraisonGratuite: true },
+    { id: 'prod-35', titre: 'Étagère 5 niveaux', categorie: 'Maison', ville: 'Paris', prix: 25000, descriptionCourte: 'Étagère métallique pour rangement.', descriptionDetaillee: 'Étagère robuste 5 niveaux, montage facile.', imagePrincipale: "https://media.adeo.com/mkp/195cd48cfefda778dec8b18de2ab00cb/media.jpg?width=650&height=650&format=jpg&quality=80&fit=bounds", galerie: ["https://www.concept-bureau.fr/15937-large_default/etagere-de-rangement-avec-5-niveaux-lotus.jpg", "https://www.idmarket.com/34544-product_main_2x/etagere-5-niveaux-detroit-170cm-design-industriel-bois-et-metal-blanc.jpg"], createdAt: Date.now() - 1000 * 60 * 160, note: 4.3, nbAvis: 76, livraisonGratuite: false }
   ]);
 
   readonly products = this.productsSignal.asReadonly();

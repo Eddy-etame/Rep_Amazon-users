@@ -22,6 +22,7 @@ export class Products {
   ) {
     route.queryParamMap.subscribe((params) => {
       this.selectedCategory = params.get('categorie');
+      this.categoryFilter = this.selectedCategory;
       this.searchTerm = params.get('q') ?? '';
     });
   }
@@ -35,6 +36,9 @@ export class Products {
   sortBy: 'pertinence' | 'prix_asc' | 'prix_desc' | 'note' = 'pertinence';
   priceMin: number | null = null;
   priceMax: number | null = null;
+  priceMinInput: number | null = null;
+  priceMaxInput: number | null = null;
+  categoryFilter: string | null = null;
 
   get categories(): string[] {
     const all = this.products();
@@ -78,11 +82,42 @@ export class Products {
 
   selectCategory(categorie: string | null): void {
     this.selectedCategory = categorie;
+    this.categoryFilter = categorie;
     this.router.navigate(['/produits'], {
       queryParams: {
         categorie: categorie ?? undefined,
         q: this.searchTerm || undefined
       }
+    });
+  }
+
+  applyFilters(): void {
+    const minVal = this.priceMinInput != null ? Number(this.priceMinInput) : NaN;
+    const maxVal = this.priceMaxInput != null ? Number(this.priceMaxInput) : NaN;
+    const min = !isNaN(minVal) && minVal > 0 ? minVal : null;
+    const max = !isNaN(maxVal) && maxVal > 0 ? maxVal : null;
+    this.priceMin = min;
+    this.priceMax = max;
+    if (this.categoryFilter !== this.selectedCategory) {
+      this.selectedCategory = this.categoryFilter;
+      this.router.navigate(['/produits'], {
+        queryParams: {
+          categorie: this.categoryFilter ?? undefined,
+          q: this.searchTerm || undefined
+        }
+      });
+    }
+  }
+
+  resetFilters(): void {
+    this.priceMinInput = null;
+    this.priceMaxInput = null;
+    this.priceMin = null;
+    this.priceMax = null;
+    this.categoryFilter = null;
+    this.selectedCategory = null;
+    this.router.navigate(['/produits'], {
+      queryParams: { q: this.searchTerm || undefined }
     });
   }
 

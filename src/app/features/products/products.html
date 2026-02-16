@@ -39,11 +39,11 @@
       <h3>Filtres</h3>
       <div class="filter-group">
         <label>Prix min</label>
-        <input type="number" [(ngModel)]="priceMin" placeholder="Min" min="0" />
+        <input type="number" [(ngModel)]="priceMinInput" placeholder="Min" min="0" />
       </div>
       <div class="filter-group">
         <label>Prix max</label>
-        <input type="number" [(ngModel)]="priceMax" placeholder="Max" min="0" />
+        <input type="number" [(ngModel)]="priceMaxInput" placeholder="Max" min="0" />
       </div>
       <div class="filter-group">
         <label>Catégorie</label>
@@ -51,12 +51,16 @@
           <button
             type="button"
             class="filter-cat"
-            [class.active]="selectedCategory === cat"
-            (click)="selectCategory(selectedCategory === cat ? null : cat)"
+            [class.active]="categoryFilter === cat"
+            (click)="categoryFilter = categoryFilter === cat ? null : cat"
           >
             {{ cat }}
           </button>
         }
+      </div>
+      <div class="filter-actions">
+        <button type="button" class="btn-apply" (click)="applyFilters()">Appliquer</button>
+        <button type="button" class="btn-reset" (click)="resetFilters()">Réinitialiser</button>
       </div>
     </aside>
     <div class="grid">

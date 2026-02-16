@@ -1,9 +1,35 @@
-<section class="carousel">
+<section
+  class="carousel"
+  (mouseenter)="onCarouselMouseEnter()"
+  (mouseleave)="onCarouselMouseLeave()"
+>
+  <button type="button" class="carousel-btn carousel-btn-prev" (click)="prevSlide()" aria-label="Slide précédent">
+    ‹
+  </button>
   <div class="carousel-inner">
     @for (slide of carouselSlides; track slide.id) {
-      <a [routerLink]="slide.link" class="carousel-slide" [style.backgroundImage]="'url(' + slide.image + ')'">
+      <a
+        [routerLink]="slide.link"
+        class="carousel-slide"
+        [class.active]="currentSlideIndex === $index"
+        [style.backgroundImage]="'url(' + slide.image + ')'"
+      >
         <span class="carousel-title">{{ slide.title }}</span>
       </a>
+    }
+  </div>
+  <button type="button" class="carousel-btn carousel-btn-next" (click)="nextSlide()" aria-label="Slide suivant">
+    ›
+  </button>
+  <div class="carousel-indicators">
+    @for (slide of carouselSlides; track slide.id) {
+      <button
+        type="button"
+        class="indicator"
+        [class.active]="currentSlideIndex === $index"
+        (click)="goToSlide($index)"
+        [attr.aria-label]="'Aller au slide ' + ($index + 1)"
+      ></button>
     }
   </div>
 </section>

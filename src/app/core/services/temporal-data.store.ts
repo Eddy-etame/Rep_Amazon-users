@@ -59,7 +59,7 @@ export class TemporalDataStore {
       id: 'prod-1',
       titre: 'Casque Bluetooth Pro',
       categorie: 'Électronique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 59000,
       createdAt: this.baseNow - 1000 * 60 * 15,
       validUntil: this.baseNow + 1000 * 60 * 45
@@ -68,7 +68,7 @@ export class TemporalDataStore {
       id: 'prod-2',
       titre: 'Sac à dos urbain',
       categorie: 'Mode',
-      ville: 'Yaoundé',
+      ville: 'Lyon',
       prix: 32000,
       createdAt: this.baseNow - 1000 * 60 * 90,
       validUntil: this.baseNow + 1000 * 60 * 10
@@ -77,7 +77,7 @@ export class TemporalDataStore {
       id: 'prod-3',
       titre: 'Mixeur compact',
       categorie: 'Cuisine',
-      ville: 'Bafoussam',
+      ville: 'Marseille',
       prix: 27500,
       createdAt: this.baseNow - 1000 * 60 * 240,
       validUntil: this.baseNow - 1000 * 60 * 20
@@ -86,7 +86,7 @@ export class TemporalDataStore {
       id: 'prod-4',
       titre: 'Ordinateur portable 15\"',
       categorie: 'Informatique',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 325000,
       createdAt: this.baseNow - 1000 * 60 * 30,
       validUntil: this.baseNow + 1000 * 60 * 90
@@ -95,7 +95,7 @@ export class TemporalDataStore {
       id: 'prod-5',
       titre: 'Smartphone 4G Dual SIM',
       categorie: 'Électronique',
-      ville: 'Yaoundé',
+      ville: 'Lyon',
       prix: 145000,
       createdAt: this.baseNow - 1000 * 60 * 8,
       validUntil: this.baseNow + 1000 * 60 * 50
@@ -104,7 +104,7 @@ export class TemporalDataStore {
       id: 'prod-6',
       titre: 'Chaussures de sport légères',
       categorie: 'Mode',
-      ville: 'Douala',
+      ville: 'Paris',
       prix: 28000,
       createdAt: this.baseNow - 1000 * 60 * 200,
       validUntil: this.baseNow + 1000 * 60 * 15
@@ -113,7 +113,7 @@ export class TemporalDataStore {
       id: 'prod-7',
       titre: 'Robot de cuisine multifonction',
       categorie: 'Cuisine',
-      ville: 'Yaoundé',
+      ville: 'Lyon',
       prix: 95000,
       createdAt: this.baseNow - 1000 * 60 * 120,
       validUntil: this.baseNow + 1000 * 60 * 5
@@ -122,7 +122,7 @@ export class TemporalDataStore {
       id: 'prod-10',
       titre: 'Montre connectée fitness',
       categorie: 'Électronique',
-      ville: 'Bafoussam',
+      ville: 'Marseille',
       prix: 45000,
       createdAt: this.baseNow - 1000 * 60 * 60,
       validUntil: this.baseNow + 1000 * 60 * 20

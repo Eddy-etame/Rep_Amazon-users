@@ -1,5 +1,5 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CartActionsService } from '../../core/services/cart-actions.service';
@@ -14,7 +14,13 @@ import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
-export class Home {
+export class Home implements OnInit, OnDestroy {
+  private slideInterval: ReturnType<typeof setInterval> | null = null;
+  private readonly SLIDE_INTERVAL_MS = 5000;
+
+  currentSlideIndex = 0;
+  carouselHovered = false;
+
   constructor(
     private readonly userSession: UserSessionStore,
     private readonly temporal: TemporalDataStore,
@@ -50,8 +56,54 @@ export class Home {
   }
 
   carouselSlides = [
-    { id: '1', title: 'Électronique', image: 'https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg?auto=compress&cs=tinysrgb&w=1200', link: '/produits' },
-    { id: '2', title: 'Mode & Style', image: 'https://images.pexels.com/photos/374746/pexels-photo-374746.jpeg?auto=compress&cs=tinysrgb&w=1200', link: '/produits' },
-    { id: '3', title: 'Cuisine', image: 'https://images.pexels.com/photos/3738028/pexels-photo-3738028.jpeg?auto=compress&cs=tinysrgb&w=1200', link: '/produits' }
+    { id: '1', title: 'Électronique', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80', link: '/produits' },
+    { id: '2', title: 'Mode & Style', image: 'https://img.freepik.com/free-photo/romantic-portrait-woman-long-blue-dress-beach-by-sea-windy-day_343596-938.jpg?w=1920', link: '/produits' },
+    { id: '3', title: 'Cuisine', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80', link: '/produits' }
   ];
+
+  ngOnInit(): void {
+    this.startSlideInterval();
+  }
+
+  ngOnDestroy(): void {
+    this.stopSlideInterval();
+  }
+
+  private startSlideInterval(): void {
+    this.stopSlideInterval();
+    this.slideInterval = setInterval(() => {
+      if (!this.carouselHovered) {
+        this.nextSlide();
+      }
+    }, this.SLIDE_INTERVAL_MS);
+  }
+
+  private stopSlideInterval(): void {
+    if (this.slideInterval) {
+      clearInterval(this.slideInterval);
+      this.slideInterval = null;
+    }
+  }
+
+  nextSlide(): void {
+    this.currentSlideIndex = (this.currentSlideIndex + 1) % this.carouselSlides.length;
+  }
+
+  prevSlide(): void {
+    this.currentSlideIndex = this.currentSlideIndex === 0
+      ? this.carouselSlides.length - 1
+      : this.currentSlideIndex - 1;
+  }
+
+  goToSlide(index: number): void {
+    this.currentSlideIndex = index;
+  }
+
+  onCarouselMouseEnter(): void {
+    this.carouselHovered = true;
+  }
+
+  onCarouselMouseLeave(): void {
+    this.carouselHovered = false;
+  }
 }

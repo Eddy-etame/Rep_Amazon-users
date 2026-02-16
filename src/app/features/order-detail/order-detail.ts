@@ -5,7 +5,8 @@ import { OrderReturnService } from '../../core/services/order-return.service';
 import { TemporalDataStore } from '../../core/services/temporal-data.store';
 import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
-const RETURN_DAYS = 14;
+/** Délai de retour en jours après livraison. */
+export const RETURN_DAYS = 14;
 
 @Component({
   selector: 'app-order-detail',
@@ -19,6 +20,10 @@ export class OrderDetail {
     private readonly temporal: TemporalDataStore,
     readonly orderReturn: OrderReturnService
   ) {}
+
+  get justPlaced(): boolean {
+    return this.route.snapshot.queryParamMap.get('placed') === '1';
+  }
 
   get orderId(): string | null {
     return this.route.snapshot.paramMap.get('id');

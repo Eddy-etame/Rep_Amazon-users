@@ -157,7 +157,9 @@ export class Checkout implements OnInit {
     await this.email.sendOrderConfirmation(orderForEmail, userEmail, blob);
     if (order) {
       this.notificationScheduler.scheduleOrderNotifications(order);
+      this.router.navigate(['/commandes', order.id], { queryParams: { placed: '1' } });
+    } else {
+      this.router.navigateByUrl('/commandes');
     }
-    this.router.navigateByUrl('/commandes');
   }
 }

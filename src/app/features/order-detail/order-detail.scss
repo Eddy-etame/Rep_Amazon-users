@@ -7,6 +7,20 @@
   max-width: 560px;
 }
 
+.order-confirmed-banner {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(22, 163, 74, 0.15);
+  border: 1px solid rgba(22, 163, 74, 0.4);
+  color: #22c55e;
+}
+
+.order-confirmed-banner p {
+  margin: 0;
+  font-weight: 600;
+}
+
 .order-detail header {
   display: flex;
   align-items: center;

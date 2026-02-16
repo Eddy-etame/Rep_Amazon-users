@@ -120,6 +120,45 @@
   color: #f97316;
 }
 
+.filter-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.filter-actions .btn-apply {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #f97316;
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.filter-actions .btn-apply:hover {
+  background: #ea580c;
+}
+
+.filter-actions .btn-reset {
+  padding: 0.5rem 1rem;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-actions .btn-reset:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
 @media (max-width: 768px) {
   .products-layout {
     flex-direction: column;
