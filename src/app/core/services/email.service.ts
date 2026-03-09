@@ -15,6 +15,14 @@ interface OrderLike {
   total?: number;
 }
 
+interface ReturnRequestEmailInput {
+  requestId: string;
+  orderId: string;
+  reason: string;
+  itemTitles: string[];
+  qrImageUrl: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class EmailService {
   async sendOrderConfirmation(order: OrderLike, userEmail: string, _receiptBlob?: Blob): Promise<void> {
@@ -39,6 +47,22 @@ export class EmailService {
     const subject = 'Code de vérification Amaz';
     const body = `Votre code de vérification est : ${code}`;
     this.logAndStore('verification_code', to, subject, body);
+  }
+
+  async sendReturnRequestWithQr(to: string, input: ReturnRequestEmailInput): Promise<void> {
+    const subject = `Demande de retour ${input.requestId}`;
+    const body = [
+      `Votre demande de retour pour la commande ${input.orderId} a bien été enregistrée.`,
+      '',
+      `ID de demande : ${input.requestId}`,
+      `Articles concernés : ${input.itemTitles.join(', ') || 'Non précisés'}`,
+      `Motif : ${input.reason}`,
+      '',
+      `QR code de retour : ${input.qrImageUrl}`,
+      '',
+      'Présentez ce QR code lors du dépôt du colis.'
+    ].join('\n');
+    this.logAndStore('return_request_qr', to, subject, body);
   }
 
   private logAndStore(type: string, to: string, subject: string, body?: string): void {

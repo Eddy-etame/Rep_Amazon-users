@@ -3,25 +3,62 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { sha256Hex } from '../utils/crypto';
 
+export interface PowProofPayload {
+  method: string;
+  url: string;
+  fingerprintHash: string;
+}
+
+export interface PowProofResult {
+  proof: string;
+  nonce: string;
+  timestamp: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class PowService {
-  async generateProof(payload: string): Promise<string | null> {
+  private normalizePath(url: string): string {
+    try {
+      const parsed = new URL(url, window.location.origin);
+      return `${parsed.pathname}${parsed.search}`;
+    } catch {
+      return url.startsWith('/') ? url : `/${url}`;
+    }
+  }
+
+  private randomNonceSeed(): string {
+    const bytes = new Uint8Array(8);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes)
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  async generateProof(payload: PowProofPayload): Promise<PowProofResult | null> {
     const difficulty = environment.powDifficulty ?? 0;
     if (difficulty <= 0) {
       return null;
     }
 
+    const timestamp = Date.now();
+    const method = payload.method.toUpperCase();
+    const path = this.normalizePath(payload.url);
+    const fingerprintHash = payload.fingerprintHash;
     const targetPrefix = '0'.repeat(difficulty);
-    let nonce = 0;
-    const maxAttempts = 10_000;
+    const seed = this.randomNonceSeed();
+    const maxAttempts = 250_000;
 
-    while (nonce < maxAttempts) {
-      const candidate = `${payload}:${nonce}`;
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+      const nonce = `${seed}-${attempt}`;
+      const candidate = `${method}:${path}:${timestamp}:${nonce}:${fingerprintHash}`;
       const hash = await sha256Hex(candidate);
       if (hash.startsWith(targetPrefix)) {
-        return `${nonce}:${hash}`;
+        return {
+          proof: hash,
+          nonce,
+          timestamp
+        };
       }
-      nonce += 1;
     }
 
     return null;

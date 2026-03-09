@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, effect, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -7,6 +7,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartStore } from '../../../core/services/cart.store';
 import { ProductsMockStore } from '../../../core/services/products-mock.store';
 import { UserSessionStore } from '../../../core/services/user-session.store';
+import { VendorBridgeService } from '../../../core/services/vendor-bridge.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -30,12 +31,18 @@ export class TopBar implements OnInit {
   private suggestionHideTimer: ReturnType<typeof setTimeout> | null = null;
 
   private readonly destroyRef = inject(DestroyRef);
+  private readonly hostRef = inject(ElementRef<HTMLElement>);
+  private readonly isTouchLike =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   constructor(
     private readonly router: Router,
     private readonly userSession: UserSessionStore,
     private readonly cart: CartStore,
-    private readonly products: ProductsMockStore
+    private readonly products: ProductsMockStore,
+    private readonly vendorBridge: VendorBridgeService
   ) {
     effect(() => {
       const q = this.cart.totalQuantity();
@@ -138,6 +145,9 @@ export class TopBar implements OnInit {
       const url = this.router.url;
       const match = url.match(/[?&]q=([^&]+)/);
       if (match) this.searchQuery = decodeURIComponent(match[1]);
+      this.accountOpen = false;
+      this.showSuggestions = false;
+      this.categoriesMenuOpen = false;
     });
     const match = this.router.url.match(/[?&]q=([^&]+)/);
     if (match) this.searchQuery = decodeURIComponent(match[1]);
@@ -161,8 +171,44 @@ export class TopBar implements OnInit {
     this.categoriesMenuOpen = !this.categoriesMenuOpen;
   }
 
+  onAccountMouseEnter(): void {
+    if (!this.isTouchLike) {
+      this.accountOpen = true;
+    }
+  }
+
+  onAccountMouseLeave(): void {
+    if (!this.isTouchLike) {
+      this.accountOpen = false;
+    }
+  }
+
+  toggleAccountMenu(event: Event): void {
+    event.stopPropagation();
+    this.accountOpen = !this.accountOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as Node | null;
+    if (!target) return;
+    const dropdown = this.hostRef.nativeElement.querySelector('.account-dropdown');
+    if (dropdown && !dropdown.contains(target)) {
+      this.accountOpen = false;
+    }
+  }
+
   closeAccountMenu(): void {
     this.accountOpen = false;
+  }
+
+  openVendorSpace(event?: Event): void {
+    event?.preventDefault();
+    event?.stopPropagation();
+    this.closeAccountMenu();
+    if (!this.vendorBridge.openVendorSpace()) {
+      return;
+    }
   }
 
   logout(): void {

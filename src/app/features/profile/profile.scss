@@ -341,6 +341,49 @@
   }
 }
 
+@media (max-width: 640px) {
+  .profile-page {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .edit-form,
+  .addresses-section {
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-wrap: wrap;
+  }
+
+  .form-actions button {
+    flex: 1 1 160px;
+  }
+}
+
+@media (max-width: 412px) {
+  .profile-page {
+    margin-top: 1.2rem;
+    padding: 1rem 0.85rem;
+  }
+
+  .header {
+    gap: 1rem;
+  }
+
+  .header button,
+  .edit-form form button,
+  .btn-add {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .address-card,
+  .address-form {
+    padding: 0.85rem;
+  }
+}
+
 @media (max-width: 480px) {
   .profile-page {
     padding: 1rem;

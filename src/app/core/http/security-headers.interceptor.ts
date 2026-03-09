@@ -3,17 +3,20 @@ import { inject } from '@angular/core';
 import { from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { AuthTokenService } from '../services/auth-token.service';
 import { PowService } from '../services/pow.service';
+import { sha256Hex } from '../utils/crypto';
 import { buildFingerprint } from '../utils/fingerprint';
 import { generateRequestId } from '../utils/request-id';
 
-const POW_PATHS = ['/auth/login', '/auth/register', '/auth/reset'];
-let fingerprintPromise: Promise<string> | null = null;
+let clientFingerprintPromise: Promise<string> | null = null;
+let gatewayFingerprintPromise: Promise<string> | null = null;
 
 export const securityHeadersInterceptor: HttpInterceptorFn = (req, next) => {
   const authTokenService = inject(AuthTokenService);
   const powService = inject(PowService);
+  const apiBaseUrl = environment.apiBaseUrl.replace(/\/+$/, '');
 
   return from(
     (async () => {
@@ -21,20 +24,32 @@ export const securityHeadersInterceptor: HttpInterceptorFn = (req, next) => {
         'X-Request-Id': generateRequestId()
       };
 
-      if (!fingerprintPromise) {
-        fingerprintPromise = buildFingerprint();
+      if (!clientFingerprintPromise) {
+        clientFingerprintPromise = buildFingerprint();
       }
-      headers['X-Client-Fingerprint'] = await fingerprintPromise;
+      const clientFingerprint = await clientFingerprintPromise;
+      headers['X-Client-Fingerprint'] = clientFingerprint;
+
+      if (!gatewayFingerprintPromise) {
+        gatewayFingerprintPromise = sha256Hex(`fp:${clientFingerprint}`);
+      }
+      const gatewayFingerprint = await gatewayFingerprintPromise;
 
       const token = authTokenService.getToken();
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
 
-      if (POW_PATHS.some((path) => req.url.includes(path))) {
-        const proof = await powService.generateProof(req.url);
+      if (req.url.startsWith(apiBaseUrl)) {
+        const proof = await powService.generateProof({
+          method: req.method,
+          url: req.urlWithParams,
+          fingerprintHash: gatewayFingerprint
+        });
         if (proof) {
-          headers['X-PoW-Proof'] = proof;
+          headers['X-PoW-Proof'] = proof.proof;
+          headers['X-PoW-Nonce'] = proof.nonce;
+          headers['X-PoW-Timestamp'] = String(proof.timestamp);
         }
       }
 

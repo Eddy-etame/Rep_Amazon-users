@@ -130,17 +130,25 @@
   </nav>
 
     <div class="actions">
+      <button type="button" class="btn btn-vendor" (click)="openVendorSpace($event)">
+        Espace vendeur
+      </button>
       @if (!isLoggedIn) {
         <a routerLink="/connexion" class="btn">Se connecter</a>
       } @else {
-        <div class="account-dropdown" (mouseenter)="accountOpen = true" (mouseleave)="accountOpen = false">
-          <button type="button" class="account-trigger">
+        <div
+          class="account-dropdown"
+          (mouseenter)="onAccountMouseEnter()"
+          (mouseleave)="onAccountMouseLeave()"
+        >
+          <button type="button" class="account-trigger" (click)="toggleAccountMenu($event)">
             Bonjour, {{ userName }} ▾
           </button>
           @if (accountOpen) {
             <div class="account-menu">
               <a routerLink="/profil" (click)="closeAccountMenu()">Compte</a>
               <a routerLink="/commandes" (click)="closeAccountMenu()">Commandes</a>
+              <button type="button" (click)="openVendorSpace($event)">Espace vendeur</button>
               <button type="button" (click)="logout()">Se déconnecter</button>
             </div>
           }

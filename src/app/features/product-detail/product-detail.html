@@ -74,6 +74,24 @@
         <button type="button" class="btn-buy" (click)="buyNow()">Acheter maintenant</button>
       </div>
 
+      <section class="contact-vendor">
+        <h3>Contacter le vendeur</h3>
+        <textarea
+          [(ngModel)]="vendorMessageDraft"
+          rows="3"
+          placeholder="Posez votre question au vendeur..."
+        ></textarea>
+        @if (vendorMessageError) {
+          <p class="msg-error">{{ vendorMessageError }}</p>
+        }
+        @if (vendorMessageSuccess) {
+          <p class="msg-success">{{ vendorMessageSuccess }}</p>
+        }
+        <button type="button" class="btn-contact" (click)="sendMessageToVendor()">
+          Envoyer le message
+        </button>
+      </section>
+
       <details class="description-accordion">
         <summary>Description</summary>
         <p class="description">

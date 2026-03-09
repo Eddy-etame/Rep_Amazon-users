@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { DeliveryAddress } from '../../core/services/address.store';
 import { AddressStore } from '../../core/services/address.store';
 import { UserSessionStore } from '../../core/services/user-session.store';
+import { VendorBridgeService } from '../../core/services/vendor-bridge.service';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +35,8 @@ export class Profile {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly userSession: UserSessionStore,
-    readonly addressStore: AddressStore
+    readonly addressStore: AddressStore,
+    private readonly vendorBridge: VendorBridgeService
   ) {
     this.syncFromSession();
   }
@@ -145,6 +147,14 @@ export class Profile {
 
   deleteAddress(id: string): void {
     this.addressStore.deleteAddress(id);
+  }
+
+  openVendorSpace(): void {
+    if (!this.vendorBridge.hasVendorUrl()) {
+      this.mockMessage = 'Espace vendeur indisponible pour le moment.';
+      return;
+    }
+    this.vendorBridge.openVendorSpace();
   }
 
   logout(): void {

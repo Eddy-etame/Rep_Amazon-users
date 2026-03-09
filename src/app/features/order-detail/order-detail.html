@@ -58,13 +58,79 @@
         <p>Retour possible jusqu'au {{ returnDeadline }}.</p>
         @if (hasReturnRequest) {
           <p class="return-requested">Retour demandé</p>
+          @if (returnRequest) {
+            <p class="return-id">Référence retour : {{ returnRequest.requestId }}</p>
+            <p class="return-reason"><strong>Motif :</strong> {{ returnRequest.reason }}</p>
+            <div class="return-qr">
+              <img [src]="returnRequest.qrImageUrl" alt="QR code retour" />
+            </div>
+            <button type="button" class="btn-download" (click)="downloadReturnQr()">
+              Télécharger le QR code
+            </button>
+          }
         } @else {
-          <button type="button" class="btn-return" (click)="requestReturn()">
+          <button type="button" class="btn-return" (click)="openReturnForm()">
             Demander un retour
           </button>
         }
+        @if (returnSuccess) {
+          <p class="return-success">{{ returnSuccess }}</p>
+        }
+        @if (returnFormOpen) {
+          <div class="return-form">
+            <h3>Choisissez les articles à retourner</h3>
+            <div class="return-items">
+              @for (item of order.items ?? []; track item.productId) {
+                <label class="return-item">
+                  <input
+                    type="checkbox"
+                    [checked]="selectedItems[item.productId]"
+                    (change)="selectedItems[item.productId] = !selectedItems[item.productId]"
+                  />
+                  <span>{{ item.titre }} (x{{ item.quantite }})</span>
+                </label>
+              }
+            </div>
+            <label class="return-reason-label" for="returnReason">Motif du retour</label>
+            <textarea
+              id="returnReason"
+              [(ngModel)]="returnReason"
+              rows="3"
+              placeholder="Exemple : article reçu endommagé, taille incorrecte..."
+            ></textarea>
+            @if (returnError) {
+              <p class="return-error">{{ returnError }}</p>
+            }
+            <div class="return-actions">
+              <button type="button" class="btn-return" [disabled]="!canSubmitReturn" (click)="requestReturn()">
+                Envoyer la demande
+              </button>
+              <button type="button" class="btn-cancel" (click)="closeReturnForm()">
+                Annuler
+              </button>
+            </div>
+          </div>
+        }
       </div>
     }
+
+    <section class="contact-vendor">
+      <h2>Contacter le vendeur</h2>
+      <textarea
+        [(ngModel)]="vendorMessageDraft"
+        rows="3"
+        placeholder="Question sur la commande, la livraison ou le produit..."
+      ></textarea>
+      @if (vendorMessageError) {
+        <p class="vendor-error">{{ vendorMessageError }}</p>
+      }
+      @if (vendorMessageSuccess) {
+        <p class="vendor-success">{{ vendorMessageSuccess }}</p>
+      }
+      <button type="button" class="btn-return" (click)="sendMessageToVendor()">
+        Envoyer au vendeur
+      </button>
+    </section>
 
     <a routerLink="/commandes" class="link-back">← Retour aux commandes</a>
   }
