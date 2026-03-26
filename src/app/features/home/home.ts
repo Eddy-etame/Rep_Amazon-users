@@ -3,8 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CartActionsService } from '../../core/services/cart-actions.service';
-import { ProductsMockStore } from '../../core/services/products-mock.store';
-import { TemporalDataStore } from '../../core/services/temporal-data.store';
+import { OrdersStateStore } from '../../core/services/orders-state.store';
+import { ProductCatalogStore } from '../../core/services/product-catalog.store';
 import { UserSessionStore } from '../../core/services/user-session.store';
 import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
@@ -23,8 +23,8 @@ export class Home implements OnInit, OnDestroy {
 
   constructor(
     private readonly userSession: UserSessionStore,
-    private readonly temporal: TemporalDataStore,
-    private readonly products: ProductsMockStore,
+    private readonly ordersState: OrdersStateStore,
+    private readonly products: ProductCatalogStore,
     readonly cartActions: CartActionsService
   ) {}
 
@@ -37,7 +37,7 @@ export class Home implements OnInit, OnDestroy {
   }
 
   get snapshot() {
-    return this.temporal.snapshot;
+    return this.ordersState.snapshot;
   }
 
   getProductImage(productId: string): string | null {
@@ -55,10 +55,38 @@ export class Home implements OnInit, OnDestroy {
     return '★'.repeat(full) + '☆'.repeat(empty);
   }
 
-  carouselSlides = [
-    { id: '1', title: 'Électronique', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80', link: '/produits' },
-    { id: '2', title: 'Mode & Style', image: 'https://img.freepik.com/free-photo/romantic-portrait-woman-long-blue-dress-beach-by-sea-windy-day_343596-938.jpg?w=1920', link: '/produits' },
-    { id: '3', title: 'Cuisine', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80', link: '/produits' }
+  readonly carouselSlides: {
+    id: string;
+    title: string;
+    subtitle: string;
+    image: string;
+    link: string;
+    queryParams?: Record<string, string>;
+  }[] = [
+    {
+      id: '1',
+      title: 'Électronique',
+      subtitle: 'Découvrir la sélection',
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80',
+      link: '/produits',
+      queryParams: { categorie: 'Électronique' }
+    },
+    {
+      id: '2',
+      title: 'Mode & style',
+      subtitle: 'Voir le catalogue',
+      image: 'https://img.freepik.com/free-photo/romantic-portrait-woman-long-blue-dress-beach-by-sea-windy-day_343596-938.jpg?w=1920',
+      link: '/produits',
+      queryParams: { categorie: 'Mode' }
+    },
+    {
+      id: '3',
+      title: 'Cuisine',
+      subtitle: 'Explorer les produits',
+      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80',
+      link: '/produits',
+      queryParams: { categorie: 'Cuisine' }
+    }
   ];
 
   ngOnInit(): void {

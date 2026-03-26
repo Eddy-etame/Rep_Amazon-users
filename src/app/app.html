@@ -1,5 +1,18 @@
 <app-top-bar></app-top-bar>
 
+@if (toast.active(); as t) {
+  <div
+    class="app-toast"
+    role="status"
+    aria-live="polite"
+    [class.app-toast--success]="t.variant === 'success'"
+    [class.app-toast--error]="t.variant === 'error'"
+    [class.app-toast--info]="t.variant === 'info'"
+  >
+    {{ t.message }}
+  </div>
+}
+
 <main class="page">
 <router-outlet></router-outlet>
 </main>

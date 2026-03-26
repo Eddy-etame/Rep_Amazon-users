@@ -1,17 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, effect, ElementRef, HostListener, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  HostListener,
+  inject,
+  OnInit
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
+import { AuthService } from '../../../core/services/auth.service';
+import { AuthTokenService } from '../../../core/services/auth-token.service';
 import { CartStore } from '../../../core/services/cart.store';
-import { ProductsMockStore } from '../../../core/services/products-mock.store';
+import { ProductCatalogStore } from '../../../core/services/product-catalog.store';
+import { ProductsService } from '../../../core/services/products.service';
 import { UserSessionStore } from '../../../core/services/user-session.store';
+import { AmazCurrencyPipe } from '../../pipes/currency.pipe';
 import { VendorBridgeService } from '../../../core/services/vendor-bridge.service';
+import { WishlistStore } from '../../../core/services/wishlist.store';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive, AmazCurrencyPipe],
   templateUrl: './top-bar.html',
   styleUrl: './top-bar.scss'
 })
@@ -27,8 +42,12 @@ export class TopBar implements OnInit {
   showSuggestions = false;
   accountOpen = false;
   categoriesMenuOpen = false;
-  searchSuggestions: { id: string; titre: string }[] = [];
+  navDrawerOpen = false;
+  searchSuggestions: { id: string; titre: string; imagePrincipale: string; prix: number }[] = [];
+  /** Amazon-style text rows: bold suffix after typed prefix. */
+  keywordSuggestions: { text: string; boldLen: number }[] = [];
   private suggestionHideTimer: ReturnType<typeof setTimeout> | null = null;
+  private suggestSeq = 0;
 
   private readonly destroyRef = inject(DestroyRef);
   private readonly hostRef = inject(ElementRef<HTMLElement>);
@@ -39,10 +58,14 @@ export class TopBar implements OnInit {
 
   constructor(
     private readonly router: Router,
+    private readonly authService: AuthService,
+    private readonly authToken: AuthTokenService,
     private readonly userSession: UserSessionStore,
     private readonly cart: CartStore,
-    private readonly products: ProductsMockStore,
-    private readonly vendorBridge: VendorBridgeService
+    private readonly products: ProductCatalogStore,
+    private readonly productsApi: ProductsService,
+    private readonly vendorBridge: VendorBridgeService,
+    readonly wishlistStore: WishlistStore
   ) {
     effect(() => {
       const q = this.cart.totalQuantity();
@@ -89,12 +112,40 @@ export class TopBar implements OnInit {
     return this.cart.totalQuantity;
   }
 
+  /** Shown when the catalog has not loaded yet (matches PLP / seed taxonomy). */
+  readonly categoryNavFallback = [
+    'Électronique',
+    'Mode',
+    'Cuisine',
+    'Informatique',
+    'Maison',
+    'Sports',
+    'Beauté',
+    'Jardin',
+    'Auto',
+    'Bébé',
+    'Livres',
+    'Animalerie',
+    'Bricolage'
+  ];
+
+  /** Categories for the top-bar row: live from `ProductCatalogStore`, sorted (signal-safe). */
+  readonly navCategories = computed(() => {
+    const all = this.products.products();
+    const set = new Set(
+      all.map((p) => String(p.categorie || '').trim()).filter((c) => c.length > 0)
+    );
+    const fromCatalog = Array.from(set).sort((a, b) => a.localeCompare(b, 'fr'));
+    return fromCatalog.length > 0 ? fromCatalog : [...this.categoryNavFallback];
+  });
+
   onSearch(): void {
     const q = this.searchQuery.trim();
     this.showSuggestions = false;
     if (q) this.addToSearchHistory(q);
     this.router.navigate(['/produits'], {
-      queryParams: q ? { q } : {}
+      queryParams: { q: q.length ? q : null },
+      queryParamsHandling: 'merge'
     });
   }
 
@@ -104,40 +155,144 @@ export class TopBar implements OnInit {
     }
     this.searchDebounceTimer = setTimeout(() => {
       this.searchDebounceTimer = null;
-      this.updateSuggestions();
+      void this.updateSuggestions();
     }, 250);
   }
 
   private updateSuggestions(): void {
-    const q = this.searchQuery.trim().toLowerCase();
-    if (q.length < 2) {
+    void this.runSuggestionUpdate();
+  }
+
+  private commonPrefixLen(a: string, b: string): number {
+    const n = Math.min(a.length, b.length);
+    let i = 0;
+    while (i < n && a[i].toLowerCase() === b[i].toLowerCase()) {
+      i++;
+    }
+    return i;
+  }
+
+  private buildKeywordSuggestions(qRaw: string): void {
+    const q = qRaw.trim();
+    if (q.length < 1) {
+      this.keywordSuggestions = [];
+      return;
+    }
+    const qLower = q.toLowerCase();
+    const seen = new Set<string>();
+    const out: { text: string; boldLen: number }[] = [];
+
+    const push = (raw: string) => {
+      const text = raw.trim();
+      if (!text || seen.has(text.toLowerCase())) {
+        return;
+      }
+      if (!text.toLowerCase().startsWith(qLower)) {
+        return;
+      }
+      seen.add(text.toLowerCase());
+      out.push({ text, boldLen: this.commonPrefixLen(q, text) });
+    };
+
+    for (const c of this.navCategories()) {
+      push(c);
+    }
+    for (const p of this.popularSearches) {
+      push(p);
+    }
+    for (const h of this.searchHistory) {
+      push(h);
+    }
+    for (const pr of this.products.products()) {
+      push(pr.titre);
+      if (seen.size >= 36) {
+        break;
+      }
+    }
+
+    out.sort((a, b) => a.text.length - b.text.length || a.text.localeCompare(b.text, 'fr'));
+    this.keywordSuggestions = out.slice(0, 10);
+  }
+
+  private mapClientSuggestions(qLower: string) {
+    const all = this.products.products();
+    return all
+      .filter(
+        (p) =>
+          p.titre.toLowerCase().includes(qLower) ||
+          p.categorie.toLowerCase().includes(qLower) ||
+          (p.descriptionCourte && p.descriptionCourte.toLowerCase().includes(qLower)) ||
+          (p.descriptionDetaillee && p.descriptionDetaillee.toLowerCase().includes(qLower))
+      )
+      .slice(0, 8)
+      .map((p) => ({
+        id: p.id,
+        titre: p.titre,
+        imagePrincipale: p.imagePrincipale || '',
+        prix: p.prix
+      }));
+  }
+
+  private async runSuggestionUpdate(): Promise<void> {
+    const qRaw = this.searchQuery.trim();
+    const qLower = qRaw.toLowerCase();
+    const seq = ++this.suggestSeq;
+
+    if (qRaw.length < 2) {
       this.searchSuggestions = [];
       return;
     }
-    const all = this.products.products();
-    this.searchSuggestions = all
-      .filter(
-        (p) =>
-          p.titre.toLowerCase().includes(q) ||
-          p.categorie.toLowerCase().includes(q) ||
-          (p.descriptionCourte && p.descriptionCourte.toLowerCase().includes(q)) ||
-          (p.descriptionDetaillee && p.descriptionDetaillee.toLowerCase().includes(q))
-      )
-      .slice(0, 8)
-      .map((p) => ({ id: p.id, titre: p.titre }));
+
+    try {
+      const res = await firstValueFrom(this.productsApi.suggest(qRaw, 8));
+      if (seq !== this.suggestSeq) {
+        return;
+      }
+      const items = (res as { data?: { items?: unknown[] } })?.data?.items ?? [];
+      const mapped = items
+        .map((raw: unknown) => {
+          const r = raw as Record<string, unknown>;
+          return {
+            id: String(r['id'] ?? ''),
+            titre: String(r['titre'] ?? r['title'] ?? ''),
+            imagePrincipale: String(r['imagePrincipale'] ?? r['image'] ?? ''),
+            prix: Number(r['prix'] ?? r['price'] ?? 0)
+          };
+        })
+        .filter((s) => s.id && s.titre);
+      if (mapped.length > 0) {
+        this.searchSuggestions = mapped;
+        return;
+      }
+    } catch {
+      if (seq !== this.suggestSeq) {
+        return;
+      }
+    }
+
+    if (seq !== this.suggestSeq) {
+      return;
+    }
+    this.searchSuggestions = this.mapClientSuggestions(qLower);
   }
 
   applyPopularSearch(term: string): void {
     this.searchQuery = term;
     this.showSuggestions = false;
     this.addToSearchHistory(term);
-    this.router.navigate(['/produits'], { queryParams: { q: term } });
+    this.router.navigate(['/produits'], {
+      queryParams: { q: term },
+      queryParamsHandling: 'merge'
+    });
   }
 
   applyHistorySearch(term: string): void {
     this.searchQuery = term;
     this.showSuggestions = false;
-    this.router.navigate(['/produits'], { queryParams: { q: term } });
+    this.router.navigate(['/produits'], {
+      queryParams: { q: term },
+      queryParamsHandling: 'merge'
+    });
   }
 
   ngOnInit(): void {
@@ -167,8 +322,36 @@ export class TopBar implements OnInit {
     this.router.navigate(['/produits', id]);
   }
 
+  applyKeywordSearch(term: string): void {
+    if (this.suggestionHideTimer) {
+      clearTimeout(this.suggestionHideTimer);
+    }
+    this.searchQuery = term;
+    this.showSuggestions = false;
+    this.addToSearchHistory(term);
+    this.router.navigate(['/produits'], {
+      queryParams: { q: term, page: null },
+      queryParamsHandling: 'merge'
+    });
+  }
+
   toggleCategoriesMenu(): void {
     this.categoriesMenuOpen = !this.categoriesMenuOpen;
+  }
+
+  toggleNavDrawer(): void {
+    this.navDrawerOpen = !this.navDrawerOpen;
+  }
+
+  closeNavDrawer(): void {
+    this.navDrawerOpen = false;
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (typeof window !== 'undefined' && window.innerWidth > 900) {
+      this.navDrawerOpen = false;
+    }
   }
 
   onAccountMouseEnter(): void {
@@ -211,9 +394,11 @@ export class TopBar implements OnInit {
     }
   }
 
-  logout(): void {
+  async logout(): Promise<void> {
     this.accountOpen = false;
+    await firstValueFrom(this.authService.logout()).catch(() => undefined);
+    this.authToken.clearToken();
     this.userSession.clear();
-    this.router.navigateByUrl('/');
+    await this.router.navigateByUrl('/');
   }
 }

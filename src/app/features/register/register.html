@@ -20,8 +20,8 @@
         Téléphone (optionnel)
         <input [(ngModel)]="phone" name="phone" type="tel" placeholder="+33 6 12 34 56 78" />
       </label>
-      <button type="button" (click)="goToChannel()" [disabled]="!canProceedFromForm()">
-        Continuer
+      <button type="button" (click)="goToChannel()" [disabled]="loading">
+        {{ loading ? 'Chargement...' : 'Continuer' }}
       </button>
       <p class="form-error" [hidden]="!registerError">{{ registerError }}</p>
     </form>
@@ -42,14 +42,18 @@
           <input [(ngModel)]="phone" name="phoneChannel" type="tel" placeholder="+33 6 12 34 56 78" />
         </label>
       }
-      <button type="button" (click)="sendCode()" [disabled]="!canProceedFromChannel()">
-        Envoyer le code
+      <button type="button" (click)="sendCode()" [disabled]="loading">
+        {{ loading ? 'Envoi en cours...' : 'Envoyer le code' }}
       </button>
       <button type="button" class="btn-back" (click)="back()">Retour</button>
+      <p class="form-error" [hidden]="!verificationError">{{ verificationError }}</p>
     </div>
   } @else if (step === 'code') {
     <div class="form">
-      <p>Un code à 6 chiffres a été envoyé à {{ verificationTarget }}.</p>
+      <p class="success-msg">Un code à 6 chiffres a été envoyé à {{ verificationTarget }}.</p>
+      @if (debugCode) {
+        <p class="debug-code">Code de test (dev) : <strong>{{ debugCode }}</strong></p>
+      }
       <label>
         Code de vérification
         <input [(ngModel)]="verificationCode" name="code" type="text" placeholder="123456" maxlength="6" inputmode="numeric" />

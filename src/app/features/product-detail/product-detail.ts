@@ -6,10 +6,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CartStore } from '../../core/services/cart.store';
 import { MessagesService } from '../../core/services/messages.service';
 import {
-  ProductMock,
-  ProductsMockStore
-} from '../../core/services/products-mock.store';
+  type CatalogProduct,
+  ProductCatalogStore
+} from '../../core/services/product-catalog.store';
+import { ShareService } from '../../core/services/share.service';
+import { ToastService } from '../../core/services/toast.service';
 import { UserSessionStore } from '../../core/services/user-session.store';
+import { WishlistStore } from '../../core/services/wishlist.store';
 import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
@@ -19,33 +22,44 @@ import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
   styleUrl: './product-detail.scss'
 })
 export class ProductDetail {
-  product?: ProductMock;
+  product?: CatalogProduct;
   selectedImage?: string;
   quantity = 1;
-  quantityOptions = Array.from({ length: 30 }, (_, i) => i + 1);
+
+  get quantityOptions(): number[] {
+    const max = this.product?.stock != null ? Math.min(this.product.stock, 30) : 30;
+    return Array.from({ length: max }, (_, i) => i + 1);
+  }
   vendorMessageDraft = '';
   vendorMessageError = '';
   vendorMessageSuccess = '';
-
-  private readonly vendorId = 'vendor_demo_01';
-  private readonly vendorName = 'Amaz Vendor';
+  shareHint = '';
+  wishlistHint = '';
 
   constructor(
     route: ActivatedRoute,
-    products: ProductsMockStore,
+    products: ProductCatalogStore,
     private readonly cart: CartStore,
     private readonly userSession: UserSessionStore,
     private readonly router: Router,
-    private readonly messagesService: MessagesService
+    private readonly messagesService: MessagesService,
+    private readonly shareService: ShareService,
+    private readonly toast: ToastService,
+    readonly wishlistStore: WishlistStore
   ) {
-    const id = route.snapshot.paramMap.get('id');
-    if (id) {
-      const found = products.byId(id);
+    route.paramMap.subscribe(async (params) => {
+      const id = params.get('id');
+      if (!id) {
+        this.product = undefined;
+        return;
+      }
+
+      const found = products.byId(id) ?? (await products.loadProduct(id));
       if (found) {
         this.product = found;
         this.selectedImage = found.imagePrincipale;
       }
-    }
+    });
   }
 
   selectImage(url: string): void {
@@ -69,6 +83,43 @@ export class ProductDetail {
     for (let i = 0; i < this.quantity; i++) {
       this.cart.addItem(this.product);
     }
+  }
+
+  async shareProduct(): Promise<void> {
+    if (!this.product) return;
+    const url = this.shareService.absoluteUrl(`/produits/${this.product.id}`);
+    await this.shareService.shareOrCopy({
+      title: this.product.titre,
+      text: 'Découvrez ce produit sur Amaz',
+      url
+    });
+    const msg = this.shareService.getMessage() || 'Lien prêt à partager.';
+    this.shareHint = msg;
+    this.shareService.clearMessage();
+    this.toast.show(msg, 'success');
+    setTimeout(() => (this.shareHint = ''), 4000);
+  }
+
+  async addToWishlist(): Promise<void> {
+    if (!this.product) return;
+    if (!this.userSession.isLoggedIn()) {
+      this.router.navigate(['/connexion'], {
+        queryParams: { redirect: `/produits/${this.product.id}` }
+      });
+      return;
+    }
+    if (this.wishlistStore.hasProduct(this.product.id)) {
+      this.wishlistHint = 'Déjà dans votre liste.';
+      this.toast.show(this.wishlistHint, 'info');
+      setTimeout(() => (this.wishlistHint = ''), 2500);
+      return;
+    }
+    const ok = await this.wishlistStore.addProduct(this.product.id);
+    this.wishlistHint = ok
+      ? 'Ajouté à votre liste de souhaits.'
+      : this.wishlistStore.lastError() || "Impossible d'ajouter à la liste.";
+    this.toast.show(this.wishlistHint, ok ? 'success' : 'error');
+    setTimeout(() => (this.wishlistHint = ''), 3500);
   }
 
   buyNow(): void {
@@ -106,8 +157,8 @@ export class ProductDetail {
     this.messagesService.sendToVendor({
       userId: session.id,
       userName: session.nom,
-      vendorId: this.vendorId,
-      vendorName: this.vendorName,
+      vendorId: this.product.vendorId || 'vendor_unknown',
+      vendorName: this.product.nomVendeur || 'Vendeur',
       content,
       subject: `Question produit: ${this.product.titre}`,
       productId: this.product.id,

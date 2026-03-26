@@ -1,11 +1,18 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+import { GatewayApiService } from './gateway-api.service';
+
+export interface OrderCreateItem {
+  productId: string;
+  quantity: number;
+}
 
 export interface OrderCreatePayload {
-  produitId: string;
-  quantite: number;
+  items?: OrderCreateItem[];
+  articles?: OrderCreateItem[];
+  adresseLivraison?: unknown;
+  methodePaiement?: string;
 }
 
 export interface OrderQuery {
@@ -17,12 +24,10 @@ export interface OrderQuery {
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
-  private readonly baseUrl = environment.apiBaseUrl;
-
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly gateway: GatewayApiService) {}
 
   create(payload: OrderCreatePayload) {
-    return this.http.post(`${this.baseUrl}/commandes`, payload);
+    return this.gateway.post('/commandes', payload);
   }
 
   list(query: OrderQuery = {}) {
@@ -32,10 +37,14 @@ export class OrdersService {
         params = params.set(key, String(value));
       }
     });
-    return this.http.get(`${this.baseUrl}/commandes`, { params });
+    return this.gateway.get('/commandes', { params });
+  }
+
+  getById(orderId: string) {
+    return this.gateway.get(`/commandes/${encodeURIComponent(orderId)}`);
   }
 
   cancel(orderId: string) {
-    return this.http.put(`${this.baseUrl}/commandes/${orderId}/annuler`, {});
+    return this.gateway.put(`/commandes/${encodeURIComponent(orderId)}/annuler`, {});
   }
 }

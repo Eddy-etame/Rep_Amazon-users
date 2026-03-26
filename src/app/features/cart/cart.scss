@@ -186,6 +186,18 @@
   cursor: pointer;
 }
 
+.summary .btn-clear {
+  margin-top: 0.25rem;
+  background: transparent;
+  border: 1px solid #4b5563;
+  color: #9ca3af;
+}
+
+.summary .btn-clear:hover {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
 .summary .link-orders {
   margin-top: 0.25rem;
   padding: 0;

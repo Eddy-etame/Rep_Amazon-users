@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
+import { AuthService, type AuthApiUser } from '../../core/services/auth.service';
+import { AuthTokenService } from '../../core/services/auth-token.service';
 import { UserSessionStore } from '../../core/services/user-session.store';
 
 @Component({
@@ -15,7 +18,10 @@ export class Login {
   constructor(
     route: ActivatedRoute,
     private readonly router: Router,
-    private readonly userSession: UserSessionStore
+    private readonly authService: AuthService,
+    private readonly authToken: AuthTokenService,
+    private readonly userSession: UserSessionStore,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.redirectUrl = route.snapshot.queryParamMap.get('redirect');
   }
@@ -43,7 +49,19 @@ export class Login {
     return !this.isValidEmail(email) || !this.isValidPassword(password);
   }
 
-  handleLogin(email: string, password: string): void {
+  private toSession(user: AuthApiUser) {
+    return {
+      id: user.id,
+      nom: user.username || user.email.split('@')[0] || 'Client',
+      email: user.email,
+      role: 'client' as const,
+      lastLoginAt: Date.now(),
+      adresse: '',
+      telephone: user.phone || ''
+    };
+  }
+
+  async handleLogin(email: string, password: string): Promise<void> {
     if (!this.isValidEmail(email)) {
       this.loginError =
         "Veuillez saisir une adresse e-mail valide (par exemple: nom@domaine.com).";
@@ -60,29 +78,33 @@ export class Login {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
 
-    // Base user: eddy.eetame@gmail.com / Eddy / 123@2026
-    const BASE_USER = {
-      email: 'eddy.eetame@gmail.com',
-      password: '123@2026',
-      nom: 'Eddy'
-    };
+    try {
+      const response = await firstValueFrom(
+        this.authService.login({
+          email: trimmedEmail,
+          password: trimmedPassword
+        })
+      );
 
-    let nom: string;
-    if (trimmedEmail.toLowerCase() === BASE_USER.email && trimmedPassword === BASE_USER.password) {
-      nom = BASE_USER.nom;
-    } else {
-      nom = trimmedEmail.split('@')[0] || 'Client';
+      const user = response.data?.user;
+      const token = response.data?.accessToken || response.data?.token;
+      if (!response.success || !user || !token) {
+        throw new Error('Réponse de connexion invalide.');
+      }
+
+      this.authToken.setToken(token, response.data?.accessExpiresAt);
+      this.userSession.setUser(this.toSession(user));
+      await this.router.navigateByUrl(this.redirectUrl || '/');
+    } catch (err: unknown) {
+      this.authToken.clearToken();
+      this.userSession.clear();
+      const httpErr = err as { status?: number; message?: string };
+      if (httpErr?.status === 0 || httpErr?.message?.toLowerCase().includes('fetch')) {
+        this.loginError = 'Impossible de contacter le serveur. Vérifiez que le backend est démarré (port 3000).';
+      } else {
+        this.loginError = 'Email ou mot de passe invalide.';
+      }
+      this.cdr.detectChanges();
     }
-
-    this.userSession.setUser({
-      id: 'mock-user',
-      nom,
-      email: trimmedEmail,
-      role: 'client',
-      lastLoginAt: Date.now(),
-      adresse: '',
-      telephone: ''
-    });
-    this.router.navigateByUrl(this.redirectUrl || '/');
   }
 }

@@ -140,6 +140,9 @@
         <p class="total">
           Total : <strong>{{ totalPrice() | amazCurrency }}</strong>
         </p>
+        @if (orderError) {
+          <p class="order-error">{{ orderError }}</p>
+        }
         <button type="button" class="btn-confirm" [disabled]="!canConfirm" (click)="confirmOrder()">
           Confirmer la commande
         </button>

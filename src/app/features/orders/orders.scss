@@ -1,9 +1,77 @@
 .card {
-  background: #020617;
+  background: var(--amaz-color-surface, #020617);
   padding: 2rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  border-radius: var(--amaz-radius-lg, 1rem);
+  border: 1px solid var(--amaz-color-border, rgba(148, 163, 184, 0.6));
+  box-shadow: var(--amaz-shadow-card, 0 18px 40px rgba(15, 23, 42, 0.9));
+}
+
+.orders-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--amaz-space-3, 0.75rem);
+  margin-bottom: 0.5rem;
+}
+
+.orders-toolbar h1 {
+  margin: 0;
+}
+
+.btn-refresh {
+  padding: 0.45rem 1rem;
+  border-radius: var(--amaz-radius-sm, 6px);
+  border: 1px solid var(--amaz-color-border);
+  background: var(--amaz-color-surface-elevated, #0f172a);
+  color: var(--amaz-color-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--amaz-transition), color var(--amaz-transition);
+}
+
+.btn-refresh:hover:not(:disabled) {
+  border-color: var(--amaz-color-accent);
+  color: var(--amaz-color-accent);
+}
+
+.btn-refresh:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.skeleton-stack {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-block {
+  height: 4.5rem;
+  border-radius: var(--amaz-radius-md, 10px);
+  background: linear-gradient(
+    90deg,
+    #0f172a 0%,
+    #1e293b 50%,
+    #0f172a 100%
+  );
+  background-size: 200% 100%;
+  animation: orders-sk 1.2s ease-in-out infinite;
+}
+
+.skeleton-block.short {
+  height: 2.5rem;
+  width: 60%;
+}
+
+@keyframes orders-sk {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .card h1 {
@@ -49,8 +117,22 @@
 .order header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.badge.news {
+  background: rgba(249, 115, 22, 0.2);
+  color: var(--amaz-color-accent, #f97316);
+  border: 1px solid rgba(249, 115, 22, 0.45);
 }
 
 .order h2 {
@@ -71,6 +153,46 @@
 
 .badge.active {
   background: #16a34a;
+}
+
+.badge.age {
+  background: #1e293b;
+  color: #94a3b8;
+  font-size: 0.7rem;
+}
+
+.status-pill {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  background: rgba(249, 115, 22, 0.2);
+  color: #fdba74;
+}
+
+.status-pill[data-lifecycle='delivered'] {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+}
+
+.status-pill[data-lifecycle='cancelled'] {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+.status-pill[data-lifecycle='confirmed'] {
+  background: rgba(148, 163, 184, 0.2);
+  color: #e2e8f0;
+}
+
+.status-pill[data-lifecycle='preparing'] {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.status-pill[data-lifecycle='shipped'] {
+  background: rgba(249, 115, 22, 0.25);
+  color: #fdba74;
 }
 
 .meta {

@@ -1,16 +1,14 @@
-import { DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AddressStore } from '../../core/services/address.store';
+import { AddressBookStore } from '../../core/services/address-book.store';
 import { CartStore } from '../../core/services/cart.store';
-import { TemporalDataStore } from '../../core/services/temporal-data.store';
 
 @Component({
   selector: 'app-cart',
-  imports: [DecimalPipe, FormsModule, AmazCurrencyPipe],
+  imports: [FormsModule, AmazCurrencyPipe],
   templateUrl: './cart.html',
   styleUrl: './cart.scss'
 })
@@ -21,9 +19,8 @@ export class Cart {
 
   constructor(
     private readonly cart: CartStore,
-    private readonly temporal: TemporalDataStore,
     private readonly router: Router,
-    private readonly addressStore: AddressStore
+    private readonly addressStore: AddressBookStore
   ) {}
 
   get items() {
@@ -71,6 +68,10 @@ export class Cart {
 
   remove(productId: string): void {
     this.cart.removeItem(productId);
+  }
+
+  clearCart(): void {
+    this.cart.clear();
   }
 
   passerCommande(): void {

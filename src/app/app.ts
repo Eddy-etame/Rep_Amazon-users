@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { NotificationSchedulerService } from './core/services/notification-scheduler.service';
+import { ToastService } from './core/services/toast.service';
 import { FooterBar } from './shared/components/footer-bar/footer-bar';
 import { TopBar } from './shared/components/top-bar/top-bar';
 
@@ -12,6 +13,8 @@ import { TopBar } from './shared/components/top-bar/top-bar';
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
+  readonly toast = inject(ToastService);
+
   constructor(private readonly notificationScheduler: NotificationSchedulerService) {}
 
   ngOnInit(): void {

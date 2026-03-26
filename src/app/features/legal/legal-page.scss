@@ -1,0 +1,36 @@
+.legal {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: var(--amaz-section-y-tight, 1.25rem) 0 var(--amaz-section-y, 2rem);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  color: #fdba74;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+.legal h1 {
+  margin: 0 0 1rem;
+  font-family: var(--amaz-font-display, Georgia, serif);
+  font-size: var(--amaz-text-3xl, 1.875rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.legal p {
+  margin: 0 0 1rem;
+  color: #cbd5e1;
+  line-height: 1.65;
+}
+
+.contact-line a {
+  color: #f97316;
+  font-weight: 600;
+}

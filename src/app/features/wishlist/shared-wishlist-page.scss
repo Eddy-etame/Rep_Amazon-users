@@ -1,0 +1,94 @@
+.shared-wishlist {
+  margin: 2rem auto;
+  max-width: 900px;
+  padding: 2rem;
+  background: #020617;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+}
+
+.lead {
+  color: #94a3b8;
+  margin-top: 0;
+}
+
+.toolbar {
+  margin-bottom: 1rem;
+}
+
+.btn-share {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(30, 41, 59, 0.8);
+  color: #e2e8f0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-share:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+.muted {
+  color: #94a3b8;
+}
+
+.err {
+  color: #fca5a5;
+}
+
+.back {
+  color: #f97316;
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.empty a {
+  color: #f97316;
+}
+
+.wishlist-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.wish-card {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #0f172a;
+}
+
+.thumb img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.info a {
+  color: #f8fafc;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.info a:hover {
+  color: #f97316;
+}
+
+.price {
+  margin: 0.25rem 0;
+  color: #fdba74;
+}

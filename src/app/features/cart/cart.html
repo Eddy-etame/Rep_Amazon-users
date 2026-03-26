@@ -48,7 +48,7 @@
 
       <aside class="summary">
         <h2>Résumé</h2>
-        <p class="subtotal">Sous-total ({{ totalQuantity() }} article{{ totalQuantity() > 1 ? 's' : '' }}) : {{ totalPrice() | number:'1.0-0' }} FCFA</p>
+        <p class="subtotal">Sous-total ({{ totalQuantity() }} article{{ totalQuantity() > 1 ? 's' : '' }}) : {{ totalPrice() | amazCurrency }}</p>
         <div class="promo">
           <input
             type="text"
@@ -63,6 +63,7 @@
         </div>
         <p class="total">Total : {{ totalPrice() | amazCurrency }}</p>
         <button type="button" (click)="passerCommande()">Passer la commande</button>
+        <button type="button" class="btn-clear" (click)="clearCart()">Vider le panier</button>
         <button type="button" class="link-orders" (click)="goToOrders()">
           Voir mes commandes
         </button>

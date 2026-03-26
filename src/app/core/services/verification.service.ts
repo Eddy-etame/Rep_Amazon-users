@@ -1,51 +1,73 @@
 import { Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
-import { EmailService } from './email.service';
-import { SmsService } from './sms.service';
-
-const VERIFICATION_CODE_EXPIRY_MS = 10 * 60 * 1000; // 10 min
+import { AuthService } from './auth.service';
 
 interface PendingVerification {
+  otpRequestId: string;
   target: string;
-  code: string;
+  channel: 'email' | 'phone';
   expiresAt: number;
+  debugCode?: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class VerificationService {
-  private pending: Map<string, PendingVerification> = new Map();
+  private pending: PendingVerification | null = null;
 
-  constructor(
-    private readonly email: EmailService,
-    private readonly sms: SmsService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
-  async sendCode(channel: 'email' | 'phone', target: string): Promise<void> {
-    const code = this.generateCode();
-    const expiresAt = Date.now() + VERIFICATION_CODE_EXPIRY_MS;
-    this.pending.set(target.toLowerCase(), { target, code, expiresAt });
+  async sendCode(options: {
+    userId: string;
+    channel: 'email' | 'phone';
+    email?: string;
+    phone?: string;
+  }): Promise<void> {
+    const response = await firstValueFrom(
+      this.authService.startVerification({
+        userId: options.userId,
+        channel: options.channel === 'phone' ? 'sms' : 'email',
+        email: options.email,
+        phone: options.phone
+      })
+    );
 
-    if (channel === 'email') {
-      await this.email.sendVerificationCode(target, code);
-    } else {
-      await this.sms.sendVerificationCode(target, code);
+    const otpRequestId = response.data?.otpRequestId;
+    if (!response.success || !otpRequestId) {
+      throw new Error('Impossible d’envoyer le code de vérification.');
     }
+
+    const target = options.channel === 'phone' ? options.phone || '' : options.email || '';
+    this.pending = {
+      otpRequestId,
+      target,
+      channel: options.channel,
+      expiresAt: Number(response.data?.expiresAt || Date.now()),
+      debugCode: response.data?.debugCode
+    };
   }
 
-  verifyCode(target: string, code: string): boolean {
-    const key = target.toLowerCase();
-    const pending = this.pending.get(key);
-    if (!pending) return false;
-    if (Date.now() > pending.expiresAt) {
-      this.pending.delete(key);
+  async verifyCode(code: string): Promise<boolean> {
+    if (!this.pending || Date.now() > this.pending.expiresAt) {
+      this.pending = null;
       return false;
     }
-    if (pending.code !== code.trim()) return false;
-    this.pending.delete(key);
-    return true;
+
+    const response = await firstValueFrom(
+      this.authService.confirmVerification({
+        otpRequestId: this.pending.otpRequestId,
+        code: code.trim()
+      })
+    );
+
+    const ok = Boolean(response.success);
+    if (ok) {
+      this.pending = null;
+    }
+    return ok;
   }
 
-  private generateCode(): string {
-    return String(Math.floor(100000 + Math.random() * 900000));
+  getPendingDebugCode(): string | null {
+    return this.pending?.debugCode || null;
   }
 }

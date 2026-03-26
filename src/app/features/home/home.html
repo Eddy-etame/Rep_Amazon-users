@@ -10,11 +10,15 @@
     @for (slide of carouselSlides; track slide.id) {
       <a
         [routerLink]="slide.link"
+        [queryParams]="slide.queryParams ?? null"
         class="carousel-slide"
         [class.active]="currentSlideIndex === $index"
         [style.backgroundImage]="'url(' + slide.image + ')'"
       >
-        <span class="carousel-title">{{ slide.title }}</span>
+        <span class="carousel-copy">
+          <span class="carousel-title">{{ slide.title }}</span>
+          <span class="carousel-subtitle">{{ slide.subtitle }}</span>
+        </span>
       </a>
     }
   </div>
@@ -31,6 +35,37 @@
         [attr.aria-label]="'Aller au slide ' + ($index + 1)"
       ></button>
     }
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Avantages marketplace">
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Livraison</span>
+      <span class="trust-line">Options rapides selon le vendeur</span>
+    </div>
+  </div>
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Paiement</span>
+      <span class="trust-line">Parcours sécurisé au checkout</span>
+    </div>
+  </div>
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Retours</span>
+      <span class="trust-line">Politique claire par produit</span>
+    </div>
+  </div>
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Vendeurs</span>
+      <span class="trust-line">Profils et avis visibles</span>
+    </div>
   </div>
 </section>
 
@@ -57,19 +92,25 @@
           <span class="value">{{ snapshot().recommandations.length }}</span>
         </div>
       </div>
+      <div class="actions actions--logged">
+        <a class="primary" routerLink="/produits">Voir le catalogue</a>
+        <a class="ghost" routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }">Explorer les catégories</a>
+      </div>
     } @else {
       <h1>Bienvenue sur Amaz</h1>
       <p>Découvrez des produits sélectionnés par nos vendeurs et gérez vos achats en toute simplicité.</p>
       <div class="actions">
-        <a class="primary" routerLink="/connexion">Se connecter</a>
+        <a class="primary" routerLink="/produits">Voir le catalogue</a>
+        <a class="ghost" routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }">Explorer les catégories</a>
+        <a class="secondary" routerLink="/connexion">Se connecter</a>
       </div>
     }
   </div>
 </section>
 
 <section class="placeholder">
-  <h2>Recommandations personnalisées</h2>
-  <p>Source de vérité temporelle : t = minutes écoulées depuis la création.</p>
+  <h2>Recommandations pour vous</h2>
+  <p>Suggestions basées sur votre activité ; la validité de chaque offre est indiquée sur la carte.</p>
 
   <div class="cards">
     @for (item of snapshot().recommandations; track item.id) {

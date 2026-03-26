@@ -1,19 +1,89 @@
 <section class="order-detail">
-  @if (!order) {
+  <p class="sr-only" aria-live="polite">{{ statusAnnouncement }}</p>
+
+  @if (!order && !loadingDetail) {
     <div class="empty">
       <p>Commande introuvable.</p>
       <a routerLink="/commandes">Retour aux commandes</a>
     </div>
-  } @else {
+  } @else if (!order && loadingDetail) {
+    <div class="order-detail-skeleton" aria-busy="true" aria-label="Chargement de la commande">
+      <div class="sk-row title"></div>
+      <div class="sk-row"></div>
+      <div class="sk-row short"></div>
+      <div class="sk-timeline">
+        <div class="sk-dot"></div>
+        <div class="sk-dot"></div>
+        <div class="sk-dot"></div>
+      </div>
+    </div>
+  } @else if (order) {
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a routerLink="/commandes">Commandes</a>
+      <span aria-hidden="true"> / </span>
+      <span>{{ order.id }}</span>
+    </nav>
+
     @if (justPlaced) {
       <div class="order-confirmed-banner">
         <p>Commande confirmée ! Votre reçu est disponible ci-dessous.</p>
       </div>
     }
-    <header>
-      <h1>Commande {{ order.id }}</h1>
-      <span class="badge status">{{ order.statut }}</span>
+    <header class="detail-header">
+      <div>
+        <h1>Commande {{ order.id }}</h1>
+        <span
+          class="badge status"
+          [attr.data-lifecycle]="order.lifecycleStatus"
+          >{{ order.lifecycleStatus | orderStatusLabel }}</span
+        >
+      </div>
+      <button type="button" class="btn-share" (click)="shareOrderLink()">Partager le lien</button>
     </header>
+    @if (shareHint) {
+      <p class="share-hint">{{ shareHint }}</p>
+    }
+
+    @if (order.lifecycleStatus === 'cancelled') {
+      <div class="cancelled-banner" role="status">
+        <p>Cette commande a été annulée.</p>
+      </div>
+    } @else {
+      <ol class="order-timeline" aria-label="Suivi de livraison">
+        @for (step of timelineSteps; track step) {
+          <li
+            class="timeline-step"
+            [class.done]="stepComplete(step)"
+            [class.current]="stepCurrent(step)"
+            [attr.aria-current]="stepCurrent(step) ? 'step' : null"
+          >
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <span class="timeline-label">{{ step | orderStatusLabel }}</span>
+          </li>
+        }
+      </ol>
+    }
+
+    @if (order.statusHistory?.length) {
+      <section class="status-history" aria-label="Historique des changements de statut">
+        <h2>Historique des statuts</h2>
+        <ol class="status-history-list">
+          @for (h of order.statusHistory; track h.id) {
+            <li class="status-history-item">
+              <span class="status-history-date">{{ formatDate(h.createdAt) }}</span>
+              <span class="status-history-change">
+                @if (h.fromStatus) {
+                  <span class="from">{{ h.fromStatus | orderStatusLabel }}</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                }
+                <span class="to">{{ h.toStatus | orderStatusLabel }}</span>
+              </span>
+              <span class="status-history-actor">{{ historyActorLabel(h.actorType) }}</span>
+            </li>
+          }
+        </ol>
+      </section>
+    }
 
     <div class="meta">
       <p>Date de commande : {{ formatDate(order.createdAt) }}</p>

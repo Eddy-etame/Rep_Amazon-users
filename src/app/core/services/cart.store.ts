@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 
-import { ProductMock } from './products-mock.store';
+import type { CatalogProduct } from './product-catalog.store';
 
 export interface CartItem {
   productId: string;
@@ -8,6 +8,8 @@ export interface CartItem {
   prixUnitaire: number;
   quantite: number;
   imagePrincipale: string;
+  vendorId?: string;
+  nomVendeur?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -24,7 +26,7 @@ export class CartStore {
     this.items().reduce((sum, item) => sum + item.prixUnitaire * item.quantite, 0)
   );
 
-  addItem(product: ProductMock): void {
+  addItem(product: CatalogProduct): void {
     const current = this.items();
     const existing = current.find((i) => i.productId === product.id);
     if (existing) {
@@ -42,7 +44,9 @@ export class CartStore {
         titre: product.titre,
         prixUnitaire: product.prix,
         quantite: 1,
-        imagePrincipale: product.imagePrincipale
+        imagePrincipale: product.imagePrincipale,
+        vendorId: product.vendorId,
+        nomVendeur: product.nomVendeur
       }
     ]);
   }

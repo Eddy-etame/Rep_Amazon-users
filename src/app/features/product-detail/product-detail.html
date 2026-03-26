@@ -25,41 +25,108 @@
     </div>
 
     <div class="content">
-      <p class="breadcrumb">
-        <a routerLink="/produits">Produits</a> / {{ product!.categorie }}
-      </p>
-      <div class="title-row">
-        <h1>{{ product!.titre }}</h1>
-        <button
-          type="button"
-          class="cart-icon"
-          (click)="addToCart()"
-          title="Ajouter au panier"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/>
-          </svg>
-        </button>
-      </div>
+      <header class="editorial-block">
+        <p class="breadcrumb">
+          <a routerLink="/produits">Produits</a> / {{ product!.categorie }}
+        </p>
+        <p class="editorial-meta">
+          <span>{{ product!.categorie }}</span>
+          @if (product!.nomVendeur) {
+            <span class="meta-dot" aria-hidden="true">·</span>
+            <span class="meta-seller-name">{{ product!.nomVendeur }}</span>
+          }
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>{{ product!.ville }}</span>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          @if ((product!.stock ?? 0) > 0) {
+            <span>À partir de {{ product!.prix | amazCurrency }}</span>
+            <span class="meta-dot" aria-hidden="true">·</span>
+            <span>Stock {{ product!.stock }}</span>
+          } @else {
+            <span class="meta-oos">Rupture de stock</span>
+          }
+        </p>
+        <div class="title-row">
+          <h1>{{ product!.titre }}</h1>
+          @if ((product!.stock ?? 0) > 0) {
+            <button
+              type="button"
+              class="cart-icon"
+              (click)="addToCart()"
+              title="Ajouter au panier"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/>
+              </svg>
+            </button>
+          }
+        </div>
+      </header>
+
+      <ul class="reassurance-row" aria-label="Avantages d’achat">
+        <li>
+          <span class="reassurance-kicker">Livraison</span>
+          <span class="reassurance-text">
+            @if (product!.livraisonGratuite) { Livraison gratuite sur cet article } @else { Estimation 2–3 jours ouvrés }
+          </span>
+        </li>
+        <li>
+          <span class="reassurance-kicker">Paiement</span>
+          <span class="reassurance-text">Tunnel sécurisé au moment du paiement</span>
+        </li>
+        <li>
+          <span class="reassurance-kicker">Retours</span>
+          <span class="reassurance-text">Conditions affichées par le vendeur</span>
+        </li>
+      </ul>
+
       @if (product!.note != null) {
         <p class="stars">{{ formatStars(product!.note) }} {{ product!.nbAvis ?? 0 }} avis</p>
       }
-      <p class="meta">{{ product!.categorie }} • {{ product!.ville }}</p>
-      <p class="price">
-        @if (product!.prixBarre) {
-          <span class="barre">{{ product!.prixBarre | amazCurrency }}</span>
-        }
-        <span class="current">{{ product!.prix | amazCurrency }}</span>
-      </p>
-      <p class="delivery">
-        @if (product!.livraisonGratuite) {
-          Livraison gratuite
-        } @else {
-          Livraison estimée : 2–3 jours
-        }
-      </p>
-      <p class="stock">En stock</p>
 
+      <div class="secondary-actions">
+        <button type="button" class="btn-ghost" (click)="shareProduct()">Partager</button>
+        <button type="button" class="btn-ghost" (click)="addToWishlist()">
+          @if (wishlistStore.hasProduct(product!.id)) {
+            Dans ma liste
+          } @else {
+            Ajouter à la liste
+          }
+        </button>
+      </div>
+      @if (shareHint) {
+        <p class="action-hint" aria-live="polite">{{ shareHint }}</p>
+      }
+      @if (wishlistHint) {
+        <p class="action-hint" aria-live="polite">{{ wishlistHint }}</p>
+      }
+
+      <div class="price-block">
+        <p class="price">
+          @if (product!.prixBarre) {
+            <span class="barre">{{ product!.prixBarre | amazCurrency }}</span>
+          }
+          <span class="current">{{ product!.prix | amazCurrency }}</span>
+        </p>
+        <p class="delivery">
+          @if (product!.livraisonGratuite) {
+            Livraison gratuite sur cette commande
+          } @else {
+            Livraison estimée : 2–3 jours
+          }
+        </p>
+        <p class="stock" [class.stock-low]="(product!.stock ?? 0) > 0 && (product!.stock ?? 999) <= 15">
+          @if ((product!.stock ?? 0) === 0) {
+            Rupture de stock
+          } @else if ((product!.stock ?? 999) <= 15) {
+            Plus que {{ product!.stock }} en stock !
+          } @else {
+            En stock
+          }
+        </p>
+      </div>
+
+      @if ((product!.stock ?? 0) > 0) {
       <div class="quantity-row">
         <label for="qty">Quantité :</label>
         <select id="qty" [(ngModel)]="quantity">
@@ -73,6 +140,7 @@
         <button type="button" class="btn-cart" (click)="addToCart()">Ajouter au panier</button>
         <button type="button" class="btn-buy" (click)="buyNow()">Acheter maintenant</button>
       </div>
+      }
 
       <section class="contact-vendor">
         <h3>Contacter le vendeur</h3>

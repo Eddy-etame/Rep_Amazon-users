@@ -2,9 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
-import type { DeliveryAddress } from '../../core/services/address.store';
-import { AddressStore } from '../../core/services/address.store';
+import type { DeliveryAddress } from '../../core/services/address-book.store';
+import { AddressBookStore } from '../../core/services/address-book.store';
+import { AuthService } from '../../core/services/auth.service';
+import { AuthTokenService } from '../../core/services/auth-token.service';
 import { UserSessionStore } from '../../core/services/user-session.store';
 import { VendorBridgeService } from '../../core/services/vendor-bridge.service';
 
@@ -34,11 +37,14 @@ export class Profile {
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly authService: AuthService,
+    private readonly authToken: AuthTokenService,
     private readonly userSession: UserSessionStore,
-    readonly addressStore: AddressStore,
+    readonly addressStore: AddressBookStore,
     private readonly vendorBridge: VendorBridgeService
   ) {
     this.syncFromSession();
+    void this.addressStore.load().catch(() => undefined);
   }
 
   get session() {
@@ -75,14 +81,30 @@ export class Profile {
     }, 3000);
   }
 
-  saveProfile(): void {
-    this.userSession.updateUser({
-      nom: this.nom.trim(),
-      email: this.email.trim(),
-      adresse: this.adresse.trim(),
-      telephone: this.telephone.trim()
-    });
-    this.saveMessage = 'Profil mis à jour (mock, aucune donnée réelle transmise).';
+  async saveProfile(): Promise<void> {
+    try {
+      const response = await firstValueFrom(
+        this.authService.updateMe({
+          nom: this.nom.trim(),
+          email: this.email.trim(),
+          telephone: this.telephone.trim()
+        })
+      );
+      const user = response.data?.user;
+      if (!response.success || !user) {
+        throw new Error('Mise à jour impossible.');
+      }
+
+      this.userSession.updateUser({
+        nom: user.username || this.nom.trim(),
+        email: user.email,
+        telephone: user.phone || ''
+      });
+      this.saveMessage = 'Profil mis à jour.';
+    } catch {
+      this.saveMessage = 'La mise à jour du profil a échoué.';
+    }
+
     setTimeout(() => {
       this.saveMessage = '';
     }, 3000);
@@ -115,12 +137,12 @@ export class Profile {
     this.editingAddress = null;
   }
 
-  saveAddress(): void {
+  async saveAddress(): Promise<void> {
     if (!this.addrStreet.trim() || !this.addrCity.trim() || !this.addrCountry.trim()) {
       return;
     }
     if (this.editingAddress) {
-      this.addressStore.updateAddress(this.editingAddress.id, {
+      await this.addressStore.updateAddress(this.editingAddress.id, {
         label: this.addrLabel.trim() || 'Adresse',
         street: this.addrStreet.trim(),
         city: this.addrCity.trim(),
@@ -129,7 +151,7 @@ export class Profile {
         phone: this.addrPhone.trim()
       });
     } else {
-      this.addressStore.addAddress({
+      await this.addressStore.addAddress({
         label: this.addrLabel.trim() || 'Adresse',
         street: this.addrStreet.trim(),
         city: this.addrCity.trim(),
@@ -141,12 +163,12 @@ export class Profile {
     this.cancelAddressForm();
   }
 
-  setDefaultAddress(id: string): void {
-    this.addressStore.setDefault(id);
+  async setDefaultAddress(id: string): Promise<void> {
+    await this.addressStore.setDefault(id);
   }
 
-  deleteAddress(id: string): void {
-    this.addressStore.deleteAddress(id);
+  async deleteAddress(id: string): Promise<void> {
+    await this.addressStore.deleteAddress(id);
   }
 
   openVendorSpace(): void {
@@ -157,8 +179,10 @@ export class Profile {
     this.vendorBridge.openVendorSpace();
   }
 
-  logout(): void {
+  async logout(): Promise<void> {
+    await firstValueFrom(this.authService.logout()).catch(() => undefined);
+    this.authToken.clearToken();
     this.userSession.clear();
-    this.router.navigateByUrl('/');
+    await this.router.navigateByUrl('/');
   }
 }

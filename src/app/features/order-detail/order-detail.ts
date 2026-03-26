@@ -1,24 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 import { EmailService } from '../../core/services/email.service';
 import { MessagesService } from '../../core/services/messages.service';
 import { OrderReturnRequest, OrderReturnService } from '../../core/services/order-return.service';
-import { TemporalDataStore } from '../../core/services/temporal-data.store';
+import { mapOrderFromApi, OrdersStateStore } from '../../core/services/orders-state.store';
+import { OrdersService } from '../../core/services/orders.service';
+import { ShareService } from '../../core/services/share.service';
+import { ToastService } from '../../core/services/toast.service';
+import { ProductCatalogStore } from '../../core/services/product-catalog.store';
 import { UserSessionStore } from '../../core/services/user-session.store';
+import {
+  ORDER_TIMELINE_STEPS,
+  orderTimelineIndex,
+  type OrderLifecycleStatus
+} from '../../core/utils/order-status';
 import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
+import { OrderStatusLabelPipe } from '../../shared/pipes/order-status-label.pipe';
 
 /** Délai de retour en jours après livraison. */
 export const RETURN_DAYS = 14;
 
+interface OrderOneResponse {
+  success?: boolean;
+  data?: unknown;
+}
+
 @Component({
   selector: 'app-order-detail',
-  imports: [RouterLink, FormsModule, AmazCurrencyPipe],
+  imports: [RouterLink, FormsModule, AmazCurrencyPipe, OrderStatusLabelPipe],
   templateUrl: './order-detail.html',
   styleUrl: './order-detail.scss'
 })
-export class OrderDetail {
+export class OrderDetail implements OnInit, OnDestroy {
   returnFormOpen = false;
   returnReason = '';
   returnError = '';
@@ -27,17 +43,30 @@ export class OrderDetail {
   vendorMessageDraft = '';
   vendorMessageError = '';
   vendorMessageSuccess = '';
+  shareHint = '';
+  statusAnnouncement = '';
+  loadingDetail = false;
 
-  private readonly vendorId = 'vendor_demo_01';
-  private readonly vendorName = 'Amaz Vendor';
+  readonly timelineSteps = ORDER_TIMELINE_STEPS;
+
+  private pollTimer: ReturnType<typeof setInterval> | null = null;
+  private readonly onVisibility = () => {
+    if (document.visibilityState === 'visible') {
+      void this.refreshOrder();
+    }
+  };
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly temporal: TemporalDataStore,
+    private readonly ordersState: OrdersStateStore,
+    private readonly ordersService: OrdersService,
     private readonly emailService: EmailService,
     private readonly messagesService: MessagesService,
     private readonly userSession: UserSessionStore,
-    readonly orderReturn: OrderReturnService
+    private readonly shareService: ShareService,
+    private readonly toast: ToastService,
+    readonly orderReturn: OrderReturnService,
+    private readonly productCatalog: ProductCatalogStore
   ) {}
 
   get justPlaced(): boolean {
@@ -50,12 +79,12 @@ export class OrderDetail {
 
   get order() {
     const id = this.orderId;
-    return id ? this.temporal.getOrderById(id) : undefined;
+    return id ? this.ordersState.getOrderById(id) : undefined;
   }
 
   get canReturn(): boolean {
     const o = this.order;
-    if (!o || o.statut !== 'livree' || !o.deliveredAt) return false;
+    if (!o || o.lifecycleStatus !== 'delivered' || !o.deliveredAt) return false;
     const deadline = o.deliveredAt + RETURN_DAYS * 24 * 60 * 60 * 1000;
     return Date.now() <= deadline;
   }
@@ -85,6 +114,64 @@ export class OrderDetail {
 
   get canSubmitReturn(): boolean {
     return this.selectedItemIds.length > 0 && this.returnReason.trim().length >= 8;
+  }
+
+  ngOnInit(): void {
+    void this.refreshOrder();
+    this.route.paramMap.subscribe(() => void this.refreshOrder());
+    document.addEventListener('visibilitychange', this.onVisibility);
+    this.pollTimer = setInterval(() => void this.refreshOrder(), 60_000);
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('visibilitychange', this.onVisibility);
+    if (this.pollTimer) {
+      clearInterval(this.pollTimer);
+      this.pollTimer = null;
+    }
+  }
+
+  async refreshOrder(): Promise<void> {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id || !this.userSession.isLoggedIn()) return;
+    const prevStatus = this.ordersState.getOrderById(id)?.lifecycleStatus;
+    this.loadingDetail = true;
+    try {
+      const res = (await firstValueFrom(this.ordersService.getById(id))) as OrderOneResponse;
+      if (res?.data) {
+        const mapped = mapOrderFromApi(res.data);
+        this.ordersState.upsertOrder(mapped);
+        this.ordersState.acknowledgeOrderStatusSeen(mapped);
+        const next = mapped.lifecycleStatus;
+        if (prevStatus && next !== prevStatus) {
+          this.statusAnnouncement = 'Statut de la commande mis à jour.';
+          this.toast.show('Statut de la commande mis à jour.', 'info', 3500);
+        }
+      }
+    } catch {
+      this.toast.show('Impossible de synchroniser la commande.', 'error');
+    } finally {
+      this.loadingDetail = false;
+    }
+  }
+
+  stepIndex(status: OrderLifecycleStatus): number {
+    return orderTimelineIndex(status);
+  }
+
+  stepComplete(step: OrderLifecycleStatus): boolean {
+    const o = this.order;
+    if (!o || o.lifecycleStatus === 'cancelled') return false;
+    const cur = orderTimelineIndex(o.lifecycleStatus);
+    const si = ORDER_TIMELINE_STEPS.indexOf(step);
+    if (cur < 0) return false;
+    return si <= cur;
+  }
+
+  stepCurrent(step: OrderLifecycleStatus): boolean {
+    const o = this.order;
+    if (!o) return false;
+    return o.lifecycleStatus === step;
   }
 
   openReturnForm(): void {
@@ -180,6 +267,27 @@ export class OrderDetail {
     link.click();
   }
 
+  async shareOrderLink(): Promise<void> {
+    const id = this.orderId;
+    if (!id) return;
+    this.shareHint = '';
+    const url = this.shareService.absoluteUrl(`/commandes/${id}`);
+    await this.shareService.shareOrCopy({
+      title: `Commande ${id}`,
+      text: 'Lien vers ma commande Amaz (réservé à mon compte connecté).',
+      url
+    });
+    const msg =
+      this.shareService.getMessage() ||
+      'Le lien ouvre le détail uniquement si vous êtes connecté avec le même compte.';
+    this.shareHint = msg;
+    this.toast.show(msg, 'success', 4000);
+    setTimeout(() => {
+      this.shareHint = '';
+      this.shareService.clearMessage();
+    }, 4000);
+  }
+
   async sendMessageToVendor(): Promise<void> {
     const session = this.userSession.hasValidSession();
     const order = this.order;
@@ -193,12 +301,17 @@ export class OrderDetail {
 
     this.vendorMessageError = '';
     const firstItem = order.items?.[0];
+    const catalogProduct = firstItem?.productId
+      ? this.productCatalog.byId(firstItem.productId)
+      : undefined;
+    const vendorDisplay =
+      catalogProduct?.nomVendeur || firstItem?.nomVendeur || 'Vendeur';
     await this.messagesService.connectRealtime(session.id);
     this.messagesService.sendToVendor({
       userId: session.id,
       userName: session.nom,
-      vendorId: this.vendorId,
-      vendorName: this.vendorName,
+      vendorId: firstItem?.vendorId || catalogProduct?.vendorId || 'vendor_unknown',
+      vendorName: vendorDisplay,
       content,
       subject: `Question commande: ${order.id}`,
       productId: firstItem?.productId,
@@ -210,6 +323,18 @@ export class OrderDetail {
     setTimeout(() => {
       this.vendorMessageSuccess = '';
     }, 2500);
+  }
+
+  historyActorLabel(actorType: string): string {
+    switch (String(actorType || '').toLowerCase()) {
+      case 'vendor':
+        return 'Vendeur';
+      case 'user':
+        return 'Client';
+      case 'system':
+      default:
+        return 'Système';
+    }
   }
 
   formatDate(ts: number | undefined): string {

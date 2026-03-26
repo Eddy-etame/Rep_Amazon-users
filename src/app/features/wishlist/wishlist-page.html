@@ -1,0 +1,40 @@
+<section class="wishlist-page card-like">
+  <h1>Liste de souhaits</h1>
+  <p class="lead">{{ listName }} — articles enregistrés pour plus tard.</p>
+
+  <div class="toolbar">
+    <button type="button" class="btn-share" (click)="copyShareLink()">Partager la liste</button>
+    @if (shareDisabled) {
+      <button type="button" class="btn-secondary" (click)="toggleShareDisabled(false)">Réactiver le lien</button>
+    } @else {
+      <button type="button" class="btn-secondary danger" (click)="toggleShareDisabled(true)">Désactiver le lien</button>
+    }
+  </div>
+  @if (shareHint) {
+    <p class="hint">{{ shareHint }}</p>
+  }
+
+  @if (loading) {
+    <p class="muted">Chargement…</p>
+  } @else if (!rows().length) {
+    <div class="empty">
+      <p>Votre liste est vide.</p>
+      <a routerLink="/produits">Parcourir les produits</a>
+    </div>
+  } @else {
+    <ul class="wishlist-grid">
+      @for (row of rows(); track row.productId) {
+        <li class="wish-card">
+          <a [routerLink]="['/produits', row.productId]" class="thumb">
+            <img [src]="row.product.imagePrincipale" [alt]="row.product.titre" />
+          </a>
+          <div class="info">
+            <a [routerLink]="['/produits', row.productId]">{{ row.product.titre }}</a>
+            <p class="price">{{ row.product.prix | amazCurrency }}</p>
+            <button type="button" class="btn-remove" (click)="remove(row.productId)">Retirer</button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

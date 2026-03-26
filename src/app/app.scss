@@ -19,3 +19,35 @@
   margin: 0 auto;
   padding: 1.5rem;
 }
+
+.app-toast {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  max-width: min(90vw, 420px);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--amaz-radius-md, 10px);
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--amaz-color-border, rgba(148, 163, 184, 0.5));
+  background: var(--amaz-color-surface-elevated, #0f172a);
+  color: var(--amaz-color-text, #f9fafb);
+}
+
+.app-toast--success {
+  border-color: rgba(34, 197, 94, 0.5);
+  color: var(--amaz-color-success, #86efac);
+}
+
+.app-toast--error {
+  border-color: rgba(248, 113, 113, 0.5);
+  color: var(--amaz-color-danger, #fca5a5);
+}
+
+.app-toast--info {
+  border-color: rgba(96, 165, 250, 0.45);
+  color: var(--amaz-color-info, #93c5fd);
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Amaz Marketplace",
+  "short_name": "Amaz",
+  "description": "Démo marketplace — vitrine acheteurs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+import { GatewayApiService } from './gateway-api.service';
 
 export interface ProductSearchQuery {
   titre?: string;
@@ -16,9 +16,7 @@ export interface ProductSearchQuery {
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  private readonly baseUrl = environment.apiBaseUrl;
-
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly gateway: GatewayApiService) {}
 
   search(query: ProductSearchQuery) {
     let params = new HttpParams();
@@ -27,10 +25,15 @@ export class ProductsService {
         params = params.set(key, String(value));
       }
     });
-    return this.http.get(`${this.baseUrl}/produits`, { params });
+    return this.gateway.get('/produits', { params });
   }
 
   getById(productId: string) {
-    return this.http.get(`${this.baseUrl}/produits/${productId}`);
+    return this.gateway.get(`/produits/${encodeURIComponent(productId)}`);
+  }
+
+  suggest(q: string, limit = 8) {
+    let params = new HttpParams().set('q', q).set('limit', String(limit));
+    return this.gateway.get('/produits/suggest', { params });
   }
 }

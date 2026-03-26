@@ -1,11 +1,29 @@
 <section class="card">
-  <h1>Mes commandes</h1>
+  <div class="orders-toolbar">
+    <h1>Mes commandes</h1>
+    <button
+      type="button"
+      class="btn-refresh"
+      (click)="refreshList()"
+      [disabled]="ordersState.ordersLoading()"
+    >
+      Actualiser
+    </button>
+  </div>
   <p>
-    Historique de vos commandes et suivi des statuts.
-    <span class="hint">t = minutes écoulées depuis la création de la commande.</span>
+    Historique et suivi d’expédition (confirmée → préparation → expédiée → livrée).
+    <span class="hint"
+      >Le badge « ancienneté » indique les minutes depuis la commande (rafraîchissement conseillé après 2 h) — ce n’est pas une étape de livraison.</span
+    >
   </p>
 
-  @if (!snapshot().commandes.length) {
+  @if (ordersState.ordersLoading()) {
+    <div class="skeleton-stack" aria-busy="true" aria-label="Chargement des commandes">
+      <div class="skeleton-block"></div>
+      <div class="skeleton-block"></div>
+      <div class="skeleton-block short"></div>
+    </div>
+  } @else if (!snapshot().commandes.length) {
     <div class="empty">Aucune commande disponible pour le moment.</div>
   } @else {
     <div class="orders-list">
@@ -13,13 +31,20 @@
         <article class="order" [class.expired]="cmd.validite === 'a_actualiser'">
           <header>
             <h2><a [routerLink]="['/commandes', cmd.id]">Commande {{ cmd.id }}</a></h2>
-            <span class="badge" [class.active]="cmd.validite === 'actif'">
-              t={{ cmd.t }} min
-            </span>
+            <div class="badges-row">
+              @if (ordersState.shouldShowStatusHighlight(cmd)) {
+                <span class="badge news">Nouveau statut</span>
+              }
+              <span class="badge age" [class.active]="cmd.validite === 'actif'"> Il y a {{ cmd.t }} min </span>
+            </div>
           </header>
           <p class="meta">
             Statut :
-            <strong>{{ cmd.statut }}</strong>
+            <strong
+              class="status-pill"
+              [attr.data-lifecycle]="cmd.lifecycleStatus"
+              >{{ cmd.lifecycleStatus | orderStatusLabel }}</strong
+            >
           </p>
           @if (cmd.deliveryDate) {
             <p class="meta">

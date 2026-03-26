@@ -27,7 +27,16 @@ interface ReturnRequestEmailInput {
 export class EmailService {
   async sendOrderConfirmation(order: OrderLike, userEmail: string, _receiptBlob?: Blob): Promise<void> {
     const subject = `Confirmation de commande ${order.id}`;
-    const body = `Votre commande ${order.id} a été confirmée.\n\nTotal: ${order.total?.toLocaleString('fr-FR')} FCFA\n\nUn reçu PDF est joint à cet email.`;
+    const totalFmt =
+      order.total != null
+        ? new Intl.NumberFormat('fr-FR', {
+            style: 'currency',
+            currency: 'EUR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+          }).format(order.total)
+        : '—';
+    const body = `Votre commande ${order.id} a été confirmée.\n\nTotal : ${totalFmt}\n\nUn reçu PDF est joint à cet email.`;
     this.logAndStore('order_confirmation', userEmail, subject, body);
   }
 

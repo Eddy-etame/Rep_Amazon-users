@@ -3,7 +3,7 @@ import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
 
 import type { CartItem } from './cart.store';
-import type { DeliveryAddress } from './address.store';
+import type { DeliveryAddress } from './address-book.store';
 
 export interface ReceiptOrder {
   id: string;
@@ -78,6 +78,11 @@ export class ReceiptService {
   }
 
   private formatPrice(amount: number): string {
-    return `${amount.toLocaleString('fr-FR')} FCFA`;
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    }).format(amount);
   }
 }

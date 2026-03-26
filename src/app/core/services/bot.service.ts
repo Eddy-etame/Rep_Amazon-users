@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+import { GatewayApiService } from './gateway-api.service';
 
 export interface BotPayload {
   etat: string;
@@ -10,11 +9,9 @@ export interface BotPayload {
 
 @Injectable({ providedIn: 'root' })
 export class BotService {
-  private readonly baseUrl = environment.apiBaseUrl;
-
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly gateway: GatewayApiService) {}
 
   send(payload: BotPayload) {
-    return this.http.post(`${this.baseUrl}/bot/auth`, payload);
+    return this.gateway.post('/bot/auth', payload);
   }
 }

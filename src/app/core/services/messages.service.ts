@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
+import { GatewayApiService } from './gateway-api.service';
 import { SocketClientService } from './socket-client.service';
 
 export interface MessagePayload {
@@ -62,23 +61,22 @@ export interface SendVendorMessageInput {
 
 @Injectable({ providedIn: 'root' })
 export class MessagesService {
-  private readonly baseUrl = environment.apiBaseUrl;
   private readonly storageKey = 'users_vendor_conversations';
   private readonly incomingSubject = new Subject<UserVendorMessage>();
   readonly incoming$ = this.incomingSubject.asObservable();
   private socketListening = false;
 
   constructor(
-    private readonly http: HttpClient,
+    private readonly gateway: GatewayApiService,
     private readonly socketClient: SocketClientService
   ) {}
 
   listByProduit(produitId: string) {
-    return this.http.get(`${this.baseUrl}/messages/${produitId}`);
+    return this.gateway.get(`/messages/${encodeURIComponent(produitId)}`);
   }
 
   send(payload: MessagePayload) {
-    return this.http.post(`${this.baseUrl}/messages`, payload);
+    return this.gateway.post('/messages', payload);
   }
 
   async connectRealtime(userId: string): Promise<boolean> {

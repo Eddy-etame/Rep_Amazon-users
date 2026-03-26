@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 
-import { AddressStore } from '../../core/services/address.store';
+import { AddressBookStore } from '../../core/services/address-book.store';
 import { CardValidatorService } from '../../core/services/card-validator.service';
 import { CartStore } from '../../core/services/cart.store';
-import { EmailService } from '../../core/services/email.service';
 import { NotificationSchedulerService } from '../../core/services/notification-scheduler.service';
+import { OrdersStateStore } from '../../core/services/orders-state.store';
+import { ProductCatalogStore } from '../../core/services/product-catalog.store';
 import { ReceiptService } from '../../core/services/receipt.service';
-import { TemporalDataStore } from '../../core/services/temporal-data.store';
-import { UserSessionStore } from '../../core/services/user-session.store';
 import { AmazCurrencyPipe } from '../../shared/pipes/currency.pipe';
 
 @Component({
@@ -29,26 +29,28 @@ export class Checkout implements OnInit {
   cardCvc = '';
   cardholderName = '';
   cardErrors: { cardNumber?: string; expiry?: string; cvc?: string; cardholderName?: string } = {};
+  orderError = '';
 
   constructor(
     private readonly cart: CartStore,
-    private readonly temporal: TemporalDataStore,
+    private readonly ordersState: OrdersStateStore,
     private readonly router: Router,
-    readonly addressStore: AddressStore,
+    readonly addressStore: AddressBookStore,
     private readonly cardValidator: CardValidatorService,
     private readonly receipt: ReceiptService,
-    private readonly email: EmailService,
     private readonly notificationScheduler: NotificationSchedulerService,
-    private readonly userSession: UserSessionStore
+    private readonly productCatalog: ProductCatalogStore
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.productCatalog.load().catch(() => undefined);
+    await this.addressStore.load().catch(() => undefined);
     if (!this.addressStore.hasAddresses()) {
-      this.router.navigate(['/profil'], { queryParams: { msg: 'address' } });
+      await this.router.navigate(['/profil'], { queryParams: { msg: 'address' } });
       return;
     }
     if (!this.cart.items().length) {
-      this.router.navigateByUrl('/panier');
+      await this.router.navigateByUrl('/panier');
       return;
     }
     const defaultAddr = this.addressStore.getDefault();
@@ -132,10 +134,25 @@ export class Checkout implements OnInit {
     if (!this.canConfirm) return;
     const addr = this.addressStore.getById(this.selectedAddressId);
     if (!addr) return;
+    this.orderError = '';
     const items = this.items();
+    const invalidLines = items.filter((item) => !String(item.productId || '').trim());
+    if (invalidLines.length > 0) {
+      this.orderError =
+        'Panier invalide : identifiants produit manquants. Videz le panier et réajoutez les articles.';
+      return;
+    }
+    const missingIds = items
+      .map((item) => item.productId)
+      .filter((id) => !this.productCatalog.byId(id));
+    if (missingIds.length > 0) {
+      this.orderError =
+        'Certains produits ne sont plus dans le catalogue (rupture ou catalogue non chargé). Retournez aux produits puis actualisez le panier.';
+      return;
+    }
     const total = this.totalPrice();
     const createdAt = Date.now();
-    const nextId = `cmd-${1000 + this.temporal.snapshot().commandes.length + 1}`;
+    const nextId = `cmd-${1000 + this.ordersState.snapshot().commandes.length + 1}`;
     const orderPayload = {
       id: nextId,
       createdAt,
@@ -145,21 +162,39 @@ export class Checkout implements OnInit {
       methodePaiement: this.paymentMethod
     };
     const receiptDataUrl = await this.receipt.generateReceiptDataUrl(orderPayload);
-    const order = this.temporal.addCommandeFromCart(items, {
-      adresseLivraison: addr,
-      methodePaiement: this.paymentMethod,
-      receiptDataUrl
-    });
-    this.cart.clear();
-    const userEmail = this.userSession.hasValidSession()?.email ?? 'client@amaz.demo';
-    const blob = this.receipt.generateReceiptPdf(orderPayload);
-    const orderForEmail = order ?? { ...orderPayload, statut: 'en_cours' as const };
-    await this.email.sendOrderConfirmation(orderForEmail, userEmail, blob);
+    let order;
+    try {
+      order = await this.ordersState.addCommandeFromCart(items, {
+        adresseLivraison: addr,
+        methodePaiement: this.paymentMethod,
+        receiptDataUrl
+      });
+    } catch (err) {
+      const httpErr = err instanceof HttpErrorResponse ? err : null;
+      const body = httpErr?.error as { error?: { message?: string; code?: string } } | null | undefined;
+      const apiMessage = body?.error?.message;
+      const code = body?.error?.code;
+      if (httpErr?.status === 404 || code === 'PRODUCT_NOT_FOUND') {
+        this.orderError =
+          apiMessage?.trim() ||
+          'Un ou plusieurs produits sont introuvables ou en rupture côté serveur. Actualisez le catalogue et le panier.';
+      } else if (httpErr?.status === 409 || code === 'INSUFFICIENT_STOCK') {
+        this.orderError =
+          apiMessage?.trim() || 'Stock insuffisant pour au moins un article. Réduisez les quantités.';
+      } else {
+        this.orderError =
+          typeof apiMessage === 'string' && apiMessage.trim()
+            ? apiMessage.trim()
+            : 'Impossible de confirmer la commande. Réessayez.';
+      }
+      return;
+    }
     if (order) {
-      this.notificationScheduler.scheduleOrderNotifications(order);
-      this.router.navigate(['/commandes', order.id], { queryParams: { placed: '1' } });
+      this.cart.clear();
+      this.notificationScheduler.scheduleOrderNotifications();
+      await this.router.navigate(['/commandes', order.id], { queryParams: { placed: '1' } });
     } else {
-      this.router.navigateByUrl('/commandes');
+      this.orderError = 'Impossible de confirmer la commande. Réessayez.';
     }
   }
 }

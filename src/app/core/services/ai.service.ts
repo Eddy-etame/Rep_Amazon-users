@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+import { GatewayApiService } from './gateway-api.service';
 
 export interface AiRecommendationPayload {
   requete: string;
@@ -9,11 +8,9 @@ export interface AiRecommendationPayload {
 
 @Injectable({ providedIn: 'root' })
 export class AiService {
-  private readonly baseUrl = environment.apiBaseUrl;
-
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly gateway: GatewayApiService) {}
 
   getRecommendations(payload: AiRecommendationPayload) {
-    return this.http.post(`${this.baseUrl}/ai/recommendations`, payload);
+    return this.gateway.post('/ai/recommendations', payload);
   }
 }

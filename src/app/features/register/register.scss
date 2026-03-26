@@ -80,6 +80,20 @@ button:disabled {
   color: #fca5a5;
 }
 
+.success-msg {
+  color: #86efac;
+  margin: 0 0 0.5rem;
+}
+
+.debug-code {
+  font-size: 0.9rem;
+  color: #93c5fd;
+  margin: 0 0 1rem;
+  padding: 0.5rem;
+  background: rgba(59, 130, 246, 0.15);
+  border-radius: 0.5rem;
+}
+
 .helper {
   margin-top: 1.25rem;
   display: flex;

@@ -1,0 +1,36 @@
+<section class="shared-wishlist card-like">
+  <h1>{{ listName }}</h1>
+  <p class="lead">Liste partagée — consultation seule.</p>
+
+  @if (!error && !loading && rows().length) {
+    <div class="toolbar">
+      <button type="button" class="btn-share" (click)="shareThisList()">Partager ce lien</button>
+    </div>
+  }
+
+  @if (loading) {
+    <p class="muted">Chargement…</p>
+  } @else if (error) {
+    <p class="err">{{ error }}</p>
+    <a routerLink="/produits" class="back">Voir les produits</a>
+  } @else if (!rows().length) {
+    <div class="empty">
+      <p>Cette liste ne contient aucun produit visible pour le moment.</p>
+      <a routerLink="/produits">Parcourir Amaz</a>
+    </div>
+  } @else {
+    <ul class="wishlist-grid">
+      @for (row of rows(); track row.productId) {
+        <li class="wish-card">
+          <a [routerLink]="['/produits', row.productId]" class="thumb">
+            <img [src]="row.product.imagePrincipale" [alt]="row.product.titre" />
+          </a>
+          <div class="info">
+            <a [routerLink]="['/produits', row.productId]">{{ row.product.titre }}</a>
+            <p class="price">{{ row.product.prix | amazCurrency }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>

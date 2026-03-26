@@ -1,9 +1,31 @@
 <header class="top-bar-wrapper">
+  @if (navDrawerOpen) {
+    <div class="nav-backdrop" (click)="closeNavDrawer()" role="presentation" aria-hidden="true"></div>
+  }
   <div class="top-bar">
     <a routerLink="/" class="brand">
       <span class="logo">Amaz</span>
       <span class="tagline">Marketplace</span>
     </a>
+
+    <button
+      type="button"
+      class="nav-toggle"
+      (click)="toggleNavDrawer()"
+      [attr.aria-expanded]="navDrawerOpen"
+      aria-controls="main-nav"
+      aria-label="Menu de navigation"
+    >
+      @if (navDrawerOpen) {
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="nav-toggle-icon">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      } @else {
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="nav-toggle-icon">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      }
+    </button>
 
     <div class="search-wrap">
       <form class="search-form" (ngSubmit)="onSearch()">
@@ -24,16 +46,58 @@
       </form>
       @if (showSuggestions) {
         <div class="search-dropdown">
-          @if (searchSuggestions.length > 0) {
-            <ul class="search-suggestions">
-              @for (s of searchSuggestions; track s.id) {
+          @if (keywordSuggestions.length > 0 && searchQuery.trim().length >= 1) {
+            <ul class="keyword-suggestions" aria-label="Suggestions de recherche">
+              @for (k of keywordSuggestions; track k.text) {
                 <li>
-                  <a routerLink="/produits/{{ s.id }}" (mousedown)="selectSuggestion(s.id)">{{ s.titre }}</a>
+                  <button type="button" class="keyword-row" (mousedown)="applyKeywordSearch(k.text)">
+                    <span class="keyword-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">
+                        <path
+                          d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    <span class="keyword-text">
+                      <span>{{ k.text.slice(0, k.boldLen) }}</span><strong>{{ k.text.slice(k.boldLen) }}</strong>
+                    </span>
+                  </button>
                 </li>
               }
             </ul>
           }
-          @if (searchSuggestions.length === 0 && searchQuery.trim().length < 2) {
+          @if (searchSuggestions.length > 0) {
+            <p class="suggest-section-label">Articles</p>
+            <ul class="search-suggestions" role="listbox" aria-label="Suggestions produits">
+              @for (s of searchSuggestions; track s.id) {
+                <li role="option">
+                  <a
+                    routerLink="/produits/{{ s.id }}"
+                    class="suggest-row"
+                    (mousedown)="selectSuggestion(s.id)"
+                  >
+                    <span class="suggest-thumb">
+                      @if (s.imagePrincipale) {
+                        <img [src]="s.imagePrincipale" alt="" width="44" height="44" loading="lazy" />
+                      } @else {
+                        <span class="suggest-thumb-placeholder" aria-hidden="true"></span>
+                      }
+                    </span>
+                    <span class="suggest-body">
+                      <span class="suggest-title">{{ s.titre }}</span>
+                      <span class="suggest-price">{{ s.prix | amazCurrency }}</span>
+                    </span>
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+          @if (
+            searchSuggestions.length === 0 &&
+            keywordSuggestions.length === 0 &&
+            searchQuery.trim().length < 2
+          ) {
             <div class="search-extra">
               @if (searchHistory.length > 0) {
                 <p class="extra-label">Recherches récentes</p>
@@ -57,7 +121,7 @@
       }
     </div>
 
-  <nav class="nav">
+  <nav id="main-nav" class="nav" [class.nav--open]="navDrawerOpen">
     @if (!isLoggedIn) {
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -108,6 +172,18 @@
           <span class="cart-badge">{{ totalQuantity() }}</span>
         }
       </a>
+      <a routerLink="/favoris" routerLinkActive="active" class="wishlist-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>Souhaits</span>
+        @if (wishlistStore.itemCount() > 0) {
+          <span class="wishlist-badge">{{ wishlistStore.itemCount() }}</span>
+        }
+      </a>
       <a routerLink="/commandes" routerLinkActive="active">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -147,6 +223,7 @@
           @if (accountOpen) {
             <div class="account-menu">
               <a routerLink="/profil" (click)="closeAccountMenu()">Compte</a>
+              <a routerLink="/favoris" (click)="closeAccountMenu()">Liste de souhaits</a>
               <a routerLink="/commandes" (click)="closeAccountMenu()">Commandes</a>
               <button type="button" (click)="openVendorSpace($event)">Espace vendeur</button>
               <button type="button" (click)="logout()">Se déconnecter</button>
@@ -158,20 +235,21 @@
   </div>
 
   <div class="categories-row">
-    <a routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }">Électronique</a>
-    <a routerLink="/produits" [queryParams]="{ categorie: 'Mode' }">Mode</a>
-    <a routerLink="/produits" [queryParams]="{ categorie: 'Cuisine' }">Cuisine</a>
-    <a routerLink="/produits" [queryParams]="{ categorie: 'Informatique' }">Informatique</a>
-    <a routerLink="/produits" [queryParams]="{ categorie: 'Maison' }">Maison</a>
+    <a routerLink="/produits">Tous</a>
+    @for (cat of navCategories(); track cat) {
+      <a routerLink="/produits" [queryParams]="{ categorie: cat }">{{ cat }}</a>
+    }
     @if (categoriesMenuOpen) {
       <div class="categories-menu-overlay" (click)="categoriesMenuOpen = false"></div>
       <div class="categories-menu">
         <a routerLink="/produits" (click)="categoriesMenuOpen = false">Tous les produits</a>
-        <a routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }" (click)="categoriesMenuOpen = false">Électronique</a>
-        <a routerLink="/produits" [queryParams]="{ categorie: 'Mode' }" (click)="categoriesMenuOpen = false">Mode</a>
-        <a routerLink="/produits" [queryParams]="{ categorie: 'Cuisine' }" (click)="categoriesMenuOpen = false">Cuisine</a>
-        <a routerLink="/produits" [queryParams]="{ categorie: 'Informatique' }" (click)="categoriesMenuOpen = false">Informatique</a>
-        <a routerLink="/produits" [queryParams]="{ categorie: 'Maison' }" (click)="categoriesMenuOpen = false">Maison</a>
+        @for (cat of navCategories(); track cat) {
+          <a
+            routerLink="/produits"
+            [queryParams]="{ categorie: cat }"
+            (click)="categoriesMenuOpen = false"
+            >{{ cat }}</a>
+        }
       </div>
     }
   </div>

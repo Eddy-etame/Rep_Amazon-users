@@ -1,0 +1,12 @@
+<main class="legal">
+  <a routerLink="/" class="back">← Accueil</a>
+  <h1>{{ title }}</h1>
+  @for (p of paragraphs; track $index) {
+    <p>{{ p }}</p>
+  }
+  @if (contactEmail) {
+    <p class="contact-line">
+      <a [href]="'mailto:' + contactEmail">{{ contactEmail }}</a>
+    </p>
+  }
+</main>
