@@ -1,0 +1,138 @@
+@if (session()) {
+  <section class="profile-page">
+    <header class="header">
+      <div>
+        <h1>Bonjour {{ session()!.nom }}</h1>
+        <p>{{ session()!.email }}</p>
+      </div>
+      <button type="button" (click)="logout()">Se déconnecter</button>
+    </header>
+
+    <section class="edit-form" id="infos-personnelles">
+      <h2>Informations personnelles</h2>
+      <p>Modifiez vos informations à tout moment.</p>
+      <form (ngSubmit)="saveProfile()">
+        <label>
+          Nom complet
+          <input type="text" [(ngModel)]="nom" name="nom" placeholder="Votre nom" />
+        </label>
+        <label>
+          Adresse e-mail
+          <input type="email" [(ngModel)]="email" name="email" placeholder="exemple@domaine.com" />
+        </label>
+        <label>
+          Téléphone
+          <input type="tel" [(ngModel)]="telephone" name="telephone" placeholder="+237 6XX XXX XXX" />
+        </label>
+        <button type="submit">Mettre à jour</button>
+        @if (saveMessage) {
+          <p class="save-message">{{ saveMessage }}</p>
+        }
+      </form>
+    </section>
+
+    @if (addressMsg) {
+      <div class="alert-address">Nouvelle adresse enregistrée.</div>
+    }
+
+    <section class="addresses-section" id="adresses">
+      <h2>Adresses de livraison</h2>
+      <p>Gérez vos adresses pour la livraison des commandes.</p>
+      @if (!addresses.length) {
+        <p class="no-addresses">Aucune adresse enregistrée.</p>
+      } @else {
+        <div class="address-cards">
+          @for (addr of addresses; track addr.id) {
+            <article class="address-card" [class.default]="addr.isDefault">
+              <div class="addr-body">
+                <span class="addr-label">{{ addr.label }}</span>
+                @if (addr.isDefault) {
+                  <span class="badge-default">Par défaut</span>
+                }
+                <p class="addr-line">{{ addr.street }}, {{ addr.city }} {{ addr.postalCode }}, {{ addr.country }}</p>
+                @if (addr.phone) {
+                  <p class="addr-line">{{ addr.phone }}</p>
+                }
+              </div>
+              <div class="addr-actions">
+                <button type="button" (click)="openEditAddress(addr)">Modifier</button>
+                @if (!addr.isDefault) {
+                  <button type="button" (click)="setDefaultAddress(addr.id)">Définir par défaut</button>
+                  <button type="button" class="delete" (click)="deleteAddress(addr.id)">Supprimer</button>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      }
+      @if (showAddressForm) {
+        <div class="address-form">
+          <h3>{{ editingAddress ? 'Modifier l\'adresse' : 'Nouvelle adresse' }}</h3>
+          <form (ngSubmit)="saveAddress()">
+            <label>
+              Libellé <span class="required">*</span>
+              <input type="text" [(ngModel)]="addrLabel" name="addrLabel" placeholder="Domicile, Bureau..." />
+            </label>
+            <label>
+              Adresse <span class="required">*</span>
+              <input type="text" [(ngModel)]="addrStreet" name="addrStreet" placeholder="Rue, numéro" />
+            </label>
+            <label>
+              Ville <span class="required">*</span>
+              <input type="text" [(ngModel)]="addrCity" name="addrCity" placeholder="Ville" />
+            </label>
+            <label>
+              Code postal
+              <input type="text" [(ngModel)]="addrPostalCode" name="addrPostalCode" placeholder="Code postal" />
+            </label>
+            <label>
+              Pays <span class="required">*</span>
+              <input type="text" [(ngModel)]="addrCountry" name="addrCountry" placeholder="Pays" />
+            </label>
+            <label>
+              Téléphone
+              <input type="tel" [(ngModel)]="addrPhone" name="addrPhone" placeholder="+33 6 12 34 56 78" />
+            </label>
+            <div class="form-actions">
+              <button type="submit">Enregistrer</button>
+              <button type="button" (click)="cancelAddressForm()">Annuler</button>
+            </div>
+          </form>
+        </div>
+      } @else {
+        <button type="button" class="btn-add" (click)="openAddAddress()">+ Ajouter une adresse</button>
+      }
+    </section>
+
+    <section class="tiles">
+      <article class="tile">
+        <h2>Vos commandes</h2>
+        <p>Suivez et consultez vos commandes passées.</p>
+        <a routerLink="/commandes">Accéder à vos commandes</a>
+      </article>
+
+      <article class="tile">
+        <h2>Connexion &amp; sécurité</h2>
+        <p>Gérez vos informations personnelles.</p>
+        <button type="button" class="tile-action" (click)="scrollToSection('infos-personnelles')">Gérer</button>
+      </article>
+
+      <article class="tile">
+        <h2>Adresses</h2>
+        <p>Gérez vos adresses de livraison.</p>
+        <button type="button" class="tile-action" (click)="scrollToSection('adresses')">Gérer les adresses</button>
+      </article>
+
+      <article class="tile">
+        <h2>Espace vendeur</h2>
+        <p>Gérez vos produits, commandes et échanges vendeur.</p>
+        <button type="button" class="tile-action" (click)="openVendorSpace()">Accéder à l'espace vendeur</button>
+      </article>
+
+    </section>
+
+    @if (featureNotice) {
+      <p class="feature-notice">{{ featureNotice }}</p>
+    }
+  </section>
+}

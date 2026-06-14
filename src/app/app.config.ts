@@ -3,12 +3,12 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { securityHeadersInterceptor } from './core/http/security-headers.interceptor';
+import { intercepteurEntetesSecurite } from './core/http/intercepteur-entetes-securite';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([securityHeadersInterceptor]))
+    provideHttpClient(withInterceptors([intercepteurEntetesSecurite]))
   ]
 };

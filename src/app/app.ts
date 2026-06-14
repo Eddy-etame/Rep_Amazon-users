@@ -1,23 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NotificationSchedulerService } from './core/services/notification-scheduler.service';
-import { ToastService } from './core/services/toast.service';
-import { FooterBar } from './shared/components/footer-bar/footer-bar';
-import { TopBar } from './shared/components/top-bar/top-bar';
+import { ServiceToast } from './core/services/service-toast';
+import { BarreBas } from './shared/components/barre-bas/barre-bas';
+import { BarreHaute } from './shared/components/barre-haute/barre-haute';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TopBar, FooterBar],
+  imports: [RouterOutlet, BarreHaute, BarreBas],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
-  readonly toast = inject(ToastService);
-
-  constructor(private readonly notificationScheduler: NotificationSchedulerService) {}
-
-  ngOnInit(): void {
-    this.notificationScheduler.init();
-  }
+export class App {
+  readonly toast = inject(ServiceToast);
 }

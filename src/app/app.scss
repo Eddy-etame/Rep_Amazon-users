@@ -8,16 +8,24 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  color: #1f2937;
-  background: #f9fafb;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--amaz-color-text, #f9fafb);
+  background: var(--amaz-color-bg, #000000);
+  font-family: var(--amaz-font-body, system-ui, -apple-system, sans-serif);
 }
 
+/* Single source for content width: global `main` in styles.scss — do not override margin (keeps horizontal centering). */
 .page {
   flex: 1;
-  width: min(1200px, 100%);
-  margin: 0 auto;
-  padding: 1.5rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+
+/* Routed Angular component hosts are inline by default; make them fill the centered main container. */
+.page > router-outlet + * {
+  display: block;
+  width: 100%;
+  min-width: 0;
 }
 
 .app-toast {

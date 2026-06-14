@@ -2,9 +2,45 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Amaz Marketplace</title>
+  <title>Amaz — Place de marché</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Amaz — votre place de marché en ligne. Découvrez un large catalogue de produits, comparez les offres et commandez en toute confiance.">
+  <meta name="theme-color" content="#f97316">
+  <meta name="keywords" content="place de marché, ecommerce, produits, vendeurs, commandes, Amaz">
+  <link rel="canonical" href="https://amaz-marketplace.example/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Amaz — Place de marché">
+  <meta property="og:description" content="Découvrez un large catalogue de produits, comparez les offres et commandez en toute confiance sur Amaz.">
+  <meta property="og:site_name" content="Amaz">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://amaz-marketplace.example/">
+  <meta property="og:image" content="https://amaz-marketplace.example/favicon.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Amaz — Place de marché">
+  <meta name="twitter:description" content="Votre place de marché en ligne — catalogue, avis, commandes sécurisées.">
+  <meta name="twitter:image" content="https://amaz-marketplace.example/favicon.svg">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Amaz",
+      "url": "https://amaz-marketplace.example/",
+      "logo": "https://amaz-marketplace.example/favicon.svg"
+    }
+  </script>
+  <script>
+    (function () {
+      try {
+        var preference = localStorage.getItem('amaz_theme_preference');
+        if (preference === 'light' || preference === 'dark') {
+          document.documentElement.dataset.theme = preference;
+        } else {
+          delete document.documentElement.dataset.theme;
+        }
+      } catch (_) {}
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com" />

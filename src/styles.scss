@@ -1,44 +1,5 @@
-/* Global base + design tokens (editorial / immersive storefront) */
-
-:root {
-  --amaz-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --amaz-font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
-
-  --amaz-text-xs: 0.75rem;
-  --amaz-text-sm: 0.875rem;
-  --amaz-text-base: 1rem;
-  --amaz-text-lg: 1.125rem;
-  --amaz-text-xl: 1.25rem;
-  --amaz-text-2xl: 1.5rem;
-  --amaz-text-3xl: 1.875rem;
-  --amaz-text-4xl: 2.25rem;
-  --amaz-text-5xl: clamp(2rem, 5vw, 3rem);
-
-  --amaz-section-y: clamp(2rem, 5vw, 3.5rem);
-  --amaz-section-y-tight: clamp(1.25rem, 3vw, 2rem);
-
-  --amaz-color-bg: #000000;
-  --amaz-color-surface: #020617;
-  --amaz-color-surface-elevated: #0f172a;
-  --amaz-color-border: rgba(148, 163, 184, 0.45);
-  --amaz-color-text: #f9fafb;
-  --amaz-color-text-muted: #94a3b8;
-  --amaz-color-accent: #f97316;
-  --amaz-color-accent-hover: #fb923c;
-  --amaz-color-success: #86efac;
-  --amaz-color-danger: #fca5a5;
-  --amaz-color-info: #93c5fd;
-  --amaz-radius-sm: 6px;
-  --amaz-radius-md: 10px;
-  --amaz-radius-lg: 1rem;
-  --amaz-space-1: 0.25rem;
-  --amaz-space-2: 0.5rem;
-  --amaz-space-3: 0.75rem;
-  --amaz-space-4: 1rem;
-  --amaz-shadow-card: 0 18px 40px rgba(15, 23, 42, 0.9);
-  --amaz-transition: 0.15s ease;
-  --amaz-focus-ring: 0 0 0 3px rgba(249, 115, 22, 0.45);
-}
+/* Global base — tokens from shared theme; typography and layout here */
+@use '../../shared-frontend/amaz-theme.scss';
 
 html {
   -webkit-text-size-adjust: 100%;

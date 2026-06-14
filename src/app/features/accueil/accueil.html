@@ -1,0 +1,154 @@
+<section
+  class="carousel"
+  (mouseenter)="onCarouselMouseEnter()"
+  (mouseleave)="onCarouselMouseLeave()"
+>
+  <button type="button" class="carousel-btn carousel-btn-prev" (click)="prevSlide()" aria-label="Diapositive précédente">
+    ‹
+  </button>
+  <div class="carousel-inner">
+    @for (slide of carouselSlides; track slide.id) {
+      <a
+        [routerLink]="slide.link"
+        [queryParams]="slide.queryParams ?? null"
+        class="carousel-slide"
+        [class.active]="currentSlideIndex === $index"
+        [style.backgroundImage]="'url(' + slide.image + ')'"
+      >
+        <span class="carousel-copy">
+          <span class="carousel-title">{{ slide.title }}</span>
+          <span class="carousel-subtitle">{{ slide.subtitle }}</span>
+        </span>
+      </a>
+    }
+  </div>
+  <button type="button" class="carousel-btn carousel-btn-next" (click)="nextSlide()" aria-label="Diapositive suivante">
+    ›
+  </button>
+  <div class="carousel-indicators">
+    @for (slide of carouselSlides; track slide.id) {
+      <button
+        type="button"
+        class="indicator"
+        [class.active]="currentSlideIndex === $index"
+        (click)="goToSlide($index)"
+        [attr.aria-label]="'Aller à la diapositive ' + ($index + 1)"
+      ></button>
+    }
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="Avantages marketplace">
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Livraison</span>
+      <span class="trust-line">Options rapides selon le vendeur</span>
+    </div>
+  </div>
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Paiement</span>
+      <span class="trust-line">Parcours sécurisé au paiement</span>
+    </div>
+  </div>
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Retours</span>
+      <span class="trust-line">Politique claire par produit</span>
+    </div>
+  </div>
+  <div class="trust-item">
+    <span class="trust-icon" aria-hidden="true">◇</span>
+    <div>
+      <span class="trust-label">Vendeurs</span>
+      <span class="trust-line">Profils et avis visibles</span>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div>
+    @if (isLoggedIn) {
+      <h1>Bonjour {{ session()?.nom }}, voici votre espace</h1>
+      <p>
+        Dernière connexion : il y a
+        {{
+          session()?.lastLoginAt
+            ? ((snapshot().now - session()!.lastLoginAt) / 60000 | number:'1.0-0')
+            : 0
+        }}
+        min
+      </p>
+      <div class="summary">
+        <div class="summary-item">
+          <span class="label">Commandes en cours</span>
+          <span class="value">{{ snapshot().commandes.length }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Recommandations</span>
+          <span class="value">{{ snapshot().recommandations.length }}</span>
+        </div>
+      </div>
+      <div class="actions actions--logged">
+        <a class="primary" routerLink="/produits">Voir le catalogue</a>
+        <a class="ghost" routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }">Explorer les catégories</a>
+      </div>
+    } @else {
+      <h1>Bienvenue sur Amaz</h1>
+      <p>Découvrez des produits sélectionnés par nos vendeurs et gérez vos achats en toute simplicité.</p>
+      <div class="actions">
+        <a class="primary" routerLink="/produits">Voir le catalogue</a>
+        <a class="ghost" routerLink="/produits" [queryParams]="{ categorie: 'Électronique' }">Explorer les catégories</a>
+        <a class="secondary" routerLink="/connexion">Se connecter</a>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="placeholder">
+  <h2>Sélection pour vous</h2>
+  <p>Suggestions basées sur vos dernières commandes.</p>
+
+  <div class="cards">
+    @for (item of snapshot().recommandations; track item.id) {
+      <article class="card" [class.expired]="item.validite === 'a_actualiser'" [routerLink]="['/produits', item.id]">
+        <button
+          type="button"
+          class="cart-icon"
+          (click)="cartActions.addProductById(item.id, '/'); $event.stopPropagation()"
+          title="Ajouter au panier"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 4h-2l-1 2v2h2l3.6 7.6-1.35 2.4A2 2 0 0 0 10 21h9v-2h-8.4a.25.25 0 0 1-.22-.36L11 17h5.6a2 2 0 0 0 1.8-1.1l3.1-5.9A1 1 0 0 0 20.6 8H7.4L7 4zm0 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="card-image" *ngIf="getProductImage(item.id) as imageUrl">
+          <img [src]="imageUrl" [alt]="item.titre" />
+          @if (getProduct(item.id)?.livraisonGratuite) {
+            <span class="badge-free">Livraison gratuite</span>
+          }
+        </div>
+        <div class="card-header">
+          <h3 class="title-clamp">{{ item.titre }}</h3>
+          <span class="badge" [class.active]="item.validite === 'actif'">
+            t={{ item.t }} min
+          </span>
+        </div>
+        @if (getProduct(item.id)?.note != null) {
+          <p class="stars">{{ formatStars(getProduct(item.id)!.note!) }} {{ getProduct(item.id)!.nbAvis ?? 0 }} avis</p>
+        }
+        <p class="meta">{{ item.categorie }} • {{ item.ville }}</p>
+        <p class="price">
+          @if (getProduct(item.id)?.prixBarre) {
+            <span class="barre">{{ getProduct(item.id)!.prixBarre! | amazCurrency }}</span>
+          }
+          {{ item.prix | amazCurrency }}
+        </p>
+      </article>
+    }
+  </div>
+</section>
+
