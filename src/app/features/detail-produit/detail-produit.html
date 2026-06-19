@@ -2,7 +2,7 @@
   <section class="product-detail">
     <div class="images">
       <div class="main-image">
-        <img [src]="selectedImage" [alt]="product!.titre" />
+        <img [src]="selectedImage" [alt]="product!.titre" (error)="onProductImageError($event)" />
       </div>
       <div class="thumbnails">
         <button
@@ -10,7 +10,7 @@
           (click)="selectImage(product!.imagePrincipale)"
           [class.active]="selectedImage === product!.imagePrincipale"
         >
-          <img [src]="product!.imagePrincipale" [alt]="product!.titre" />
+          <img [src]="product!.imagePrincipale" [alt]="product!.titre" (error)="onProductImageError($event)" />
         </button>
         @for (img of product!.galerie; track img) {
           <button
@@ -18,7 +18,7 @@
             (click)="selectImage(img)"
             [class.active]="selectedImage === img"
           >
-            <img [src]="img" [alt]="product!.titre" />
+            <img [src]="img" [alt]="product!.titre" (error)="onProductImageError($event)" />
           </button>
         }
       </div>

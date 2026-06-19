@@ -40,9 +40,24 @@ export class Accueil implements OnInit, OnDestroy {
     return this.ordersState.snapshot;
   }
 
-  getProductImage(productId: string): string | null {
+  readonly productImagePlaceholder = '/product-placeholder.svg';
+
+  getProductImage(productId: string): string {
     const found = this.products.byId(productId);
-    return found ? found.imagePrincipale : null;
+    const url = String(found?.imagePrincipale || '').trim();
+    // Les miniatures Bing expirent souvent : on bascule directement sur le visuel local.
+    if (!url || url.toLowerCase().includes('bing.')) {
+      return this.productImagePlaceholder;
+    }
+    return url;
+  }
+
+  // Filet de sécurité : si l'image distante échoue au chargement, on retombe sur le visuel local.
+  onProductImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.src.endsWith(this.productImagePlaceholder)) {
+      img.src = this.productImagePlaceholder;
+    }
   }
 
   getProduct(productId: string) {

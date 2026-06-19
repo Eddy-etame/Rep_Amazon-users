@@ -17,6 +17,16 @@ import { PipeDeviseAmaz } from '../../shared/pipes/pipe-devise';
   styleUrl: './page-favoris-partagee.scss'
 })
 export class PageFavorisPartagee implements OnInit {
+  readonly productImagePlaceholder = '/product-placeholder.svg';
+
+  // Filet de sécurité : si l'image distante échoue au chargement, on retombe sur le visuel local.
+  onProductImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.src.endsWith(this.productImagePlaceholder)) {
+      img.src = this.productImagePlaceholder;
+    }
+  }
+
   private readonly destroyRef = inject(DestroyRef);
   readonly rows = signal<{ product: CatalogProduct; productId: string }[]>([]);
   listName = 'Liste de souhaits';

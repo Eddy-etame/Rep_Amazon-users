@@ -18,6 +18,16 @@ import { PipeDeviseAmaz } from '../../shared/pipes/pipe-devise';
   styleUrl: './page-favoris.scss'
 })
 export class PageFavoris implements OnInit {
+  readonly productImagePlaceholder = '/product-placeholder.svg';
+
+  // Filet de sécurité : si l'image distante échoue au chargement, on retombe sur le visuel local.
+  onProductImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.src.endsWith(this.productImagePlaceholder)) {
+      img.src = this.productImagePlaceholder;
+    }
+  }
+
   readonly rows = signal<{ product: CatalogProduct; productId: string }[]>([]);
   loading = true;
   shareHint = '';

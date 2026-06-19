@@ -79,7 +79,7 @@
                   >
                     <span class="suggest-thumb">
                       @if (s.imagePrincipale) {
-                        <img [src]="s.imagePrincipale" [alt]="s.titre" width="44" height="44" loading="lazy" />
+                        <img [src]="s.imagePrincipale" [alt]="s.titre" width="44" height="44" loading="lazy" (error)="onProductImageError($event)" />
                       } @else {
                         <span class="suggest-thumb-placeholder" aria-hidden="true"></span>
                       }

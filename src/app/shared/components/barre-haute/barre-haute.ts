@@ -36,6 +36,16 @@ import {
   styleUrl: './barre-haute.scss'
 })
 export class BarreHaute implements OnInit {
+  readonly productImagePlaceholder = '/product-placeholder.svg';
+
+  // Filet de sécurité : si la miniature distante échoue au chargement, on retombe sur le visuel local.
+  onProductImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.src.endsWith(this.productImagePlaceholder)) {
+      img.src = this.productImagePlaceholder;
+    }
+  }
+
   isCartBumping = false;
   searchQuery = '';
   private prevQuantity = 0;

@@ -126,7 +126,7 @@
           </svg>
         </button>
         <div class="card-image" *ngIf="getProductImage(item.id) as imageUrl">
-          <img [src]="imageUrl" [alt]="item.titre" />
+          <img [src]="imageUrl" [alt]="item.titre" (error)="onProductImageError($event)" />
           @if (getProduct(item.id)?.livraisonGratuite) {
             <span class="badge-free">Livraison gratuite</span>
           }

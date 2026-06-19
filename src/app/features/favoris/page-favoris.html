@@ -26,7 +26,7 @@
       @for (row of rows(); track row.productId) {
         <li class="wish-card">
           <a [routerLink]="['/produits', row.productId]" class="thumb">
-            <img [src]="row.product.imagePrincipale" [alt]="row.product.titre" />
+            <img [src]="row.product.imagePrincipale" [alt]="row.product.titre" (error)="onProductImageError($event)" />
           </a>
           <div class="info">
             <a [routerLink]="['/produits', row.productId]">{{ row.product.titre }}</a>
