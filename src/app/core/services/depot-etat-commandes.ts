@@ -275,7 +275,9 @@ export class DepotEtatCommandes {
 
     this.aiRefreshInFlight = true;
     try {
-      const res = await firstValueFrom(this.aiService.getRecommendations({ requete: fingerprint }));
+      // Recommandations générales pour l'accueil : on demande la liste populaire (requête vide).
+      // Le fingerprint ne sert que de clé de cache au-dessus, ce n'est pas un terme de recherche.
+      const res = await firstValueFrom(this.aiService.getRecommendations({ requete: '' }));
       const recs =
         (res as { data?: { recommendations?: Array<{ id?: string }> } })?.data?.recommendations ?? [];
       this.aiBoostIds = recs.map((r) => String(r?.id || '')).filter(Boolean).slice(0, 12);
