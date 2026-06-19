@@ -27,7 +27,7 @@ import { DepotFavoris } from '../../../core/services/depot-favoris';
 import {
   ThemePreference,
   ServicePreferenceTheme
-} from '../../../../../../shared-frontend/service-preference-theme';
+} from '../../../../shared-frontend/service-preference-theme';
 
 @Component({
   selector: 'app-barre-haute',
