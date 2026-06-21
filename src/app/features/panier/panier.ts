@@ -12,6 +12,10 @@ import { DepotPanier } from '../../core/services/depot-panier';
   templateUrl: './panier.html',
   styleUrl: './panier.scss'
 })
+/**
+ * Page panier : affiche le contenu du panier (stocké dans DepotPanier) et lance le checkout.
+ * La plupart des actions délèguent au store DepotPanier ; la logique métier est dans passerCommande().
+ */
 export class Panier {
   private searchTerm = '';
   readonly imagePlaceholder = '/product-placeholder.svg';
@@ -63,6 +67,8 @@ export class Panier {
     this.cart.clear();
   }
 
+  // Passe à la commande : on bloque si le panier est vide, et on redirige vers le profil pour
+  // ajouter une adresse si l'utilisateur n'en a aucune (la livraison en a besoin). Sinon -> paiement.
   passerCommande(): void {
     const currentItems = this.items();
     if (!currentItems.length) {
