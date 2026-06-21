@@ -46,6 +46,9 @@ export class Produits implements OnDestroy {
     private readonly router: Router,
     private readonly route: ActivatedRoute
   ) {
+    // Les filtres du catalogue (recherche, catégorie, prix) vivent dans l'URL : la page reste
+    // partageable et bookmarkable. On lit l'URL au démarrage, puis on s'abonne à ses changements
+    // (anti-rebond 250 ms) pour resynchroniser les filtres et recharger les produits du store.
     this.syncFromQueryParams(this.route.snapshot.queryParamMap);
     this.plpQuerySub = this.route.queryParamMap
       .pipe(
@@ -175,6 +178,9 @@ export class Produits implements OnDestroy {
     this.router.navigate(['/produits'], { queryParams: this.plQueryParams(p) });
   }
 
+  // Score de pertinence d'un produit pour un terme de recherche : plus le champ est important
+  // (titre > catégorie > ville > description) et plus la correspondance est forte (exacte > début
+  // > partielle), plus le score est élevé. Utilisé par le tri « pertinence ».
   private relevanceScore(product: CatalogProduct, termLower: string): number {
     if (!termLower) return 0;
     const title = product.titre.toLowerCase();
@@ -192,6 +198,8 @@ export class Produits implements OnDestroy {
     return 0;
   }
 
+  // Produits affichés = catalogue filtré (stock, catégorie, recherche texte, fourchette de prix)
+  // puis trié selon le critère choisi (pertinence, prix, note).
   get filteredProducts() {
     let all = this.products();
     let result = all.filter((p) => (p.stock ?? 0) > 0);
