@@ -1,3 +1,5 @@
+// Source de vérité du CATALOGUE côté client : garde les produits chargés depuis le product-service
+// et expose des signals (liste, recherche, byId) consommés par les composants.
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';

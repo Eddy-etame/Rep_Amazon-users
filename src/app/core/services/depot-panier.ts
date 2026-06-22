@@ -1,3 +1,5 @@
+// Source de vérité du PANIER (état client). Utilise les signals Angular + localStorage : le panier
+// survit au rechargement et n'a PAS de micro-service back dédié (cf. cahier des charges).
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 
 import { DepotCatalogueProduits, type CatalogProduct } from './depot-catalogue-produits';

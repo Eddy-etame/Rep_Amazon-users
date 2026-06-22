@@ -1,3 +1,5 @@
+// Source de vérité de la SESSION utilisateur (qui est connecté, son rôle). Lue par les gardes de
+// route et les composants ; alimentée à la connexion/inscription.
 import { Injectable, signal } from '@angular/core';
 
 export interface UserSession {

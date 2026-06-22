@@ -1,3 +1,5 @@
+// Source de vérité des FAVORIS (liste de souhaits) côté client. Synchronisée avec le product-service
+// (routes /wishlists) via service-favoris.
 import { Injectable, effect, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 

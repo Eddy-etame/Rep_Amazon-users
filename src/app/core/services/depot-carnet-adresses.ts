@@ -1,3 +1,4 @@
+// Source de vérité du CARNET D'ADRESSES côté client (adresses de livraison de l'utilisateur).
 import { Injectable, effect, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 

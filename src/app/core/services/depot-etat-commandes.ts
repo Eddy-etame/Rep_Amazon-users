@@ -1,3 +1,5 @@
+// Source de vérité de l'ÉTAT des commandes côté client (commandes chargées, recommandations).
+// Synchronisée avec l'order-service via service-commandes.
 import { Injectable, effect, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
