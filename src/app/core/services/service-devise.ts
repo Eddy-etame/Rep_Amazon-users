@@ -1,3 +1,4 @@
+// Service devise (front) : formate les montants en devise (utilisé par le pipe devise).
 import { Injectable, signal } from '@angular/core';
 
 export interface CurrencyConfig {

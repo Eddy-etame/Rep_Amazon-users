@@ -1,3 +1,4 @@
+// Service de partage (front) : génère/copie les liens de partage (Web Share API ou presse-papier).
 import { Injectable } from '@angular/core';
 
 export interface ShareOptions {

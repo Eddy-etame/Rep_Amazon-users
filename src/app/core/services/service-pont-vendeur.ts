@@ -1,3 +1,4 @@
+// Service pont vendeur (front) : redirige vers l'app vendeur (lien inter-applications).
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';

@@ -1,3 +1,4 @@
+// Service reçu (front) : génère le reçu / QR d'une commande pour téléchargement.
 import { Injectable } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import { autoTable } from 'jspdf-autotable';

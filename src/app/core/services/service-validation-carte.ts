@@ -1,3 +1,4 @@
+// Service de validation de carte (front) : vérifie le format d'un numéro de carte (paiement simulé).
 import { Injectable } from '@angular/core';
 
 export interface CardDetails {

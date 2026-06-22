@@ -1,3 +1,4 @@
+// Service toast (front) : affiche des notifications éphémères (succès / erreur / info).
 import { Injectable, signal } from '@angular/core';
 
 export type ToastVariant = 'success' | 'error' | 'info';
