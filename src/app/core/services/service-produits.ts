@@ -1,3 +1,5 @@
+// Service catalogue (front) : appelle GET /produits (et /suggest) sur la gateway et alimente la
+// source de vérité depot-catalogue-produits.
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

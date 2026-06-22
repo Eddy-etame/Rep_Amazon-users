@@ -1,3 +1,5 @@
+// Client WebSocket (front acheteur) : se connecte au messaging-service (:3004) pour recevoir les
+// messages en temps réel ('message.new').
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 

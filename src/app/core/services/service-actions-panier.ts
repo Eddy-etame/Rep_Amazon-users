@@ -1,3 +1,5 @@
+// Service d'actions panier (front) : orchestre l'ajout/retrait ; écrit dans la source de vérité
+// depot-panier (le panier est 100% client).
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 

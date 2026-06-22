@@ -1,3 +1,4 @@
+// Service de vérification (front) : envoie et confirme le code OTP (e-mail/SMS) à l'inscription.
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 

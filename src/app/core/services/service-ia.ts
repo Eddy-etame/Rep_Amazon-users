@@ -1,3 +1,4 @@
+// Service IA (front) : appelle POST /ai/recommendations sur la gateway pour l'accueil.
 import { Injectable } from '@angular/core';
 
 import { ServiceApiGateway } from './service-api-gateway';

@@ -1,3 +1,4 @@
+// Service retours (front) : appelle /retours sur la gateway (demander/suivre un retour).
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 

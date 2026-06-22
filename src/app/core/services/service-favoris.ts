@@ -1,3 +1,4 @@
+// Service favoris (front) : appelle /wishlists sur la gateway ; alimente depot-favoris.
 import { Injectable } from '@angular/core';
 
 import { ServiceApiGateway } from './service-api-gateway';

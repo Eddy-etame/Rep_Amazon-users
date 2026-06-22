@@ -1,3 +1,5 @@
+// Service d'authentification (front) : appelle la gateway (register/login/me/logout/vérification),
+// puis stocke le jeton via service-jeton-auth et la session via depot-session-utilisateur.
 import { Injectable } from '@angular/core';
 
 import { ServiceApiGateway } from './service-api-gateway';

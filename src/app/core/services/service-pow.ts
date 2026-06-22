@@ -1,3 +1,5 @@
+// Service Proof-of-Work (front) : mine le nonce dont le hash commence par des zéros, pour l'en-tête
+// X-PoW-* ajouté par l'intercepteur à chaque requête.
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';

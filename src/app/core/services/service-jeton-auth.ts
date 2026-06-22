@@ -1,3 +1,4 @@
+// Service jeton d'auth (front) : conserve le jeton Bearer + expiration ; le fournit à l'intercepteur.
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'amaz_token';

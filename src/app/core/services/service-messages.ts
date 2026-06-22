@@ -1,3 +1,5 @@
+// Service messagerie REST (front) : appelle /messages et /messages/conversations (le temps réel
+// passe par service-client-socket / WebSocket).
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
 

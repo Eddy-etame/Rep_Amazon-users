@@ -1,3 +1,5 @@
+// Service commandes (front) : appelle /commandes sur la gateway (passer commande, historique) ;
+// alimente la source de vérité depot-etat-commandes.
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
