@@ -1,3 +1,5 @@
+// Page INSCRIPTION : assistant en 4 étapes (form → canal → code → done). Valide les entrées,
+// crée le compte via service-auth (/auth/register), puis vérifie par code OTP.
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';

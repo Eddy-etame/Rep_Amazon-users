@@ -1,3 +1,4 @@
+// Page CONNEXION : formulaire de login (ngModel) → service-auth (/auth/login) → stocke jeton + session.
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';

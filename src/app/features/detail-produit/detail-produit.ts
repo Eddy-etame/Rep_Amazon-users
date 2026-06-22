@@ -1,3 +1,4 @@
+// Page DÉTAIL PRODUIT : fiche produit (galerie, description, ajout au panier) + produits liés.
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';

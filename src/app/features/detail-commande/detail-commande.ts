@@ -1,3 +1,4 @@
+// Page DÉTAIL COMMANDE : affiche une commande (articles, statut, suivi) et le QR de retour.
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';

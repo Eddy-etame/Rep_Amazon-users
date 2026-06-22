@@ -1,3 +1,5 @@
+// Page PAIEMENT (checkout) : récapitule panier + adresse, crée la commande (service-commandes →
+// POST /commandes). Le paiement est simulé (cf. cahier des charges).
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';

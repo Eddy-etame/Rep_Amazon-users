@@ -1,3 +1,5 @@
+// Page COMMANDES : historique des commandes de l'acheteur (depot-etat-commandes, synchronisé avec
+// l'order-service via /commandes).
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';

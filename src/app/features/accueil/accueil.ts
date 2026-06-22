@@ -1,3 +1,5 @@
+// Page ACCUEIL : vitrine d'entrée. Affiche les produits recommandés (service-ia via depot-etat-commandes)
+// et des cartes catalogue. Premier écran de l'acheteur.
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';

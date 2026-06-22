@@ -1,3 +1,4 @@
+// Page FAVORIS : liste de souhaits de l'utilisateur (depot-favoris) + partage par lien.
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
